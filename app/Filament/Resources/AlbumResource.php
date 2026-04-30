@@ -24,7 +24,7 @@ class AlbumResource extends Resource
 
     public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
     {
-        return 'heroicon-o-vinyl';
+        return 'heroicon-o-rectangle-stack';
     }
 
     public static function getNavigationGroup(): string|UnitEnum|null
