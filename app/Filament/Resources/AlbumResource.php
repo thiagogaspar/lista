@@ -53,6 +53,8 @@ class AlbumResource extends Resource
                 TextInput::make('release_year')->numeric(),
                 FileUpload::make('cover_art')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('albums'),
                 RichEditor::make('description'),
             ]);

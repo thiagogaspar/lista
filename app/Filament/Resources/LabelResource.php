@@ -51,6 +51,8 @@ class LabelResource extends Resource
                 TextInput::make('website')->url()->suffixIcon('heroicon-o-globe-alt'),
                 FileUpload::make('logo')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('labels')
                     ->label('Label Logo'),
                 RichEditor::make('description'),

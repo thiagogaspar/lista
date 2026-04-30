@@ -46,7 +46,7 @@ class PostResource extends Resource
                 TextInput::make('slug')->required()->unique(ignoreRecord: true),
                 TextInput::make('excerpt'),
                 RichEditor::make('body')->required(),
-                FileUpload::make('featured_image')->image()->directory('blog'),
+                FileUpload::make('featured_image')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('blog'),
                 TextInput::make('author'),
                 Toggle::make('is_published')->label('Published'),
             ]);

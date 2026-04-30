@@ -65,7 +65,7 @@ $seo = new \App\Values\SeoData(
             </div>
         </div>
 
-        @if($artist->bio)<div class="prose prose-surface dark:prose-invert max-w-none mt-4">{!! Str::markdown($artist->bio) !!}</div>@endif
+        @if($artist->bio)<div class="prose prose-surface dark:prose-invert max-w-none mt-4">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($artist->bio)) !!}</div>@endif
 
         <div class="mt-5">
             <div class="grid grid-cols-3 gap-2">

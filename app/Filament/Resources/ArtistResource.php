@@ -57,16 +57,22 @@ class ArtistResource extends Resource
                 TextInput::make('slug')->required()->unique(ignoreRecord: true),
                 FileUpload::make('hero_image')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('artists/hero')
                     ->label('Hero Banner (1920×400)'),
                 FileUpload::make('photo')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('artists')
                     ->label('Thumbnail (400×400)'),
                 RichEditor::make('bio'),
                 FileUpload::make('gallery')
                     ->multiple()
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('artists/gallery')
                     ->label('Gallery Images'),
                 DatePicker::make('birth_date'),

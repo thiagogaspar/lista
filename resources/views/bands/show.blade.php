@@ -97,7 +97,7 @@ $seo = new \App\Values\SeoData(
         </div>
 
         @if($band->bio)
-        <div class="prose prose-surface dark:prose-invert max-w-none mt-4">{!! Str::markdown($band->bio) !!}</div>
+        <div class="prose prose-surface dark:prose-invert max-w-none mt-4">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($band->bio)) !!}</div>
         @endif
 
         <div class="mt-5" x-data="{ lightbox: null }">

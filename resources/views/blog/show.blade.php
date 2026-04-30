@@ -26,6 +26,6 @@ $seo = new \App\Values\SeoData(
     <h1 class="text-3xl font-bold text-surface-900 dark:text-white mb-2">{{ $post->title }}</h1>
     <p class="text-sm text-surface-400 mb-6">{{ $post->author ?? 'LISTA' }} · {{ $post->published_at->format('M j, Y') }}</p>
 
-    <div class="prose prose-surface dark:prose-invert max-w-none">{!! Str::markdown($post->body) !!}</div>
+    <div class="prose prose-surface dark:prose-invert max-w-none">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($post->body)) !!}</div>
 </article>
 @endsection

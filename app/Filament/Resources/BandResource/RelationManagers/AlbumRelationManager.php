@@ -26,7 +26,7 @@ class AlbumRelationManager extends RelationManager
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')->required()->unique(ignoreRecord: true),
                 TextInput::make('release_year')->numeric(),
-                FileUpload::make('cover_art')->image()->directory('albums'),
+                FileUpload::make('cover_art')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('albums'),
                 RichEditor::make('description'),
             ]);
     }

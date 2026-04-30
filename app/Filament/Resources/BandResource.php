@@ -58,16 +58,22 @@ class BandResource extends Resource
                 TextInput::make('slug')->required()->unique(ignoreRecord: true),
                 FileUpload::make('hero_image')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('bands/hero')
                     ->label('Hero Banner (1920×400)'),
                 FileUpload::make('photo')
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('bands')
                     ->label('Thumbnail (400×400)'),
                 RichEditor::make('bio'),
                 FileUpload::make('gallery')
                     ->multiple()
                     ->image()
+                    ->maxSize(5120)
+                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->directory('bands/gallery')
                     ->label('Gallery Images'),
                 Select::make('genres')
