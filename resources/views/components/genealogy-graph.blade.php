@@ -20,12 +20,19 @@
     graph.nodes.forEach(function(n) {
         var isArtist = n.group === 'artist';
         n.color = { background: isArtist ? artistBg : bandBg, border: isArtist ? artistBorder : bandBorder };
-        n.font = { color: '#ffffff', size: isArtist ? 14 : 16, face: 'DM Sans, system-ui' };
-        n.borderWidth = 3;
-        n.shadow = { enabled: true, size: 6, x: 0, y: 2, color: 'rgba(0,0,0,0.12)' };
+        n.borderWidth = isArtist ? 3 : 4;
+        n.shadow = { enabled: true, size: 8, x: 0, y: 2, color: 'rgba(0,0,0,0.15)' };
         n.cursor = 'pointer';
-        if (isArtist) { n.shape = 'dot'; n.size = 28; }
-        else { n.shape = 'box'; n.widthConstraint = { minimum: 120, maximum: 200 }; n.shapeProperties = { borderRadius: 4 }; }
+        if (isArtist) {
+            n.shape = 'dot';
+            n.size = 22;
+            n.font = { color: '#ffffff', size: 14, face: 'DM Sans, system-ui', bold: true };
+        } else {
+            n.shape = 'box';
+            n.widthConstraint = { minimum: 120, maximum: 200 };
+            n.shapeProperties = { borderRadius: 6 };
+            n.font = { color: '#ffffff', size: 16, face: 'DM Sans, system-ui', bold: true };
+        }
     });
 
     graph.edges.forEach(function(e) {
@@ -46,13 +53,14 @@
     var network = new vis.Network(container, { nodes: nodes, edges: edges }, {
         physics: {
             solver: 'barnesHut',
-            barnesHut: { gravitationalConstant: -3000, centralGravity: 0.05, springLength: 240, springConstant: 0.004, damping: 0.09 },
-            minVelocity: 0.3,
-            stabilization: { iterations: 150 }
+            barnesHut: { gravitationalConstant: -5000, centralGravity: 0.06, springLength: 320, springConstant: 0.02, damping: 0.18 },
+            minVelocity: 0.5,
+            stabilization: { iterations: 200 }
         },
         layout: { improvedLayout: true },
         interaction: { hover: true, tooltipDelay: 200, hoverConnectedEdges: false },
         edges: { smooth: { type: 'continuous' } },
+        nodes: { borderWidth: 0 },
     });
 
     network.on('doubleClick', function(params) {

@@ -83,13 +83,17 @@ $seo = new \App\Values\SeoData(
                 n.shadow = { enabled: true, size: 6, x: 0, y: 2, color: 'rgba(0,0,0,0.12)' };
                 if (n.group === 'artist') {
                     n.shape = 'dot';
-                    n.size = 8;
+                    n.size = 16;
+                    n.borderWidth = 3;
                 } else {
                     n.shape = 'box';
-                    n.widthConstraint = { minimum: 80, maximum: 160 };
-                    n.shapeProperties = { borderRadius: 4 };
+                    n.widthConstraint = { minimum: 120, maximum: 220 };
+                    n.shapeProperties = { borderRadius: 6 };
+                    n.borderWidth = 4;
+                    n.font = { color: '#ffffff', size: 18, face: 'DM Sans, system-ui', bold: true, multi: 'html' };
                 }
                 n.cursor = 'pointer';
+                n.shadow = { enabled: true, size: 10, x: 0, y: 2, color: 'rgba(0,0,0,0.2)' };
             });
 
             data.edges.forEach(function(e) {
@@ -108,23 +112,12 @@ $seo = new \App\Values\SeoData(
 
             var network = new vis.Network(container, { nodes: nodes, edges: edges }, {
                 physics: {
-                    solver: 'hierarchicalRepulsion',
-                    hierarchicalRepulsion: { nodeDistance: 240, centralGravity: 0.15, springLength: 260, springConstant: 0.008, damping: 0.08 },
-                    minVelocity: 0.3,
-                    stabilization: { iterations: 150 }
+                    solver: 'barnesHut',
+                    barnesHut: { gravitationalConstant: -6000, centralGravity: 0.06, springLength: 380, springConstant: 0.025, damping: 0.2 },
+                    minVelocity: 0.5,
+                    stabilization: { iterations: 200 }
                 },
-                layout: {
-                    hierarchical: {
-                        enabled: true,
-                        direction: 'LR',
-                        sortMethod: 'directed',
-                        levelSeparation: 280,
-                        nodeSpacing: 260,
-                        treeSpacing: 280,
-                        blockShifting: true,
-                        edgeMinimization: true,
-                    }
-                },
+                layout: { improvedLayout: true },
                 interaction: { hover: true, tooltipDelay: 300, zoomView: true, dragView: true, hoverConnectedEdges: false },
                 edges: {
                     smooth: { type: 'curvedCW', roundness: 0.15 },
@@ -132,7 +125,7 @@ $seo = new \App\Values\SeoData(
                     color: { color: isDark ? '#57534e' : '#a8a29e', hover: '#f59e0b', highlight: '#f59e0b' },
                 },
                 nodes: {
-                    borderWidth: 2,
+                    borderWidth: 0,
                     shadow: { enabled: true, size: 4, x: 0, y: 1, color: 'rgba(0,0,0,0.1)' },
                 },
             });
