@@ -37,6 +37,9 @@
                 <a href="{{ route('bands.index') }}" class="px-3 py-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('bands.*') ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400' : '' }}">Bands</a>
                 <a href="{{ route('artists.index') }}" class="px-3 py-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-accent-50 dark:hover:bg-accent-900/30 hover:text-accent-600 dark:hover:text-accent-400 transition-colors {{ request()->routeIs('artists.*') ? 'bg-accent-50 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400' : '' }}">Artists</a>
                 <a href="{{ route('genealogy') }}" class="px-3 py-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-warm-50 dark:hover:bg-warm-900/30 hover:text-warm-600 dark:hover:text-warm-400 transition-colors {{ request()->routeIs('genealogy') ? 'bg-warm-50 dark:bg-warm-900/30 text-warm-600 dark:text-warm-400' : '' }}">Genealogy</a>
+                @auth
+                <a href="{{ route('favorites.index') }}" class="px-3 py-2 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-600 transition-colors">Favorites</a>
+                @endauth
             </nav>
 
             <div class="flex items-center gap-2">

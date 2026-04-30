@@ -6,6 +6,7 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EditSuggestionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GenealogyController;
 use App\Http\Controllers\GenreController;
@@ -36,6 +37,10 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
 Route::post('/favorites/band/{slug}', [FavoriteController::class, 'toggleBand'])->name('favorites.toggle-band')
     ->middleware('auth');
 Route::post('/favorites/artist/{slug}', [FavoriteController::class, 'toggleArtist'])->name('favorites.toggle-artist')
+    ->middleware('auth');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+
+Route::post('/suggestions', [EditSuggestionController::class, 'store'])->name('suggestions.store')
     ->middleware('auth');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

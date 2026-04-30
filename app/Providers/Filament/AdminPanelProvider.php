@@ -55,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 ServeWebpImages::class,
+                'throttle:10,1',
             ])
             ->authMiddleware([
                 Authenticate::class,

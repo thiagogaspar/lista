@@ -51,6 +51,11 @@ class Artist extends Model
         return $this->morphMany(Favorite::class, 'favoriteable');
     }
 
+    public function suggestions(): MorphMany
+    {
+        return $this->morphMany(EditSuggestion::class, 'suggestable');
+    }
+
     public function currentBands(): BelongsToMany
     {
         return $this->bands()->wherePivot('is_current', true);

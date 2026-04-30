@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $favorites = $user?->favorites()->with('favoriteable')->latest()->get() ?? collect();
+
+        return view('favorites.index', compact('favorites'));
+    }
+
     public function toggleBand(string $slug, Request $request): JsonResponse
     {
         $band = Band::whereSlug($slug)->firstOrFail();

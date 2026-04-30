@@ -177,6 +177,28 @@ $seo = new \App\Values\SeoData(
         </div>
         @endif
 
+        @auth
+        <details class="mt-8 group">
+            <summary class="text-sm font-semibold text-surface-700 dark:text-surface-200 cursor-pointer hover:text-brand-600">Suggest an edit ✏️</summary>
+            <form method="POST" action="{{ route('suggestions.store') }}" class="mt-3 p-4 bg-surface-50 dark:bg-surface-800/50 border border-surface-200 dark:border-surface-700 rounded-lg">
+                @csrf
+                <input type="hidden" name="suggestable_type" value="band">
+                <input type="hidden" name="suggestable_id" value="{{ $band->id }}">
+                <div class="flex gap-2 mb-2">
+                    <select name="field" class="w-1/3 px-2 py-1.5 text-sm border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100" required>
+                        <option value="">Field</option>
+                        <option value="bio">Bio</option>
+                        <option value="origin">Origin</option>
+                        <option value="formed_year">Formed Year</option>
+                        <option value="dissolved_year">Dissolved Year</option>
+                    </select>
+                    <textarea name="suggested_value" rows="2" placeholder="Your suggestion..." class="flex-1 px-3 py-1.5 text-sm border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400" required></textarea>
+                </div>
+                <button type="submit" class="px-3 py-1 text-xs font-medium bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors">Submit</button>
+            </form>
+        </details>
+        @endauth
+
         <h2 class="text-xl font-bold text-surface-900 dark:text-white mt-8 mb-3">Comments</h2>
         @auth
         <form method="POST" action="{{ route('comments.store') }}" class="mb-4">
