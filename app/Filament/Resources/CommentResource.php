@@ -1,6 +1,11 @@
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\CommentResource\Pages;
+use App\Models\Comment;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -18,7 +23,7 @@ class CommentResource extends Resource
         return 'heroicon-o-chat-bubble-left-right';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Content';
     }

@@ -1,4 +1,9 @@
-use Filament\Forms\Components\DateTimePicker;
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\PostResource\Pages;
+use App\Models\Post;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
@@ -21,7 +26,7 @@ class PostResource extends Resource
         return 'heroicon-o-newspaper';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Content';
     }

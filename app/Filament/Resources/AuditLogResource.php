@@ -1,3 +1,9 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AuditLogResource\Pages;
+use App\Models\AuditLog;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -14,7 +20,7 @@ class AuditLogResource extends Resource
         return 'heroicon-o-document-text';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'System';
     }

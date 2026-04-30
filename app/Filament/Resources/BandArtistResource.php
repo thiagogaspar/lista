@@ -1,4 +1,10 @@
-use Filament\Forms\Components\Section;
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\BandArtistResource\Pages;
+use App\Models\BandArtist;
+use BackedEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -14,12 +20,12 @@ class BandArtistResource extends Resource
 {
     protected static ?string $model = BandArtist::class;
 
-    public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
+    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
     {
         return 'heroicon-o-user-plus';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Relations';
     }

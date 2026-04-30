@@ -1,4 +1,10 @@
-use Filament\Forms\Components\Section;
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\BandRelationshipResource\Pages;
+use App\Models\BandRelationship;
+use BackedEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -13,12 +19,12 @@ class BandRelationshipResource extends Resource
 {
     protected static ?string $model = BandRelationship::class;
 
-    public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
+    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
     {
         return 'heroicon-o-arrow-right-circle';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Relations';
     }

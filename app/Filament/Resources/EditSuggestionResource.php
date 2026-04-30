@@ -1,4 +1,9 @@
-use Filament\Forms\Components\Select;
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\EditSuggestionResource\Pages;
+use App\Models\EditSuggestion;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
@@ -17,7 +22,7 @@ class EditSuggestionResource extends Resource
         return 'heroicon-o-pencil-square';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Content';
     }

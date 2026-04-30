@@ -1,3 +1,9 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AlbumResource\Pages;
+use App\Models\Album;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -17,12 +23,12 @@ class AlbumResource extends Resource
 {
     protected static ?string $model = Album::class;
 
-    public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
+    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
     {
         return 'heroicon-o-rectangle-stack';
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return 'Content';
     }
