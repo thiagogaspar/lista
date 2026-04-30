@@ -5,7 +5,7 @@
 $hero = $artist->hero_image ? Storage::url($artist->hero_image) : null;
 $thumb = $artist->photo ? Storage::url($artist->photo) : null;
 $slug = md5($artist->slug);
-$heroPlaceholder = $hero ?: "https://picsum.photos/seed/{$slug}-hero/1200/400";
+$heroPlaceholder = $hero ?: $thumb ?: '';
 $thumbPlaceholder = $thumb ?: "https://picsum.photos/seed/{$slug}/400/400";
 $gallery = $artist->gallery && count($artist->gallery) ? $artist->gallery : [
     "https://picsum.photos/seed/{$slug}-1/600/400",
@@ -22,13 +22,90 @@ $seo = new \App\Values\SeoData(
 );
 @endphp
 <x-seo-meta :seo="$seo" />
-<link rel="preload" href="{{ $heroPlaceholder }}" as="image" fetchpriority="high">
+<link rel="preload" href="{{ $heroPlaceholder ?: $thumbPlaceholder }}" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://picsum.photos" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="dns-prefetch" href="https://picsum.photos">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="{{ $thumbPlaceholder }}">
+@endsection
+
+@section('content')
+@php $heroGradient = 'from-secondary/80 via-secondary/60 to-secondary/40'; @endphp
+<div class="relative -mx-4 -mt-8 mb-8 overflow-hidden bg-base-200" style="aspect-ratio:1200/400">
+    @if($heroPlaceholder)
+    <img src="{{ $heroPlaceholder }}" alt="{{ $artist->name }}" class="w-full h-full object-cover" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="400">
+    @else
+    <div class="w-full h-full bg-gradient-to-br {{ $heroGradient }} flex items-center justify-center">
+        <span class="text-white/30 text-6xl font-bold drop-shadow-lg select-none">{{ $artist->name[0] }}</span>
+    </div>
+    @endif
+</div>
+
+<div class="breadcrumbs text-sm text-base-content/60 mb-6">
+    <ul>
+        <li><a href="{{ route('home') }}" class="hover:text-secondary">Home</a></li>
+        <li><a href="{{ route('artists.index') }}" class="hover:text-secondary">Artists</a></li>
+        <li class="text-base-content font-medium">{{ $artist->name }}</li>
+    </ul>
+</div>
+
+<div class="lg:flex lg:gap-8">
+    <div class="flex-1 min-w-0">
+        <div class="flex items-start gap-3">
+            <div class="shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-base-200 shadow-sm">
+                <img src="{{ $thumbPlaceholder }}" alt="{{ $artist->name }}" class="w-full h-full object-cover" loading="lazy" width="80" height="80">
+            </div>
+            <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-3">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-base-content">{{ $artist->name }}</h1>
+                    @auth
+                    <button x-data="{ fav: false, count: 0 }"
+                        x-init="fetch('{{ route('favorites.toggle-artist', $artist) }}', { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(r => r.json()).then(d => { fav = d.favorited; count = d.count; }).catch(() => {})"
+                        @click.prevent="fetch('{{ route('favorites.toggle-artist', $artist) }}', { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(r => r.json()).then(d => { fav = d.favorited; count = d.count; })"
+                        class="btn btn-ghost btn-sm btn-square"
+                        :class="fav ? 'text-error' : 'text-base-content/40'">
+                        <svg class="w-4 h-4" :fill="fav ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </button>
+                    @endauth
+                </div>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    @if($artist->birth_date)<span class="badge badge-sm bg-secondary/10 text-secondary border-none">{{ $artist->birth_date->format('Y') }}@if($artist->death_date)–{{ $artist->death_date->format('Y') }}@endif</span>@endif
+                    @if($artist->origin)<span class="badge badge-sm badge-ghost">{{ $artist->origin }}</span>@endif
+                    @foreach($artist->tags->where('is_approved', true) as $tag)
+                    <span class="badge badge-sm bg-secondary/10 text-secondary border-none">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        @if($artist->bio)<div class="prose prose-base-content max-w-none mt-4">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($artist->bio)) !!}</div>@endif
+
+        <h2 class="text-xl font-bold text-base-content mt-8 mb-4">Band History</h2>
+        <ul class="timeline timeline-vertical">
+            @forelse($artist->bands as $band)
+            <li>
+                @if(!$loop->first)<hr class="bg-base-300">@endif
+                <div class="timeline-start timeline-box bg-base-100 border border-base-300 shadow-sm p-3 max-w-sm">
+                    <a href="{{ route('bands.show', $band) }}" class="font-semibold text-primary hover:underline text-lg">{{ $band->name }}</a>
+                    @if($band->pivot->role)<span class="badge badge-sm bg-secondary/10 text-secondary border-none ml-1">{{ $band->pivot->role }}</span>@endif
+                    @if($band->pivot->is_current)<span class="badge badge-sm badge-success ml-1">current</span>@endif
+                    <p class="text-xs text-base-content/50 mt-1">{{ $band->pivot->joined_year ?? '?' }}–{{ $band->pivot->left_year ?? ($band->pivot->is_current ? 'present' : '?') }}@if($band->genres->count()) · {{ $band->genres->pluck('name')->implode(', ') }}@endif</p>
+                </div>
+                <div class="timeline-middle">
+                    <div class="w-3 h-3 rounded-full bg-secondary"></div>
+                </div>
+                <div class="timeline-end text-xs text-base-content/30 w-16 text-right">{{ $band->pivot->joined_year ?? '?' }}</div>
+                @if(!$loop->last)<hr class="bg-base-300">@endif
+            </li>
+            @empty
+            <p class="text-base-content/50">No band history recorded.</p>
+            @endforelse
+        </ul>
+    </div>
+    <aside class="lg:w-64 mt-6 lg:mt-0 shrink-0 lg:sticky lg:top-20 self-start"><x-ad-slot position="sidebar" /></aside>
+</div>
 @endsection
 
 @section('content')
