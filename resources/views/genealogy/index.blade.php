@@ -89,6 +89,7 @@ $seo = new \App\Values\SeoData(
                     n.widthConstraint = { minimum: 80, maximum: 160 };
                     n.shapeProperties = { borderRadius: 4 };
                 }
+                n.cursor = 'pointer';
             });
 
             data.edges.forEach(function(e) {
@@ -108,23 +109,23 @@ $seo = new \App\Values\SeoData(
             var network = new vis.Network(container, { nodes: nodes, edges: edges }, {
                 physics: {
                     solver: 'hierarchicalRepulsion',
-                    hierarchicalRepulsion: { nodeDistance: 160, centralGravity: 0.2, springLength: 180, springConstant: 0.01, damping: 0.09 },
-                    minVelocity: 0.5,
-                    stabilization: { iterations: 100 }
+                    hierarchicalRepulsion: { nodeDistance: 240, centralGravity: 0.15, springLength: 260, springConstant: 0.008, damping: 0.08 },
+                    minVelocity: 0.3,
+                    stabilization: { iterations: 150 }
                 },
                 layout: {
                     hierarchical: {
                         enabled: true,
                         direction: 'LR',
                         sortMethod: 'directed',
-                        levelSeparation: 200,
-                        nodeSpacing: 180,
-                        treeSpacing: 200,
+                        levelSeparation: 280,
+                        nodeSpacing: 260,
+                        treeSpacing: 280,
                         blockShifting: true,
                         edgeMinimization: true,
                     }
                 },
-                interaction: { hover: true, tooltipDelay: 300, zoomView: true, dragView: true },
+                interaction: { hover: true, tooltipDelay: 300, zoomView: true, dragView: true, hoverConnectedEdges: false },
                 edges: {
                     smooth: { type: 'curvedCW', roundness: 0.15 },
                     font: { size: 0, strokeWidth: 0 },
@@ -173,10 +174,15 @@ $seo = new \App\Values\SeoData(
             document.getElementById('graph-filter').addEventListener('input', function(e) {
                 var q = e.target.value.toLowerCase();
                 if (!q) { document.getElementById('graph-reset').click(); return; }
+                var visible = [];
                 nodes.forEach(function(n) {
                     var match = n.label.toLowerCase().includes(q);
                     nodes.update({ id: n.id, hidden: !match });
+                    if (match) visible.push(n.id);
                 });
+                if (visible.length) {
+                    network.fit({ nodes: visible, animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+                }
             });
 
             document.getElementById('graph-reset').addEventListener('click', function() {
