@@ -101,32 +101,13 @@ GET  /sitemap.xml         → Sitemap
 - [x] Tooltip rico (anos, gênero, papel)
 - [x] Fullscreen no genealogy
 - [x] Comentários (comunidade) — polymorphic + admin moderation + frontend form
-- [x] Sugestões de edição por usuários — migration + model + admin CRUD + frontend form
+- [x] Sugestões de edição por usuários — migration + model + admin CRUD
 - [x] Moderation queue — Filament page (pending comments, tags, suggestions)
 - [x] Blog/notícias (SEO bait) — migration + admin CRUD + frontend
 - [x] i18n — lang files published
 - [x] lazy loading imagens — já implementado
 - [x] vis.js CDN async (só genealogy) — `defer` adicionado
 - [x] Imagens otimizadas (auto-WebP) — ImageOptimizer service + command `images:optimize`
-- [x] Genealogy refactor — endpoint único, clusters, hierarchical, hover labels, focus
-- [x] Like/favorite system — migration + toggle + frontend ♡/♥ + page /favorites
-- [x] Fotos nas listagens — thumbnails 48×48 nos cards de bands/artists/home
-- [x] Stats bar na home — 4 contadores (bands, artists, memberships, relationships)
-- [x] Hero visual + SVG animado na home — banner aleatório + linhas genealógicas animadas
-- [x] Lightbox Alpine.js — galeria clicável com overlay fullscreen
-- [x] Breadcrumb component — `<x-breadcrumb>` reutilizável
-- [x] Dark mode suave — transição CSS no toggle
-- [x] Hero gradient por gênero — gradiente temático quando não há hero_image
-- [x] Security: Purifier (XSS) — `stevebauman/purify` em todos outputs Markdown
-- [x] Security Headers — CSP, HSTS, X-Frame-Options, X-Content-Type-Options
-- [x] Session encrypt — `SESSION_ENCRYPT=true`
-- [x] Upload limits — `maxSize(5120)` + `mimeTypes` em todos FileUpload
-- [x] User registration — `/register` com validação + nav link
-- [x] Favorites page — `/favorites` listando bands/artists favoritados
-- [x] Edit suggestion frontend — formulário na detail page da banda
-- [x] `.env.production.example` — template com `APP_DEBUG=false`, `SESSION_SECURE_COOKIE=true`
-- [x] Rate limit admin — `throttle:10,1` no Filament panel
-- [x] GitHub — repo `thiagogaspar/lista` com 3 commits pusheados
 
 ### Deploy Hostinger
 1. git push ou FTP p/ public_html
