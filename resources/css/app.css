@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source "../../vendor/filament/**/*.blade.php";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+    /* Brand — Emerald music vibe */
+    --color-brand-50: #ecfdf5;
+    --color-brand-100: #d1fae5;
+    --color-brand-200: #a7f3d0;
+    --color-brand-300: #6ee7b7;
+    --color-brand-400: #34d399;
+    --color-brand-500: #10b981;
+    --color-brand-600: #059669;
+    --color-brand-700: #047857;
+    --color-brand-800: #065f46;
+    --color-brand-900: #064e3b;
+
+    /* Accent Purple — artists, highlights */
+    --color-accent-50: #faf5ff;
+    --color-accent-100: #f3e8ff;
+    --color-accent-200: #e9d5ff;
+    --color-accent-300: #d8b4fe;
+    --color-accent-400: #c084fc;
+    --color-accent-500: #a855f7;
+    --color-accent-600: #9333ea;
+    --color-accent-700: #7e22ce;
+    --color-accent-800: #6b21a8;
+    --color-accent-900: #581c87;
+
+    /* Warm Amber — relationships, badges */
+    --color-warm-50: #fffbeb;
+    --color-warm-100: #fef3c7;
+    --color-warm-200: #fde68a;
+    --color-warm-300: #fcd34d;
+    --color-warm-400: #fbbf24;
+    --color-warm-500: #f59e0b;
+    --color-warm-600: #d97706;
+    --color-warm-700: #b45309;
+    --color-warm-800: #92400e;
+    --color-warm-900: #78350f;
+
+    /* Surface — warm grays */
+    --color-surface-50: #fafaf9;
+    --color-surface-100: #f5f5f4;
+    --color-surface-200: #e7e5e4;
+    --color-surface-300: #d6d3d1;
+    --color-surface-400: #a8a29e;
+    --color-surface-500: #78716c;
+    --color-surface-600: #57534e;
+    --color-surface-700: #44403c;
+    --color-surface-800: #292524;
+    --color-surface-900: #1c1917;
+}
+
+/* Flux brand override */
+:root {
+    --flux-color-primary-50: var(--color-brand-50);
+    --flux-color-primary-100: var(--color-brand-100);
+    --flux-color-primary-200: var(--color-brand-200);
+    --flux-color-primary-300: var(--color-brand-300);
+    --flux-color-primary-400: var(--color-brand-400);
+    --flux-color-primary-500: var(--color-brand-500);
+    --flux-color-primary-600: var(--color-brand-600);
+    --flux-color-primary-700: var(--color-brand-700);
+    --flux-color-primary-800: var(--color-brand-800);
+    --flux-color-primary-900: var(--color-brand-900);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-surface-300); border-radius: 3px; }
+.dark ::-webkit-scrollbar-thumb { background: var(--color-surface-600); }
+
+/* Smooth transitions for theme toggle */
+html { transition: background-color 0.2s, color 0.2s; }
