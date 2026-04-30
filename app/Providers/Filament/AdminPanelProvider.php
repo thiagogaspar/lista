@@ -6,6 +6,7 @@ use App\Filament\Widgets\LatestArtistsWidget;
 use App\Filament\Widgets\LatestBandsWidget;
 use App\Filament\Widgets\StatsOverview;
 use App\Http\Middleware\CheckAdminRole;
+use App\Http\Middleware\ServeWebpImages;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
