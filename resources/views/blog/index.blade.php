@@ -13,7 +13,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     @forelse($posts as $post)
-    <article class="card card-compact bg-base-100 border border-base-300 shadow-sm hover:shadow-md transition-shadow">
+    <article class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow">
         @if($post->featured_image)
         <figure><img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover" loading="lazy"></figure>
         @endif

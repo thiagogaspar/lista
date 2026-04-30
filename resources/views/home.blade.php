@@ -91,9 +91,9 @@ $seo = new \App\Values\SeoData(
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
         @foreach($featuredBands as $band)
             <a href="{{ route('bands.show', $band) }}" class="group block">
-                <div class="card card-compact bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:border-primary transition-all duration-200 h-full">
-                    <div class="card-body flex-row gap-2.5 p-3">
-                        @if($band->photo)<img src="{{ Storage::url($band->photo) }}" alt="" class="w-10 h-10 rounded-lg object-cover shrink-0" loading="lazy">@endif
+                <div class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-200 h-full">
+                    <div class="card-body flex-row gap-3 p-4">
+                        @if($band->photo)<img src="{{ Storage::url($band->photo) }}" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy">@endif
                         <div class="min-w-0 flex-1">
                             <h3 class="card-title text-sm text-primary group-hover:text-primary-focus truncate">{{ $band->name }}</h3>
                             <div class="flex flex-wrap gap-1 mt-1">
@@ -117,9 +117,9 @@ $seo = new \App\Values\SeoData(
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
         @foreach($featuredArtists as $artist)
             <a href="{{ route('artists.show', $artist) }}" class="group block">
-                <div class="card card-compact bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:border-secondary transition-all duration-200 h-full">
-                    <div class="card-body flex-row gap-2.5 p-3">
-                        @if($artist->photo)<img src="{{ Storage::url($artist->photo) }}" alt="" class="w-10 h-10 rounded-lg object-cover shrink-0" loading="lazy">@endif
+                <div class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-200 h-full">
+                    <div class="card-body flex-row gap-3 p-4">
+                        @if($artist->photo)<img src="{{ Storage::url($artist->photo) }}" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy">@endif
                         <div class="min-w-0 flex-1">
                             <h3 class="card-title text-sm text-secondary group-hover:text-secondary-focus truncate">{{ $artist->name }}</h3>
                             @if($artist->origin)<p class="text-xs text-base-content/50 mt-1 truncate">{{ $artist->origin }}</p>@endif

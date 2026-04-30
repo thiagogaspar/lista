@@ -37,9 +37,9 @@ $seo = new \App\Values\SeoData(
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
             @forelse($artists as $artist)
                 <a href="{{ route('artists.show', $artist) }}" class="group block">
-                    <div class="card card-compact bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:border-secondary transition-all duration-200 h-full">
-                        <div class="card-body flex-row gap-2.5 p-3">
-                            @if($artist->photo)<img src="{{ Storage::url($artist->photo) }}" alt="" class="w-10 h-10 rounded-lg object-cover shrink-0" loading="lazy">@endif
+                    <div class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-200 h-full">
+                        <div class="card-body flex-row gap-3 p-4">
+                            @if($artist->photo)<img src="{{ Storage::url($artist->photo) }}" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy">@endif
                             <div class="min-w-0 flex-1">
                                 <h3 class="card-title text-sm text-secondary group-hover:text-secondary-focus truncate">{{ $artist->name }}</h3>
                                 @if($artist->origin)<p class="text-xs text-base-content/50 mt-1 truncate">{{ $artist->origin }}</p>@endif
@@ -48,7 +48,10 @@ $seo = new \App\Values\SeoData(
                     </div>
                 </a>
             @empty
-                <div class="col-span-full text-center py-12"><p class="text-base-content/50 mb-3">No artists found.</p><a href="/admin/artists/create" class="btn btn-secondary btn-sm">Add First Artist</a></div>
+                <div class="col-span-full text-center py-16">
+                    <p class="text-base-content/50 mb-4">No artists found.</p>
+                    <a href="/admin/artists/create" class="btn btn-secondary">Add First Artist</a>
+                </div>
             @endforelse
         </div>
 

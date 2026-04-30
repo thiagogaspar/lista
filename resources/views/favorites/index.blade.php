@@ -19,9 +19,9 @@
     @php $item = $fav->favoriteable; @endphp
     @if($item)
     <a href="{{ $fav->favoriteable_type === 'App\Models\Band' ? route('bands.show', $item) : route('artists.show', $item) }}" class="group block">
-        <div class="card card-compact bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:border-primary transition-all duration-200 h-full">
-            <div class="card-body flex-row gap-2.5 p-3">
-                @if(method_exists($item, 'getAttribute') && $item->photo)<img src="{{ Storage::url($item->photo) }}" alt="" class="w-10 h-10 rounded-lg object-cover shrink-0" loading="lazy">@endif
+        <div class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-200 h-full">
+            <div class="card-body flex-row gap-3 p-4">
+                @if(method_exists($item, 'getAttribute') && $item->photo)<img src="{{ Storage::url($item->photo) }}" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy">@endif
                 <div class="min-w-0 flex-1">
                     <h3 class="card-title text-sm text-primary truncate">{{ $item->name }}</h3>
                     <p class="text-xs text-base-content/50 mt-1">{{ class_basename($fav->favoriteable_type) }}</p>
