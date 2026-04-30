@@ -26,6 +26,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use UnitEnum;
 
@@ -122,6 +123,21 @@ class BandResource extends Resource
             AlbumRelationManager::class,
             RelationshipRelationManager::class,
         ];
+    }
+
+    public static function canDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canForceDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canRestore(Model $model): bool
+    {
+        return auth()->user()->isEditor();
     }
 
     public static function getPages(): array

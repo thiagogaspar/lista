@@ -12,6 +12,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class CommentResource extends Resource
@@ -59,6 +60,21 @@ class CommentResource extends Resource
                 SelectFilter::make('is_approved')->options([true => 'Approved', false => 'Pending']),
             ])
             ->defaultSort('created_at', 'desc');
+    }
+
+    public static function canDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canForceDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canRestore(Model $model): bool
+    {
+        return auth()->user()->isEditor();
     }
 
     public static function getPages(): array

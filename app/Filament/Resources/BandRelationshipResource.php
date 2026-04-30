@@ -13,6 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class BandRelationshipResource extends Resource
@@ -61,6 +62,21 @@ class BandRelationshipResource extends Resource
                 TextColumn::make('created_at')->dateTime('M j, Y')->sortable()->toggleable(),
             ])
             ->defaultSort('year', 'desc');
+    }
+
+    public static function canDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canForceDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canRestore(Model $model): bool
+    {
+        return auth()->user()->isEditor();
     }
 
     public static function getPages(): array

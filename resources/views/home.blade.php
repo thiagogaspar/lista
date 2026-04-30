@@ -170,6 +170,36 @@ $seo = new \App\Values\SeoData(
     </div>
 </section>
 
+<!-- Featured Labels -->
+<section class="mb-12">
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">Labels</h2>
+            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">The record labels behind the scene</p>
+        </div>
+        <a href="{{ route('labels.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        @forelse($featuredLabels as $label)
+        <a href="{{ route('labels.show', $label) }}" class="block group">
+            <div class="card card-hover h-full bg-white dark:bg-ink-800 p-4 text-center">
+                @if($label->logo)
+                <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="h-16 mx-auto object-contain mb-3" loading="lazy">
+                @else
+                <div class="w-16 h-16 mx-auto bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-400 dark:text-ink-500 font-display text-xl font-bold mb-3" style="border:1px solid var(--color-surface-200)">
+                    {{ $label->name[0] }}
+                </div>
+                @endif
+                <h3 class="font-display font-bold text-xs text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $label->name }}</h3>
+                <p class="text-[10px] text-surface-400 mt-1">{{ $label->bands_count }} band{{ $label->bands_count !== 1 ? 's' : '' }}</p>
+            </div>
+        </a>
+        @empty
+        <p class="col-span-full text-sm text-surface-400 text-center py-8">No labels yet.</p>
+        @endforelse
+    </div>
+</section>
+
 <!-- CTA -->
 <section class="border-t border-surface-200 dark:border-ink-700 pt-10">
     <div class="max-w-xl mx-auto text-center">

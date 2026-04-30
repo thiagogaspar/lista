@@ -14,6 +14,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 class BandArtistResource extends Resource
@@ -64,6 +65,21 @@ class BandArtistResource extends Resource
                 IconColumn::make('is_current')->boolean()->sortable(),
             ])
             ->defaultSort('band_id', 'asc');
+    }
+
+    public static function canDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canForceDelete(Model $model): bool
+    {
+        return auth()->user()->isAdmin();
+    }
+
+    public static function canRestore(Model $model): bool
+    {
+        return auth()->user()->isEditor();
     }
 
     public static function getPages(): array

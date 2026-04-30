@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ApiBandGraphController;
 use App\Http\Controllers\ApiGenealogyController;
 use App\Http\Controllers\ArtistController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GenealogyController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LabelController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SitemapController;
@@ -25,6 +28,12 @@ Route::get('/bands/{slug}', [BandController::class, 'show'])->name('bands.show')
 Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index')
     ->middleware('throttle:30,1');
 Route::get('/artists/{slug}', [ArtistController::class, 'show'])->name('artists.show');
+
+Route::get('/labels', [LabelController::class, 'index'])->name('labels.index');
+Route::get('/labels/{slug}', [LabelController::class, 'show'])->name('labels.show');
+
+Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
+Route::get('/albums/{slug}', [AlbumController::class, 'show'])->name('albums.show');
 
 Route::get('/genres/{slug}', GenreController::class)->name('genres.show');
 
@@ -48,6 +57,13 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
+
+// Redirect Laravel's default 'login' route to admin login
+Route::get('/login', fn () => redirect()->route('filament.admin.auth.login'))->name('login');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index')
+    ->middleware('auth');
+Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
