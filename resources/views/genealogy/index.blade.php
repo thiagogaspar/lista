@@ -3,8 +3,8 @@
 @section('head')
 @php
 $seo = new \App\Values\SeoData(
-    title: 'Genealogy Explorer',
-    description: 'Interactive band genealogy tree. Explore connections between bands and artists through an interactive graph.',
+    title: 'Genealogy Graph',
+    description: 'Interactive band genealogy. Explore connections between bands and artists through an interactive network graph.',
     canonical: route('genealogy'),
 );
 @endphp
@@ -13,33 +13,33 @@ $seo = new \App\Values\SeoData(
 @endsection
 
 @section('content')
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <h1 class="text-3xl font-bold text-surface-900 dark:text-white">Genealogy Explorer</h1>
-        <p class="text-sm text-surface-500 dark:text-surface-400">Interactive graph — click a band to explore, double-click to navigate</p>
+        <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Genealogy Graph</h1>
+        <p class="text-xs text-surface-400 mt-1 uppercase tracking-wider">Click to focus &middot; Double-click to navigate</p>
     </div>
     <div class="flex items-center gap-2 flex-wrap">
-        <input type="text" id="graph-filter" placeholder="Filter bands..."
-               class="w-36 px-3 py-1.5 text-sm border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-brand-500">
-        <button id="graph-reset" class="px-3 py-1.5 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 border border-surface-300 dark:border-surface-600 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors">Reset</button>
-        <button id="graph-cluster-toggle" class="px-3 py-1.5 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 border border-surface-300 dark:border-surface-600 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors" title="Toggle genre clusters">Cluster</button>
-        <button id="graph-fullscreen" class="px-3 py-1.5 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 border border-surface-300 dark:border-surface-600 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors" title="Toggle fullscreen">
-            <svg class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <input type="text" id="graph-filter" placeholder="Filter..." class="input text-xs uppercase tracking-wider" style="max-width:160px">
+        <button id="graph-reset" class="btn btn-ghost btn-sm">Reset</button>
+        <button id="graph-cluster-toggle" class="btn btn-ghost btn-sm">Cluster</button>
+        <button id="graph-fullscreen" class="btn btn-ghost btn-sm" title="Fullscreen">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
         </button>
     </div>
 </div>
 
-<div id="full-genealogy-graph" class="border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50 dark:bg-surface-800 overflow-hidden shadow-sm" style="height:85vh">
+<div id="full-genealogy-graph" class="border border-surface-200 dark:border-ink-700 bg-surface-50 dark:bg-ink-800 overflow-hidden" style="height:85vh">
     <div class="flex items-center justify-center h-full text-surface-400">
         <svg class="w-10 h-10 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
     </div>
 </div>
 
-<div class="flex flex-wrap gap-5 mt-3 text-xs text-surface-500 items-center">
-    <span class="flex items-center gap-1.5"><span class="w-4 h-4 rounded bg-emerald-600 border-2 border-emerald-400"></span> Band</span>
-    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-violet-600 border-2 border-violet-400"></span> Artist</span>
-    <span class="flex items-center gap-1.5"><span class="block w-8 h-0.5 bg-amber-500"></span> Relationship</span>
-    <span class="flex items-center gap-1.5"><span class="block w-8 border-t border-dashed border-surface-400"></span> Membership</span>
+<div class="flex flex-wrap gap-5 mt-4 text-xs text-surface-500 items-center">
+    <span class="flex items-center gap-1.5"><span class="w-4 h-4 bg-brand-600" style="border:2px solid var(--color-brand-400)"></span> Band</span>
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-accent-600" style="border:2px solid var(--color-accent-400)"></span> Artist</span>
+    <span class="flex items-center gap-1.5"><span class="block w-8 h-0.5 bg-warm-500"></span> Relationship</span>
+    <span class="flex items-center gap-1.5"><span class="block w-8" style="border-top:1px dashed var(--color-surface-400)"></span> Membership</span>
     <span id="graph-status" class="text-surface-400 ml-auto">Loading...</span>
 </div>
 
@@ -64,14 +64,13 @@ $seo = new \App\Values\SeoData(
     var container = document.getElementById('full-genealogy-graph');
     container.innerHTML = '';
 
-    status.textContent = 'Fetching graph data...';
+    status.textContent = 'Fetching data...';
 
     fetch('/api/genealogy')
         .then(function(r) { return r.json(); })
         .then(function(data) {
             status.textContent = 'Rendering ' + data.nodes.length + ' nodes...';
 
-            // Color nodes by genre
             data.nodes.forEach(function(n) {
                 if (n.group === 'band') {
                     var c = getBandColor(n.genre);
@@ -79,7 +78,7 @@ $seo = new \App\Values\SeoData(
                 } else {
                     n.color = { background: artistBg, border: artistBorder };
                 }
-                n.font = { color: '#ffffff', size: n.group === 'artist' ? 11 : 14, face: 'Inter, system-ui, sans-serif', multi: 'html' };
+                n.font = { color: '#ffffff', size: n.group === 'artist' ? 11 : 14, face: 'DM Sans, system-ui, sans-serif', multi: 'html' };
                 n.borderWidth = n.group === 'band' ? 3 : 2;
                 n.shadow = { enabled: true, size: 6, x: 0, y: 2, color: 'rgba(0,0,0,0.12)' };
                 if (n.group === 'artist') {
@@ -88,11 +87,10 @@ $seo = new \App\Values\SeoData(
                 } else {
                     n.shape = 'box';
                     n.widthConstraint = { minimum: 80, maximum: 160 };
-                    n.shapeProperties = { borderRadius: 6 };
+                    n.shapeProperties = { borderRadius: 4 };
                 }
             });
 
-            // Edge labels: hide text, show on hover
             data.edges.forEach(function(e) {
                 e.font = { size: 0, strokeWidth: 0, align: 'middle' };
                 e.hoverFont = { size: 11, color: isDark ? '#d6d3d1' : '#57534e', strokeWidth: 0 };
@@ -140,7 +138,6 @@ $seo = new \App\Values\SeoData(
 
             status.textContent = data.nodes.length + ' nodes, ' + data.edges.length + ' connections';
 
-            // Hover edge — show label
             network.on('hoverEdge', function(params) {
                 edges.update({ id: params.edgeId, font: { size: 11, strokeWidth: 0, color: isDark ? '#d6d3d1' : '#57534e' } });
             });
@@ -148,7 +145,6 @@ $seo = new \App\Values\SeoData(
                 edges.update({ id: params.edgeId, font: { size: 0, strokeWidth: 0 } });
             });
 
-            // Double-click to navigate
             network.on('doubleClick', function(params) {
                 if (params.nodes.length) {
                     var n = nodes.get(params.nodes[0]);
@@ -161,7 +157,6 @@ $seo = new \App\Values\SeoData(
                 network.setOptions({ physics: false });
             });
 
-            // Single-click: focus on node
             var focusActive = false;
             network.on('click', function(params) {
                 if (params.nodes.length && params.event.srcEvent.type === 'click') {
@@ -175,7 +170,6 @@ $seo = new \App\Values\SeoData(
                 }
             });
 
-            // === Filter ===
             document.getElementById('graph-filter').addEventListener('input', function(e) {
                 var q = e.target.value.toLowerCase();
                 if (!q) { document.getElementById('graph-reset').click(); return; }
@@ -189,25 +183,18 @@ $seo = new \App\Values\SeoData(
                 document.getElementById('graph-filter').value = '';
                 network.storePositions();
                 network.setOptions({ physics: true });
-                nodes.forEach(function(n) {
-                    nodes.update({ id: n.id, hidden: false });
-                });
+                nodes.forEach(function(n) { nodes.update({ id: n.id, hidden: false }); });
                 setTimeout(function() {
                     network.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
                     network.once('stabilizationIterationsDone', function() { network.setOptions({ physics: false }); });
                 }, 100);
             });
 
-            // === Genre clusters ===
             var clustered = false;
             document.getElementById('graph-cluster-toggle').addEventListener('click', function() {
                 if (!clustered) {
                     var genreCounts = {};
-                    nodes.forEach(function(n) {
-                        if (n.group === 'band' && n.genre) {
-                            genreCounts[n.genre] = (genreCounts[n.genre] || 0) + 1;
-                        }
-                    });
+                    nodes.forEach(function(n) { if (n.group === 'band' && n.genre) { genreCounts[n.genre] = (genreCounts[n.genre] || 0) + 1; } });
                     Object.keys(genreCounts).forEach(function(genre) {
                         if (genreCounts[genre] > 1) {
                             network.cluster({
@@ -215,11 +202,9 @@ $seo = new \App\Values\SeoData(
                                 clusterNode: {
                                     id: 'cluster_' + genre,
                                     label: genre.charAt(0).toUpperCase() + genre.slice(1).replace('-', ' ') + ' (' + genreCounts[genre] + ')',
-                                    shape: 'box',
-                                    color: { background: genreColors[genre] || defaultBandColor, border: '#ffffff' },
-                                    font: { color: '#ffffff', size: 18, face: 'Inter, system-ui, sans-serif', bold: true },
-                                    borderWidth: 3,
-                                    shapeProperties: { borderRadius: 10 },
+                                    shape: 'box', color: { background: genreColors[genre] || defaultBandColor, border: '#ffffff' },
+                                    font: { color: '#ffffff', size: 18, face: 'DM Sans, system-ui', bold: true },
+                                    borderWidth: 3, shapeProperties: { borderRadius: 6 },
                                     widthConstraint: { minimum: 140, maximum: 200 },
                                 },
                                 clusterEdge: { color: { color: isDark ? '#57534e' : '#a8a29e' }, width: 2, dashes: true },
@@ -237,7 +222,6 @@ $seo = new \App\Values\SeoData(
                 }
             });
 
-            // === Fullscreen ===
             document.getElementById('graph-fullscreen').addEventListener('click', function() {
                 if (!document.fullscreenElement) {
                     container.requestFullscreen();
@@ -250,9 +234,10 @@ $seo = new \App\Values\SeoData(
             });
         })
         .catch(function(err) {
-            status.textContent = 'Error loading graph: ' + err.message;
+            status.textContent = 'Error: ' + err.message;
             console.error(err);
         });
 })();
 </script>
+</div>
 @endsection

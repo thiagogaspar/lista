@@ -6,36 +6,43 @@
 @endsection
 
 @section('content')
-<div class="flex items-center gap-3 mb-6">
-    <h1 class="text-2xl font-bold text-base-content">My Favorites</h1>
-    <div class="divider divider-neutral flex-1 h-px"></div>
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex items-center gap-4 mb-8">
+    <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Favorites</h1>
+    <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>
 </div>
 
 @guest
-<p class="text-base-content/50 text-center py-12"><a href="{{ route('register') }}" class="link link-primary">Register</a> or <a href="{{ route('filament.admin.auth.login') }}" class="link link-primary">log in</a> to save favorites.</p>
+<div class="text-center py-16">
+    <p class="text-surface-500 mb-4 text-sm">
+        <a href="{{ route('register') }}" class="link font-semibold">Register</a> or
+        <a href="{{ route('filament.admin.auth.login') }}" class="link font-semibold">log in</a> to save favorites.
+    </p>
+</div>
 @else
-<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
     @forelse($favorites as $fav)
     @php $item = $fav->favoriteable; @endphp
     @if($item)
-    <a href="{{ $fav->favoriteable_type === 'App\Models\Band' ? route('bands.show', $item) : route('artists.show', $item) }}" class="group block">
-        <div class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-200 h-full">
-            <div class="card-body flex-row gap-3 p-4">
-                @if(method_exists($item, 'getAttribute') && $item->photo)<img src="{{ Storage::url($item->photo) }}" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy">@endif
-                <div class="min-w-0 flex-1">
-                    <h3 class="card-title text-sm text-primary truncate">{{ $item->name }}</h3>
-                    <p class="text-xs text-base-content/50 mt-1">{{ class_basename($fav->favoriteable_type) }}</p>
-                </div>
+    <a href="{{ $fav->favoriteable_type === 'App\Models\Band' ? route('bands.show', $item) : route('artists.show', $item) }}" class="block group">
+        <div class="card card-hover h-full bg-white dark:bg-ink-800 p-3 flex gap-2.5">
+            @if(method_exists($item, 'getAttribute') && $item->photo)
+            <img src="{{ Storage::url($item->photo) }}" alt="" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+            @endif
+            <div class="min-w-0 flex-1">
+                <h3 class="font-display font-bold text-xs text-brand-600 dark:text-brand-400 truncate">{{ $item->name }}</h3>
+                <p class="text-[10px] text-surface-400 mt-1.5 uppercase tracking-wider">{{ class_basename($fav->favoriteable_type) }}</p>
             </div>
         </div>
     </a>
     @endif
     @empty
-    <div class="col-span-full text-center py-12">
-        <p class="text-base-content/50 mb-3">No favorites yet.</p>
-        <a href="{{ route('bands.index') }}" class="btn btn-primary btn-sm">Browse Bands</a>
+    <div class="col-span-full text-center py-16">
+        <p class="text-surface-500 mb-4 text-sm">No favorites yet.</p>
+        <a href="{{ route('bands.index') }}" class="btn btn-brand btn-sm">Browse Bands</a>
     </div>
     @endforelse
 </div>
 @endguest
+</div>
 @endsection

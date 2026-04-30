@@ -12,22 +12,26 @@ $seo = new \App\Values\SeoData(
 @endsection
 
 @section('content')
-<div class="breadcrumbs text-sm text-base-content/60 mb-4">
-    <ul>
-        <li><a href="{{ route('home') }}" class="hover:text-primary">Home</a></li>
-        <li><a href="{{ route('blog.index') }}" class="hover:text-primary">Blog</a></li>
-        <li class="text-base-content font-medium">{{ $post->title }}</li>
-    </ul>
-</div>
+<div class="max-w-7xl mx-auto px-4">
+<nav class="flex items-center gap-2 text-xs text-surface-400 mb-8 uppercase tracking-wider">
+    <a href="{{ route('home') }}" class="hover:text-brand-600">Home</a><span>/</span>
+    <a href="{{ route('blog.index') }}" class="hover:text-brand-600">Blog</a><span>/</span>
+    <span class="text-surface-700 dark:text-ink-200 font-medium">{{ $post->title }}</span>
+</nav>
 
 <article class="max-w-3xl mx-auto">
     @if($post->featured_image)
-    <figure class="mb-6"><img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover rounded-lg" loading="lazy"></figure>
+    <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover mb-8" loading="lazy" style="border:1px solid var(--color-surface-200)">
     @endif
 
-    <h1 class="text-3xl font-bold text-base-content mb-2">{{ $post->title }}</h1>
-    <p class="text-sm text-base-content/50 mb-6">{{ $post->author ?? 'LISTA' }} · {{ $post->published_at->format('M j, Y') }}</p>
+    <h1 class="font-display text-3xl sm:text-4xl font-bold text-surface-900 dark:text-ink-200 mb-3 leading-tight tracking-tight">{{ $post->title }}</h1>
+    <div class="flex items-center gap-2 mb-8">
+        <span class="text-xs text-surface-400 uppercase tracking-wider">{{ $post->published_at->format('M j, Y') }}</span>
+        <span class="text-xs text-surface-300">&middot;</span>
+        <span class="text-xs text-surface-400 uppercase tracking-wider">{{ $post->author ?? 'LISTA' }}</span>
+    </div>
 
-    <div class="prose prose-base-content max-w-none">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($post->body)) !!}</div>
+    <div class="prose max-w-none">{!! \Stevebauman\Purify\Facades\Purify::clean(Str::markdown($post->body)) !!}</div>
 </article>
+</div>
 @endsection

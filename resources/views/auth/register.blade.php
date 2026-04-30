@@ -6,35 +6,38 @@
 @endsection
 
 @section('content')
+<div class="max-w-7xl mx-auto px-4">
 <div class="max-w-md mx-auto mt-8 mb-16">
-    <div class="card card-compact bg-base-100 border border-base-300 shadow-sm">
-        <div class="card-body p-6">
-            <h1 class="card-title text-2xl justify-center mb-4">Create Account</h1>
-            <form method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label class="label"><span class="label-text">Name</span></label>
-                    <input name="name" value="{{ old('name') }}" required class="input input-bordered w-full">
-                    @error('name')<p class="text-xs text-error mt-1">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label class="label"><span class="label-text">Email</span></label>
-                    <input name="email" type="email" value="{{ old('email') }}" required class="input input-bordered w-full">
-                    @error('email')<p class="text-xs text-error mt-1">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label class="label"><span class="label-text">Password</span></label>
-                    <input name="password" type="password" required minlength="8" class="input input-bordered w-full">
-                    @error('password')<p class="text-xs text-error mt-1">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label class="label"><span class="label-text">Confirm Password</span></label>
-                    <input name="password_confirmation" type="password" required class="input input-bordered w-full">
-                </div>
-                <button type="submit" class="btn btn-primary w-full">Register</button>
-                <p class="text-sm text-center text-base-content/50">Already have an account? <a href="{{ route('filament.admin.auth.login') }}" class="link link-primary">Log in</a></p>
-            </form>
-        </div>
+    <div class="card bg-white dark:bg-ink-800 p-6">
+        <h1 class="font-display text-2xl font-bold text-center mb-6 text-surface-900 dark:text-ink-200">Create Account</h1>
+        <form method="POST" class="space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Name</label>
+                <input name="name" value="{{ old('name') }}" required class="input">
+                @error('name')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Email</label>
+                <input name="email" type="email" value="{{ old('email') }}" required class="input">
+                @error('email')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Password</label>
+                <input name="password" type="password" required minlength="8" class="input">
+                @error('password')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Confirm Password</label>
+                <input name="password_confirmation" type="password" required class="input">
+            </div>
+            <button type="submit" class="btn btn-brand" style="width:100%">Register</button>
+            <p class="text-xs text-center text-surface-400">
+                Already have an account?
+                <a href="{{ route('filament.admin.auth.login') }}" class="link font-semibold">Log in</a>
+            </p>
+        </form>
     </div>
+</div>
 </div>
 @endsection
