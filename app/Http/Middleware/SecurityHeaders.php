@@ -26,7 +26,7 @@ class SecurityHeaders
                "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://cdn.jsdelivr.net; ".
                "img-src 'self' data: https://picsum.photos https://*.picsum.photos https://via.placeholder.com; ".
                "font-src 'self' https://fonts.bunny.net; ".
-               "connect-src 'self'; ".
+               "connect-src 'self' https://cdn.jsdelivr.net https://fonts.bunny.net https://picsum.photos; ".
                "frame-src 'none'; ".
                "object-src 'none'; ".
                "base-uri 'self'; ".
