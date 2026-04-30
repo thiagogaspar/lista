@@ -49,11 +49,43 @@ GET  /bands               → Lista + filtros
 GET  /bands/{slug}        → Detail + graph
 GET  /artists             → Lista
 GET  /artists/{slug}      → Detail + timeline
+GET  /labels              → Diretório A–Z
+GET  /labels/{slug}       → Detail + bands grid
+GET  /albums              → Grid com filtros
+GET  /albums/{slug}       → Cover + tracklist
+GET  /genres/{slug}       → Bands por gênero
 GET  /genealogy           → Grafo completo
-GET  /api/bands/{slug}/graph   → JSON
-GET  /api/search?q=       → JSON busca
+GET  /profile             → Dashboard user (auth)
+GET  /users/{id}          → Perfil público
+GET  /login               → Redirect admin login
+GET  /blog                → Lista posts
+GET  /blog/{slug}         → Post detail
+GET  /favorites           → Favoritos (auth)
+POST /comments            → Criar comentário (auth)
+POST /suggestions         → Sugerir edição (auth)
+POST /favorites/band/*    → Toggle fav banda (auth)
+POST /favorites/artist/*  → Toggle fav artista (auth)
+GET  /register            → Form registro
+POST /register            → Criar conta
 GET  /sitemap.xml         → Sitemap
+GET  /api/search          → JSON busca
+GET  /api/bands/{slug}/graph  → JSON graph
+GET  /api/genealogy       → JSON grafo completo
+GET  /api/bands           → REST API
+GET  /api/bands/{slug}    → REST API
+GET  /api/artists         → REST API
+GET  /api/artists/{slug}  → REST API
+GET  /api/genres          → REST API
+GET  /api/labels          → REST API
 ```
+
+### Admin
+`/admin` — 11 resources + Moderation page + Dashboard
+- Bands (com RelationManagers: Members, Albums, Relationships)
+- Artists (com RelationManager: Band History)
+- Labels, Albums, Tags, Comments, Posts, Edit Suggestions
+- Band-Artists, Band-Relationships (pivots)
+- Audit Logs, Users (admin-only)
 
 ## Design Tokens
 - `brand-*`: Emerald — bands, CTAs
@@ -62,18 +94,50 @@ GET  /sitemap.xml         → Sitemap
 - `surface-*`: Warm gray — bg, borders, text
 - Dark mode via Flux + localStorage
 
-## Cronograma de Melhorias
+## Cronograma de Melhorias (após auditoria completa em 2026-04-30)
 
-### P0 — Próximos
+### P0 — Bugs críticos (1-2h)
+- [ ] **Filament: EditSuggestionResource** — `Select` import missing (fatal error ao acessar edit page)
+- [ ] **Filament: CommentResource** — `Select::make()->boolean()` método não existe
+- [ ] **Album/Label show pages** — `rel="preload" href=""` quando não tem imagem (browser warning)
+- [ ] **Album/Label show pages** — SEO: `$seo` não definido no blade (depende do controller), inconsistente com outras páginas
 
-### P1 — Curto prazo
-- [ ] 
+### P1 — Curto prazo (4-8h)
+- [ ] **i18n**: Envolver TODO texto hardcoded em `__()`. 14 arquivos afetados. Usar lang files já publicados.
+- [ ] **Error pages**: `errors/layout` e `errors/404` — substituir `gray-*` por `surface-*`/`ink-*` + adicionar `.dark:` variants
+- [ ] **Security: Sort injection**: Whitelist columns no `orderBy()` em BandService/ArtistService/GenreController
+- [ ] **Security: EditSuggestion field access**: Whitelist allowed field names no EditSuggestionController
+- [ ] **ProfileController**: Adicionar auth check — só dono ou admin pode ver `/users/{id}`
+- [ ] **Logout route**: Adicionar `POST /logout` + link no /profile
+- [ ] **Rate limiting**: Adicionar `throttle:5,1` em comments.store; `throttle:30,1` em labels/albums/blog
 
-### P2 — Médio prazo
-- [ ] 
+### P2 — Médio prazo (8-16h)
+- [ ] **Testes**: Criar factories para Band, Artist, Album, Label, Tag, Genre, Comment, Favorite
+- [ ] **Testes**: Feature tests para rotas principais (bands, artists, genealogy, search, API)
+- [ ] **JS extraction**: Mover Alpine.js init, search-box, favorites, dark mode, lightbox para `resources/js/app.js`
+- [ ] **Alpine.js via NPM**: Instalar `alpinejs` no package.json, bundle via Vite (remover CDN)
+- [ ] **vis-network via NPM**: Instalar `vis-network` no package.json (remover CDN)
+- [ ] **CSP hardening**: Adicionar nonces em scripts inline, remover `cdnjs.cloudflare.com` não usado
+- [ ] **N+1 queries**: Adicionar `->where('is_approved', true)` scope nas relações de Tag em Band/Artist
+- [ ] **N+1 queries**: Eager loading em ArtistService::getPaginated() (tags)
+- [ ] **Caching**: Implementar `Cache::remember` no HomeController (stats + queries, TTL 10min)
+- [ ] **Home page**: `@foreach` → `@forelse` para `$featuredBands` e `$featuredArtists`
+- [ ] **Gallery lightbox**: Adicionar lightbox nas imagens de artist/show (igual bands/show)
+- [ ] **Pagination views**: Customizar `pagination::tailwind` com tokens brand/accent
 
-### P3 — Longo prazo
-- [ ] 
+### P3 — Longo prazo (16-32h)
+- [ ] **Genealogy full graph**: Implementar lazy chunking ou limite configurável (atualmente carrega tudo em memória)
+- [ ] **BandsByGenreChart**: Migrar de coluna `genre` deprecated para pivot `band_genre`
+- [ ] **User model**: Substituir `#[Fillable]`/`#[Hidden]` attributes (não-funcionais) por propriedades padrão
+- [ ] **ImageOptimizer**: Verificar se GD extension existe; tornar métodos instance (não static)
+- [ ] **Purify config**: Limitar URLs externas em RichEditor content
+- [ ] **Filament filters**: Adicionar filters em AlbumResource (TrashedFilter, genre, year), BandResource (genre, label, origin), ArtistResource (origin, is_active), PostResource (is_published), TagResource (is_approved)
+- [ ] **LabelRelationManager**: Adicionar RelationManager para bands no LabelResource
+- [ ] **Exception handler**: Criar `app/Exceptions/Handler` com renderers customizados + logging
+- [ ] **API: Genre + Label show endpoints**: Adicionar `GET /api/genres/{slug}` e `GET /api/labels/{slug}`
+- [ ] **Password strength**: Reforçar regra de password no RegisterController (maiúscula, número)
+- [ ] **Mover rotas `/api/*`**: De `web.php` para `api.php` (consistência com Sanctum)
+- [ ] **flushCache()**: Implementar ou remover definitivamente (hoje é no-op)
 
 ### Prod
 - [ ] Cache: reativar Cache::remember (file store) — ativar só em producao
@@ -108,6 +172,9 @@ GET  /sitemap.xml         → Sitemap
 - [x] lazy loading imagens — já implementado
 - [x] vis.js CDN async (só genealogy) — `defer` adicionado
 - [x] Imagens otimizadas (auto-WebP) — ImageOptimizer service + command `images:optimize`
+- [x] Labels página pública + álbuns página pública + diretório A–Z
+- [x] UserResource admin + ProfileController privado/público
+- [x] Role enforcement: canDelete/canForceDelete/canRestore em 10 resources
 
 ### Deploy Hostinger
 1. git push ou FTP p/ public_html
