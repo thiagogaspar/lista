@@ -87,6 +87,7 @@ $seo = new \App\Values\SeoData(
 </div>
 
 <!-- Hero text -->
+<div class="max-w-6xl mx-auto px-4">
 <div class="mb-12 text-center max-w-2xl mx-auto">
     <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">
         Local <span class="text-brand-600 dark:text-brand-500">Music</span> Genealogy
@@ -178,4 +179,5 @@ $seo = new \App\Values\SeoData(
         <p class="text-[10px] text-surface-400 mt-4 uppercase tracking-wider">Or <a href="{{ route('register') }}" class="link">create an account</a></p>
     </div>
 </section>
+</div>
 @endsection

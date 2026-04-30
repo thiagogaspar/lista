@@ -32,7 +32,7 @@ $seo = new \App\Values\SeoData(
 @endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 <!-- Hero -->
 <section class="relative -mx-4 -mt-6 mb-10 overflow-hidden bg-ink-900 dark:bg-ink" style="aspect-ratio:16/5; max-height:55vh;">
     @if($hero)

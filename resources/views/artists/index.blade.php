@@ -14,7 +14,7 @@ $seo = new \App\Values\SeoData(
 @php $qs = http_build_query(request()->except(['sort','dir'])); @endphp
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 <div class="flex items-center gap-4 mb-6">
     <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Artists</h1>
     <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>

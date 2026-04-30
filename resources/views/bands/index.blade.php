@@ -20,7 +20,7 @@ $seo = new \App\Values\SeoData(
 @php $qs = http_build_query(request()->except(['sort','dir'])); @endphp
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 @isset($genreName)
 <nav class="flex items-center gap-2 text-xs text-surface-400 mb-5 uppercase tracking-wider">
     <a href="{{ route('home') }}" class="hover:text-brand-600">Home</a><span>/</span>

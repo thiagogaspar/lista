@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 <div class="max-w-md mx-auto mt-8 mb-16">
     <div class="card bg-white dark:bg-ink-800 p-6">
         <h1 class="font-display text-2xl font-bold text-center mb-6 text-surface-900 dark:text-ink-200">Create Account</h1>

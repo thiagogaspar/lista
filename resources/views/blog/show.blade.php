@@ -12,7 +12,7 @@ $seo = new \App\Values\SeoData(
 @endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 <nav class="flex items-center gap-2 text-xs text-surface-400 mb-8 uppercase tracking-wider">
     <a href="{{ route('home') }}" class="hover:text-brand-600">Home</a><span>/</span>
     <a href="{{ route('blog.index') }}" class="hover:text-brand-600">Blog</a><span>/</span>

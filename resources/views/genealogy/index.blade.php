@@ -13,7 +13,7 @@ $seo = new \App\Values\SeoData(
 @endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4">
+<div class="max-w-6xl mx-auto px-4">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
         <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Genealogy Graph</h1>

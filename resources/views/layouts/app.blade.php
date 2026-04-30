@@ -28,7 +28,7 @@
     <div class="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] dark:opacity-[0.06]" style="background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 512 512%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size:512px 512px"></div>
 
     <header class="sticky top-0 z-50 border-b border-surface-200 dark:border-ink-700 bg-ink-50/95 dark:bg-ink/95 backdrop-blur-sm" x-data="{ menu: false }">
-        <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-lg font-bold text-brand-600 dark:text-brand-500 shrink-0 hover:text-brand-700 dark:hover:text-brand-400 transition-colors group">
                 <svg class="w-6 h-6 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                 <span class="font-display tracking-tight">{{ config('app.name', 'LISTA') }}</span>
@@ -126,7 +126,7 @@
         </div>
 
         <div x-show="menu" @click.away="menu = false" x-cloak class="md:hidden border-t border-surface-200 dark:border-ink-700 bg-ink-50 dark:bg-ink">
-            <div class="max-w-7xl mx-auto px-4 py-4 space-y-4">
+            <div class="max-w-6xl mx-auto px-4 py-4 space-y-4">
                 <div class="relative" x-data="searchBox()">
                     <form @submit.prevent class="relative">
                         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -173,7 +173,7 @@
     </main>
 
     <footer class="border-t border-surface-200 dark:border-ink-700 mt-16">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+        <div class="max-w-6xl mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center gap-2 mb-3">
