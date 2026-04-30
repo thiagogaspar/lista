@@ -13,23 +13,23 @@
         <form method="POST" class="space-y-4">
             @csrf
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Name</label>
-                <input name="name" value="{{ old('name') }}" required class="input">
-                @error('name')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+                <label for="reg-name" class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Name</label>
+                <input id="reg-name" name="name" value="{{ old('name') }}" required class="input">
+                @error('name')<p class="text-[10px] text-red-500 mt-1" role="alert">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Email</label>
-                <input name="email" type="email" value="{{ old('email') }}" required class="input">
-                @error('email')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+                <label for="reg-email" class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Email</label>
+                <input id="reg-email" name="email" type="email" value="{{ old('email') }}" required class="input">
+                @error('email')<p class="text-[10px] text-red-500 mt-1" role="alert">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Password</label>
-                <input name="password" type="password" required minlength="8" class="input">
-                @error('password')<p class="text-[10px] text-red-500 mt-1">{{ $message }}</p>@enderror
+                <label for="reg-password" class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Password</label>
+                <input id="reg-password" name="password" type="password" required minlength="8" class="input">
+                @error('password')<p class="text-[10px] text-red-500 mt-1" role="alert">{{ $message }}</p>@enderror
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Confirm Password</label>
-                <input name="password_confirmation" type="password" required class="input">
+                <label for="reg-password-confirm" class="block text-xs font-bold uppercase tracking-wider text-surface-500 dark:text-surface-400 mb-1.5">Confirm Password</label>
+                <input id="reg-password-confirm" name="password_confirmation" type="password" required class="input">
             </div>
             <button type="submit" class="btn btn-brand" style="width:100%">Register</button>
             <p class="text-xs text-center text-surface-400">

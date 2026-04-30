@@ -23,7 +23,7 @@ $seo = new \App\Values\SeoData(
 <div class="lg:flex lg:gap-8">
     <div class="flex-1 min-w-0">
         <form method="GET" class="mb-4">
-            <input name="search" value="{{ request('search') }}" placeholder="Search artists..." class="input" style="max-width:320px">
+            <input name="search" value="{{ request('search') }}" placeholder="Search artists..." aria-label="Search artists" class="input" style="max-width:320px">
         </form>
 
         <div class="flex items-center justify-between mb-4 text-xs text-surface-500 dark:text-surface-400">
@@ -43,7 +43,7 @@ $seo = new \App\Values\SeoData(
                 <a href="{{ route('artists.show', $artist) }}" class="block group">
                     <div class="card card-hover h-full bg-white dark:bg-ink-800 p-3 flex gap-2.5">
                         @if($artist->photo)
-                        <img src="{{ Storage::url($artist->photo) }}" alt="" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+                        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-display font-bold text-xs text-accent-600 dark:text-accent-400 group-hover:text-accent-700 dark:group-hover:text-accent-300 truncate">{{ $artist->name }}</h3>

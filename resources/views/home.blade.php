@@ -117,7 +117,7 @@ $seo = new \App\Values\SeoData(
                 <div class="card card-hover h-full bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
                         @if($band->photo)
-                        <img src="{{ Storage::url($band->photo) }}" alt="" class="w-14 h-14 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+                        <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-14 h-14 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-display font-bold text-sm text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $band->name }}</h3>
@@ -155,7 +155,7 @@ $seo = new \App\Values\SeoData(
                 <div class="card card-hover h-full bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
                         @if($artist->photo)
-                        <img src="{{ Storage::url($artist->photo) }}" alt="" class="w-14 h-14 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+                        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-14 h-14 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-display font-bold text-sm text-accent-600 dark:text-accent-400 group-hover:text-accent-700 dark:group-hover:text-accent-300 truncate">{{ $artist->name }}</h3>

@@ -4,9 +4,10 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <script>
 (function() {
+    if (typeof vis === 'undefined') return;
     var isDark = document.documentElement.classList.contains('dark');
     var graph = @json($graph);
 

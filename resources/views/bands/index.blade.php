@@ -40,15 +40,15 @@ $seo = new \App\Values\SeoData(
     <div class="flex-1 min-w-0">
         <!-- Filters -->
         <form method="GET" class="flex flex-wrap gap-2 mb-4">
-            <input name="search" value="{{ request('search') }}" placeholder="Search bands..." class="flex-1 min-w-[160px] input">
-            <select name="genre" class="select" style="max-width:160px">
+            <input name="search" value="{{ request('search') }}" placeholder="Search bands..." aria-label="Search bands" class="flex-1 min-w-[160px] input">
+            <select name="genre" aria-label="Filter by genre" class="select" style="max-width:160px">
                 <option value="">All genres</option>
                 @foreach($genres as $slug => $name)
                 <option value="{{ $slug }}" {{ (request('genre') ?? '') === $slug ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </select>
-            <input name="year" value="{{ request('year') }}" placeholder="Year" class="input" style="max-width:80px">
-            <select name="origin" class="select" style="max-width:140px">
+            <input name="year" value="{{ request('year') }}" placeholder="Year" aria-label="Filter by year" class="input" style="max-width:80px">
+            <select name="origin" aria-label="Filter by origin" class="select" style="max-width:140px">
                 <option value="">All origins</option>
                 @foreach($origins as $o)
                 <option value="{{ $o }}" {{ request('origin') === $o ? 'selected' : '' }}>{{ $o }}</option>
@@ -79,7 +79,7 @@ $seo = new \App\Values\SeoData(
                 <a href="{{ route('bands.show', $band) }}" class="block group">
                     <div class="card card-hover h-full bg-white dark:bg-ink-800 p-3 flex gap-2.5">
                         @if($band->photo)
-                        <img src="{{ Storage::url($band->photo) }}" alt="" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+                        <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-display font-bold text-xs text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $band->name }}</h3>

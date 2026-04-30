@@ -71,7 +71,7 @@ $seo = new \App\Values\SeoData(
                         </div>
                         @if($band->label)
                         <a href="{{ route('bands.index', ['label' => $band->label->slug]) }}" class="badge badge-warm mt-2 inline-flex gap-1.5 hover:opacity-80 transition-opacity">
-                            @if($band->label->logo)<img src="{{ Storage::url($band->label->logo) }}" alt="" class="w-3 h-3 rounded-sm object-cover">@endif
+                            @if($band->label->logo)<img src="{{ Storage::url($band->label->logo) }}" alt="{{ $band->label->name }} logo" class="w-3 h-3 rounded-sm object-cover">@endif
                             {{ $band->label->name }}
                         </a>
                         @endif
@@ -111,7 +111,7 @@ $seo = new \App\Values\SeoData(
             </div>
             <template x-teleport="body">
                 <div x-show="lightbox" x-cloak class="fixed inset-0 z-[60] bg-ink/95 flex items-center justify-center p-4" @click="lightbox = null" @keydown.escape="lightbox = null">
-                    <img :src="lightbox" class="max-w-full max-h-full object-contain" @click.stop style="border:1px solid var(--color-surface-700)">
+                    <img :src="lightbox" :alt="'Enlarged image'" class="max-w-full max-h-full object-contain" @click.stop style="border:1px solid var(--color-surface-700)">
                     <button class="absolute top-4 right-4 text-white/70 hover:text-white text-2xl font-bold" @click="lightbox = null">&times;</button>
                 </div>
             </template>

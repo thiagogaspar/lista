@@ -20,7 +20,7 @@ $seo = new \App\Values\SeoData(
         <p class="text-xs text-surface-400 mt-1 uppercase tracking-wider">Click to focus &middot; Double-click to navigate</p>
     </div>
     <div class="flex items-center gap-2 flex-wrap">
-        <input type="text" id="graph-filter" placeholder="Filter..." class="input text-xs uppercase tracking-wider" style="max-width:160px">
+        <input type="text" id="graph-filter" placeholder="Filter..." aria-label="Filter graph nodes" class="input text-xs uppercase tracking-wider" style="max-width:160px">
         <button id="graph-reset" class="btn btn-ghost btn-sm">Reset</button>
         <button id="graph-cluster-toggle" class="btn btn-ghost btn-sm">Cluster</button>
         <button id="graph-fullscreen" class="btn btn-ghost btn-sm" title="Fullscreen">
