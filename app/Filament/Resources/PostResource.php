@@ -1,11 +1,7 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\PostResource\Pages;
-use App\Models\Post;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -25,30 +21,39 @@ class PostResource extends Resource
         return 'heroicon-o-newspaper';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Content';
     }
 
     public static function getNavigationSort(): ?int
     {
-        return 9;
+        return 11;
     }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')->required()->unique(ignoreRecord: true),
-                TextInput::make('excerpt'),
-                RichEditor::make('body')->required(),
-                FileUpload::make('featured_image')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('blog'),
-                TextInput::make('author'),
-                Toggle::make('is_published')->label('Published'),
+                Section::make('Post Content')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('title')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->columnSpanFull()
+                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                        TextInput::make('slug')->required()->unique(ignoreRecord: true),
+                        TextInput::make('author'),
+                        TextInput::make('excerpt')->columnSpanFull(),
+                        RichEditor::make('body')->required()->columnSpanFull(),
+                    ]),
+                Section::make('Publishing')
+                    ->columns(2)
+                    ->schema([
+                        FileUpload::make('featured_image')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('blog'),
+                        Toggle::make('is_published')->label('Published'),
+                    ]),
             ]);
     }
 
@@ -56,10 +61,11 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->searchable()->sortable(),
-                TextColumn::make('author')->sortable(),
+                TextColumn::make('title')->searchable()->sortable()->weight('bold')->limit(40),
+                TextColumn::make('author')->searchable()->sortable(),
                 IconColumn::make('is_published')->boolean()->sortable(),
-                TextColumn::make('published_at')->dateTime()->sortable(),
+                TextColumn::make('published_at')->dateTime('M j, Y')->sortable()->placeholder('Draft'),
+                TextColumn::make('created_at')->dateTime('M j, Y')->sortable()->toggleable(),
             ])
             ->defaultSort('created_at', 'desc');
     }

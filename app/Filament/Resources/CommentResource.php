@@ -1,15 +1,11 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\CommentResource\Pages;
-use App\Models\Comment;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Section;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -22,7 +18,7 @@ class CommentResource extends Resource
         return 'heroicon-o-chat-bubble-left-right';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Content';
     }
@@ -36,10 +32,11 @@ class CommentResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('is_approved')
-                    ->boolean()
-                    ->label('Approved'),
-                Textarea::make('body')->disabled(),
+                Section::make('Moderation')
+                    ->schema([
+                        Select::make('is_approved')->boolean()->label('Approved'),
+                        Textarea::make('body')->disabled()->rows(5),
+                    ]),
             ]);
     }
 
@@ -47,11 +44,14 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->label('User')->sortable(),
+                TextColumn::make('user.name')->label('User')->sortable()->searchable(),
                 TextColumn::make('commentable_type')->label('On')->formatStateUsing(fn ($s) => class_basename($s)),
-                TextColumn::make('body')->limit(60)->searchable(),
+                TextColumn::make('body')->limit(50)->searchable(),
                 IconColumn::make('is_approved')->boolean()->sortable(),
-                TextColumn::make('created_at')->dateTime('Y-m-d H:i')->sortable(),
+                TextColumn::make('created_at')->dateTime('M j, Y H:i')->sortable(),
+            ])
+            ->filters([
+                SelectFilter::make('is_approved')->options([true => 'Approved', false => 'Pending']),
             ])
             ->defaultSort('created_at', 'desc');
     }

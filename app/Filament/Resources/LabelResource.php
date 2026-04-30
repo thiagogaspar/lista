@@ -7,6 +7,7 @@ use App\Models\Label;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -41,21 +42,23 @@ class LabelResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')->required()->unique(ignoreRecord: true),
-                TextInput::make('country'),
-                TextInput::make('founded_year')->numeric(),
-                TextInput::make('website')->url()->suffixIcon('heroicon-o-globe-alt'),
-                FileUpload::make('logo')
-                    ->image()
-                    ->maxSize(5120)
-                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->directory('labels')
-                    ->label('Label Logo'),
-                RichEditor::make('description'),
+                Section::make('Basic Info')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                        TextInput::make('slug')->required()->unique(ignoreRecord: true),
+                        TextInput::make('country'),
+                        TextInput::make('founded_year')->numeric()->placeholder('e.g. 1988'),
+                        TextInput::make('website')->url()->suffixIcon('heroicon-o-globe-alt')->columnSpanFull(),
+                    ]),
+                Section::make('Media')
+                    ->schema([
+                        FileUpload::make('logo')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('labels')->label('Label Logo'),
+                        RichEditor::make('description'),
+                    ]),
             ]);
     }
 
@@ -63,11 +66,12 @@ class LabelResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('name')->searchable()->sortable()->weight('bold'),
+                ImageColumn::make('logo')->circular()->size(40),
                 TextColumn::make('country')->sortable(),
                 TextColumn::make('founded_year')->sortable(),
-                ImageColumn::make('logo')->circular()->size(40),
-                TextColumn::make('bands_count')->counts('bands')->sortable(),
+                TextColumn::make('bands_count')->counts('bands')->sortable()->label('Bands'),
+                TextColumn::make('created_at')->dateTime('Y-m-d')->sortable()->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),

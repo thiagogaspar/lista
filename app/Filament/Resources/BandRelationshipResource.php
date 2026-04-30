@@ -1,10 +1,4 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\BandRelationshipResource\Pages;
-use App\Models\BandRelationship;
-use BackedEnum;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -19,12 +13,12 @@ class BandRelationshipResource extends Resource
 {
     protected static ?string $model = BandRelationship::class;
 
-    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
+    public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
     {
         return 'heroicon-o-arrow-right-circle';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Relations';
     }
@@ -38,21 +32,15 @@ class BandRelationshipResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('parent_band_id')
-                    ->relationship('parentBand', 'name')
-                    ->searchable()
-                    ->required()
-                    ->label('Parent Band'),
-                Select::make('child_band_id')
-                    ->relationship('childBand', 'name')
-                    ->searchable()
-                    ->required()
-                    ->label('Child Band'),
-                Select::make('type')
-                    ->options(BandRelationship::types())
-                    ->required(),
-                Textarea::make('description'),
-                TextInput::make('year')->numeric(),
+                Section::make('Relationship')
+                    ->columns(2)
+                    ->schema([
+                        Select::make('parent_band_id')->relationship('parentBand', 'name')->searchable()->required()->label('Parent Band'),
+                        Select::make('child_band_id')->relationship('childBand', 'name')->searchable()->required()->label('Child Band'),
+                        Select::make('type')->options(BandRelationship::types())->required(),
+                        TextInput::make('year')->numeric(),
+                        Textarea::make('description')->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -60,12 +48,11 @@ class BandRelationshipResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('parentBand.name')->searchable()->sortable(),
-                TextColumn::make('type')
-                    ->formatStateUsing(fn ($state) => BandRelationship::types()[$state] ?? $state)
-                    ->sortable(),
+                TextColumn::make('parentBand.name')->searchable()->sortable()->weight('bold'),
+                TextColumn::make('type')->formatStateUsing(fn ($state) => BandRelationship::types()[$state] ?? $state)->badge()->sortable(),
                 TextColumn::make('childBand.name')->searchable()->sortable(),
                 TextColumn::make('year')->sortable(),
+                TextColumn::make('created_at')->dateTime('M j, Y')->sortable()->toggleable(),
             ])
             ->defaultSort('year', 'desc');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\BandsByGenreChart;
 use App\Filament\Widgets\LatestArtistsWidget;
 use App\Filament\Widgets\LatestBandsWidget;
 use App\Filament\Widgets\StatsOverview;
@@ -34,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors(['primary' => Color::Emerald])
             ->brandName('LISTA')
+            ->brandLogo(fn () => view('filament.brand'))
             ->favicon(asset('favicon.svg'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -42,6 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
                 StatsOverview::class,
+                BandsByGenreChart::class,
                 LatestBandsWidget::class,
                 LatestArtistsWidget::class,
             ])
@@ -61,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 CheckAdminRole::class.':admin',
-            ]);
+            ])
+            ->brandLogoHeight('2rem');
     }
 }

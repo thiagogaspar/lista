@@ -1,14 +1,10 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\EditSuggestionResource\Pages;
-use App\Models\EditSuggestion;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -21,7 +17,7 @@ class EditSuggestionResource extends Resource
         return 'heroicon-o-pencil-square';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Content';
     }
@@ -35,12 +31,15 @@ class EditSuggestionResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('status')
-                    ->options(['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'])
-                    ->required(),
-                Textarea::make('field')->disabled(),
-                Textarea::make('current_value')->disabled(),
-                Textarea::make('suggested_value')->disabled(),
+                Section::make('Review Suggestion')
+                    ->schema([
+                        Select::make('status')
+                            ->options(['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'])
+                            ->required(),
+                        Textarea::make('field')->disabled(),
+                        Textarea::make('current_value')->disabled()->rows(3),
+                        Textarea::make('suggested_value')->disabled()->rows(3),
+                    ]),
             ]);
     }
 
@@ -48,16 +47,19 @@ class EditSuggestionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->label('By')->sortable(),
+                TextColumn::make('user.name')->label('By')->searchable()->sortable(),
                 TextColumn::make('suggestable_type')->label('On')->formatStateUsing(fn ($s) => class_basename($s)),
-                TextColumn::make('field')->sortable(),
+                TextColumn::make('field')->sortable()->badge(),
                 TextColumn::make('status')->badge()->color(fn ($s) => match ($s) {
                     'pending' => 'warning',
                     'approved' => 'success',
                     'rejected' => 'danger',
                     default => 'gray',
                 })->sortable(),
-                TextColumn::make('created_at')->dateTime('Y-m-d')->sortable(),
+                TextColumn::make('created_at')->dateTime('M j, Y')->sortable(),
+            ])
+            ->filters([
+                SelectFilter::make('status')->options(['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected']),
             ])
             ->defaultSort('created_at', 'desc');
     }

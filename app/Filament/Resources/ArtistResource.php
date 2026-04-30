@@ -13,6 +13,7 @@ use Filament\Actions\ImportAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -50,40 +51,39 @@ class ArtistResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')->required()->unique(ignoreRecord: true),
-                FileUpload::make('hero_image')
-                    ->image()
-                    ->maxSize(5120)
-                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->directory('artists/hero')
-                    ->label('Hero Banner (1920×400)'),
-                FileUpload::make('photo')
-                    ->image()
-                    ->maxSize(5120)
-                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->directory('artists')
-                    ->label('Thumbnail (400×400)'),
-                RichEditor::make('bio'),
-                FileUpload::make('gallery')
-                    ->multiple()
-                    ->image()
-                    ->maxSize(5120)
-                    ->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->directory('artists/gallery')
-                    ->label('Gallery Images'),
-                DatePicker::make('birth_date'),
-                DatePicker::make('death_date'),
-                TextInput::make('origin'),
-                Select::make('tags')
-                    ->multiple()
-                    ->relationship('tags', 'name', fn ($q) => $q->where('is_approved', true))
-                    ->searchable()
-                    ->preload(),
-                Toggle::make('is_active')->default(true),
+                Section::make('Basic Info')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                        TextInput::make('slug')->required()->unique(ignoreRecord: true),
+                        RichEditor::make('bio')->columnSpanFull(),
+                    ]),
+                Section::make('Images')
+                    ->columns(3)
+                    ->collapsible()
+                    ->schema([
+                        FileUpload::make('hero_image')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('artists/hero')->label('Hero Banner'),
+                        FileUpload::make('photo')->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('artists')->label('Thumbnail'),
+                        FileUpload::make('gallery')->multiple()->image()->maxSize(5120)->mimeTypes(['image/jpeg', 'image/png', 'image/webp'])->directory('artists/gallery')->label('Gallery'),
+                    ]),
+                Section::make('Details')
+                    ->columns(3)
+                    ->schema([
+                        DatePicker::make('birth_date'),
+                        DatePicker::make('death_date'),
+                        TextInput::make('origin'),
+                    ]),
+                Section::make('Classification')
+                    ->schema([
+                        Select::make('tags')->multiple()->relationship('tags', 'name', fn ($q) => $q->where('is_approved', true))->searchable()->preload(),
+                    ]),
+                Section::make('Status')
+                    ->schema([
+                        Toggle::make('is_active')->default(true),
+                    ]),
             ]);
     }
 
@@ -91,19 +91,16 @@ class ArtistResource extends Resource
     {
         return $table
             ->headerActions([
-                ImportAction::make()
-                    ->importer(ArtistImporter::class)
-                    ->label('Import CSV'),
-                ExportAction::make()
-                    ->exporter(ArtistExporter::class)
-                    ->label('Export CSV'),
+                ImportAction::make()->importer(ArtistImporter::class)->label('Import CSV'),
+                ExportAction::make()->exporter(ArtistExporter::class)->label('Export CSV'),
             ])
             ->columns([
-                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('name')->searchable()->sortable()->weight('bold'),
                 ImageColumn::make('photo')->circular()->size(40),
-                TextColumn::make('origin')->sortable(),
-                IconColumn::make('is_active')->boolean(),
-                TextColumn::make('created_at')->dateTime()->sortable(),
+                TextColumn::make('origin')->searchable()->sortable(),
+                TextColumn::make('bands')->counts('bands')->sortable()->label('Bands')->toggleable(),
+                IconColumn::make('is_active')->boolean()->toggleable(),
+                TextColumn::make('created_at')->dateTime('Y-m-d')->sortable()->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),

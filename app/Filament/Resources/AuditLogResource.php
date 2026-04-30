@@ -1,12 +1,7 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\AuditLogResource\Pages;
-use App\Models\AuditLog;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -19,7 +14,7 @@ class AuditLogResource extends Resource
         return 'heroicon-o-document-text';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'System';
     }
@@ -38,18 +33,21 @@ class AuditLogResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('created_at')->dateTime('Y-m-d H:i')->sortable(),
-                TextColumn::make('user.name')->label('User')->sortable(),
-                TextColumn::make('auditable_type')->label('Type')->sortable()->formatStateUsing(fn ($s) => class_basename($s)),
+                TextColumn::make('created_at')->dateTime('M j, Y H:i')->sortable()->label('Time')->weight('bold'),
+                TextColumn::make('user.name')->label('User')->searchable()->sortable(),
+                TextColumn::make('auditable_type')->label('Type')->formatStateUsing(fn ($s) => class_basename($s))->badge()->color('gray'),
                 TextColumn::make('event')->badge()->color(fn ($s) => match ($s) {
                     'created' => 'success',
                     'updated' => 'warning',
                     'deleted' => 'danger',
                     'restored' => 'info',
                     default => 'gray',
-                }),
+                })->sortable(),
                 TextColumn::make('auditable_id')->label('ID')->sortable(),
-                TextColumn::make('ip_address')->label('IP')->toggleable(),
+                TextColumn::make('ip_address')->label('IP')->toggleable()->toggledHiddenByDefault(),
+            ])
+            ->filters([
+                SelectFilter::make('event')->options(['created' => 'Created', 'updated' => 'Updated', 'deleted' => 'Deleted', 'restored' => 'Restored']),
             ])
             ->defaultSort('created_at', 'desc');
     }

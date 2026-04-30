@@ -1,10 +1,4 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\BandArtistResource\Pages;
-use App\Models\BandArtist;
-use BackedEnum;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -20,12 +14,12 @@ class BandArtistResource extends Resource
 {
     protected static ?string $model = BandArtist::class;
 
-    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
+    public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
     {
         return 'heroicon-o-user-plus';
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Relations';
     }
@@ -39,18 +33,16 @@ class BandArtistResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('band_id')
-                    ->relationship('band', 'name')
-                    ->searchable()
-                    ->required(),
-                Select::make('artist_id')
-                    ->relationship('artist', 'name')
-                    ->searchable()
-                    ->required(),
-                TextInput::make('role')->placeholder('Vocalist, Guitarist...'),
-                TextInput::make('joined_year')->numeric(),
-                TextInput::make('left_year')->numeric(),
-                Toggle::make('is_current')->default(false),
+                Section::make('Membership')
+                    ->columns(2)
+                    ->schema([
+                        Select::make('band_id')->relationship('band', 'name')->searchable()->required(),
+                        Select::make('artist_id')->relationship('artist', 'name')->searchable()->required(),
+                        TextInput::make('role')->placeholder('Vocalist, Guitarist...'),
+                        TextInput::make('joined_year')->numeric(),
+                        TextInput::make('left_year')->numeric(),
+                        Toggle::make('is_current')->default(false),
+                    ]),
             ]);
     }
 
@@ -58,11 +50,12 @@ class BandArtistResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('band.name')->searchable()->sortable(),
+                TextColumn::make('band.name')->searchable()->sortable()->weight('bold'),
                 TextColumn::make('artist.name')->searchable()->sortable(),
-                TextColumn::make('role')->sortable(),
+                TextColumn::make('role')->badge()->sortable(),
                 TextColumn::make('joined_year')->sortable(),
-                IconColumn::make('is_current')->boolean(),
+                TextColumn::make('left_year')->sortable()->placeholder('present'),
+                IconColumn::make('is_current')->boolean()->sortable(),
             ])
             ->defaultSort('band_id', 'asc');
     }
