@@ -8,12 +8,21 @@ use Illuminate\Http\Request;
 
 class EditSuggestionController extends Controller
 {
+    private const ALLOWED_FIELDS = [
+        'name', 'bio', 'origin', 'formed_year', 'dissolved_year',
+        'website', 'description', 'genre', 'photo',
+    ];
+
     public function store(Request $request)
     {
         $data = $request->validate([
             'suggestable_type' => 'required|in:band,artist',
             'suggestable_id' => 'required|integer',
-            'field' => 'required|string|max:100',
+            'field' => ['required', 'string', 'max:100', function ($attr, $value, $fail) {
+                if (! in_array($value, self::ALLOWED_FIELDS)) {
+                    $fail('The selected field cannot be suggested for editing.');
+                }
+            }],
             'suggested_value' => 'required|string|max:5000',
         ]);
 

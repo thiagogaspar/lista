@@ -22,7 +22,7 @@ class SecurityHeaders
         }
 
         $csp = "default-src 'self'; ".
-               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; ".
+               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; ".
                "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://cdn.jsdelivr.net; ".
                "img-src 'self' data: https://picsum.photos https://*.picsum.photos https://via.placeholder.com; ".
                "font-src 'self' https://fonts.bunny.net; ".

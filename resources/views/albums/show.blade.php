@@ -1,10 +1,23 @@
 @extends('layouts.app')
 
 @section('head')
+@php
+if (!isset($seo)) {
+    $seo = new \App\Values\SeoData(
+        title: $album->title . ' — ' . $album->band->name,
+        description: $album->description ? Str::limit(strip_tags($album->description), 160) : $album->title . ' by ' . $album->band->name,
+        type: 'music.album',
+        image: $album->cover_art ? \Illuminate\Support\Facades\Storage::url($album->cover_art) : null,
+        canonical: route('albums.show', $album),
+    );
+}
+@endphp
 <x-seo-meta :seo="$seo" />
-<link rel="preload" href="{{ $album->cover_art ? Storage::url($album->cover_art) : '' }}" as="image" fetchpriority="high">
+@if($album->cover_art)
+<link rel="preload" href="{{ Storage::url($album->cover_art) }}" as="image" fetchpriority="high">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="{{ $album->cover_art ? Storage::url($album->cover_art) : '' }}">
+<meta name="twitter:image" content="{{ Storage::url($album->cover_art) }}">
+@endif
 @endsection
 
 @section('content')

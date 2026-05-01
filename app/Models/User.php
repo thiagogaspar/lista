@@ -17,6 +17,10 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $fillable = ['name', 'email', 'password', 'role'];
+
+    protected $hidden = ['password', 'remember_token'];
+
     const ROLE_ADMIN = 'admin';
 
     const ROLE_EDITOR = 'editor';

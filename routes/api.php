@@ -12,5 +12,7 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('/artists', [ArtistController::class, 'index']);
     Route::get('/artists/{slug}', [ArtistController::class, 'show']);
     Route::get('/genres', [GenreController::class, 'index']);
+    Route::get('/genres/{slug}', [GenreController::class, 'show']);
     Route::get('/labels', [LabelController::class, 'index']);
+    Route::get('/labels/{slug}', [LabelController::class, 'show']);
 });

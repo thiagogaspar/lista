@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
@@ -68,6 +69,9 @@ class TagResource extends Resource
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('is_approved')
+                    ->options([true => 'Approved', false => 'Pending'])
+                    ->label('Status'),
             ])
             ->defaultSort('name', 'asc');
     }

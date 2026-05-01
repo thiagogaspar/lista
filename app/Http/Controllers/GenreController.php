@@ -12,10 +12,14 @@ class GenreController extends Controller
     {
         $genre = Genre::where('slug', $slug)->firstOrFail();
 
+        $allowedSorts = ['name', 'formed_year', 'created_at', 'origin', 'genre'];
+        $sort = in_array($request->get('sort', 'name'), $allowedSorts) ? $request->get('sort') : 'name';
+        $dir = in_array(strtolower($request->get('dir', 'asc')), ['asc', 'desc']) ? $request->get('dir') : 'asc';
+
         $bands = $service->getPaginated(
             filters: ['genre' => $slug] + $request->only(['year', 'origin', 'search', 'label']),
-            sort: $request->get('sort', 'name'),
-            dir: $request->get('dir', 'asc'),
+            sort: $sort,
+            dir: $dir,
         );
 
         return view('bands.index', [
@@ -24,8 +28,8 @@ class GenreController extends Controller
             'labels' => $service->getLabels(),
             'origins' => $service->getOrigins(),
             'filters' => ['genre' => $slug],
-            'sort' => $request->get('sort', 'name'),
-            'dir' => $request->get('dir', 'asc'),
+            'sort' => $sort,
+            'dir' => $dir,
             'genreName' => $genre->name,
         ]);
     }

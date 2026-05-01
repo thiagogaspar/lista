@@ -112,6 +112,7 @@ class BandResource extends Resource
             ])
             ->filters([
                 TrashedFilter::make(),
+                // TODO: Add genre, label, origin, is_active filters
             ])
             ->defaultSort('name', 'asc');
     }

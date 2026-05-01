@@ -1,8 +1,21 @@
 @extends('layouts.app')
 
 @section('head')
+@php
+if (!isset($seo)) {
+    $seo = new \App\Values\SeoData(
+        title: $label->name,
+        description: Str::limit(strip_tags($label->description ?? $label->name . ' — record label.'), 160),
+        type: 'organization',
+        image: $label->logo ? \Illuminate\Support\Facades\Storage::url($label->logo) : null,
+        canonical: route('labels.show', $label),
+    );
+}
+@endphp
 <x-seo-meta :seo="$seo" />
-<link rel="preload" href="{{ $label->logo ? Storage::url($label->logo) : '' }}" as="image" fetchpriority="high">
+@if($label->logo)
+<link rel="preload" href="{{ Storage::url($label->logo) }}" as="image" fetchpriority="high">
+@endif
 @endsection
 
 @section('content')

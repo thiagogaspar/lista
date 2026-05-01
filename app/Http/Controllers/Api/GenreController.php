@@ -12,4 +12,9 @@ class GenreController extends Controller
     {
         return GenreResource::collection(Genre::all());
     }
+
+    public function show(string $slug)
+    {
+        return new GenreResource(Genre::where('slug', $slug)->with('bands')->firstOrFail());
+    }
 }

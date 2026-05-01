@@ -31,6 +31,10 @@ $seo = new \App\Values\SeoData(title: 'My Profile', description: 'Your LISTA pro
                     <p class="text-[10px] text-surface-400 uppercase tracking-wider mt-1">Joined {{ $user->created_at->format('M Y') }}</p>
                 </div>
             </div>
+            <div class="mt-4 pt-4 space-y-2">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-ghost btn-sm w-full justify-center text-xs">Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+            </div>
             <div class="mt-4 pt-4 border-t border-surface-200 dark:border-ink-700 space-y-2 text-xs">
                 <div class="flex justify-between"><span class="text-surface-400">Favorites</span><span class="font-bold text-surface-700 dark:text-ink-200">{{ $user->favorites->count() }}</span></div>
                 <div class="flex justify-between"><span class="text-surface-400">Suggestions</span><span class="font-bold text-surface-700 dark:text-ink-200">{{ $suggestions->count() }}</span></div>

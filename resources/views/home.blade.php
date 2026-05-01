@@ -112,7 +112,7 @@ $seo = new \App\Values\SeoData(
         <a href="{{ route('bands.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-        @foreach($featuredBands as $band)
+        @forelse($featuredBands as $band)
             <a href="{{ route('bands.show', $band) }}" class="block group">
                 <div class="card card-hover h-full bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
@@ -136,7 +136,9 @@ $seo = new \App\Values\SeoData(
                     </div>
                 </div>
             </a>
-        @endforeach
+        @empty
+            <p class="col-span-full text-sm text-surface-400 text-center py-8">No featured bands yet.</p>
+        @endforelse
     </div>
 </section>
 
@@ -150,7 +152,7 @@ $seo = new \App\Values\SeoData(
         <a href="{{ route('artists.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-        @foreach($featuredArtists as $artist)
+        @forelse($featuredArtists as $artist)
             <a href="{{ route('artists.show', $artist) }}" class="block group">
                 <div class="card card-hover h-full bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
@@ -166,7 +168,9 @@ $seo = new \App\Values\SeoData(
                     </div>
                 </div>
             </a>
-        @endforeach
+        @empty
+            <p class="col-span-full text-sm text-surface-400 text-center py-8">No featured artists yet.</p>
+        @endforelse
     </div>
 </section>
 

@@ -41,6 +41,11 @@ class Artist extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
+    public function approvedTags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->where('is_approved', true);
+    }
+
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');

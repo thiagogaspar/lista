@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CommentResource\Pages;
 use App\Models\Comment;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -40,7 +41,10 @@ class CommentResource extends Resource
             ->components([
                 Section::make('Moderation')
                     ->schema([
-                        Select::make('is_approved')->boolean()->label('Approved'),
+                        Select::make('is_approved')
+                            ->options([1 => 'Approved', 0 => 'Pending'])
+                            ->native(false)
+                            ->label('Approved'),
                         Textarea::make('body')->disabled()->rows(5),
                     ]),
             ]);

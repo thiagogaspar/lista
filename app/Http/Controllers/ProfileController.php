@@ -25,10 +25,11 @@ class ProfileController extends Controller
 
     public function show(User $user): View
     {
-        $user->load([
-            'favorites.favoriteable',
-            'comments' => fn ($q) => $q->where('is_approved', true)->with('commentable')->latest(),
-        ]);
+        if (auth()->check() && (auth()->id() === $user->id || auth()->user()->isAdmin())) {
+            $user->load(['favorites.favoriteable', 'comments.commentable']);
+        } else {
+            $user->load(['favorites.favoriteable', 'comments' => fn ($q) => $q->where('is_approved', true)->with('commentable')->latest()]);
+        }
 
         return view('profile.show', compact('user'));
     }

@@ -12,4 +12,9 @@ class LabelController extends Controller
     {
         return LabelResource::collection(Label::withCount('bands')->get());
     }
+
+    public function show(string $slug)
+    {
+        return new LabelResource(Label::where('slug', $slug)->with('bands')->firstOrFail());
+    }
 }

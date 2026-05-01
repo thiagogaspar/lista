@@ -105,6 +105,7 @@ class ArtistResource extends Resource
             ])
             ->filters([
                 TrashedFilter::make(),
+                // TODO: Add origin, is_active filters
             ])
             ->defaultSort('name', 'asc');
     }

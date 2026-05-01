@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LabelResource\Pages;
+use App\Filament\Resources\LabelResource\RelationManagers\BandRelationManager;
 use App\Models\Label;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
@@ -93,6 +94,13 @@ class LabelResource extends Resource
     public static function canRestore(Model $model): bool
     {
         return auth()->user()->isEditor();
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            BandRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

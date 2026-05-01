@@ -68,7 +68,7 @@ $seo = new \App\Values\SeoData(
                         @if($artist->origin)
                         <span class="badge badge-surface">{{ $artist->origin }}</span>
                         @endif
-                        @foreach($artist->tags->where('is_approved', true) as $tag)
+                        @foreach($artist->approvedTags as $tag)
                         <span class="badge badge-accent">{{ $tag->name }}</span>
                         @endforeach
                     </div>
@@ -91,14 +91,20 @@ $seo = new \App\Values\SeoData(
         @endif
 
         <!-- Gallery -->
-        <div class="mt-6">
+        <div class="mt-6" x-data="{ lightbox: null }">
             <div class="grid grid-cols-3 gap-2">
                 @foreach(collect(is_array($gallery) ? $gallery : $gallery->toArray())->take(3) as $img)
-                <div class="aspect-[4/3] overflow-hidden" style="border:1px solid var(--color-surface-200)">
-                    <img src="{{ $img }}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" sizes="(max-width:640px) 50vw, 33vw" width="400" height="300">
+                <div class="aspect-[4/3] overflow-hidden cursor-pointer group" @click="lightbox = '{{ $img }}'" style="border:1px solid var(--color-surface-200)">
+                    <img src="{{ $img }}" alt="Gallery image" class="w-full h-full object-cover transition-transform group-hover:scale-105" loading="lazy" decoding="async" sizes="(max-width:640px) 50vw, 33vw" width="400" height="300">
                 </div>
                 @endforeach
             </div>
+            <template x-teleport="body">
+                <div x-show="lightbox" x-cloak class="fixed inset-0 z-[60] bg-ink/95 flex items-center justify-center p-4" @click="lightbox = null" @keydown.escape="lightbox = null">
+                    <img :src="lightbox" :alt="'Enlarged image'" class="max-w-full max-h-full object-contain" @click.stop style="border:1px solid var(--color-surface-700)">
+                    <button class="absolute top-4 right-4 text-white/70 hover:text-white text-2xl font-bold" @click="lightbox = null">&times;</button>
+                </div>
+            </template>
         </div>
 
         <!-- Band History Timeline -->

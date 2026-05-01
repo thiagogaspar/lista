@@ -2,7 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Band;
+use App\Models\Genre;
 use Filament\Widgets\ChartWidget;
 
 class BandsByGenreChart extends ChartWidget
@@ -11,12 +11,10 @@ class BandsByGenreChart extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Band::selectRaw('genre, count(*) as count')
-            ->whereNotNull('genre')
-            ->groupBy('genre')
-            ->orderByDesc('count')
+        $data = Genre::withCount('bands')
+            ->orderByDesc('bands_count')
             ->limit(15)
-            ->pluck('count', 'genre');
+            ->pluck('bands_count', 'name');
 
         return [
             'datasets' => [

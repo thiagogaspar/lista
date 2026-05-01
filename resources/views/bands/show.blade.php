@@ -76,7 +76,7 @@ $seo = new \App\Values\SeoData(
                         </a>
                         @endif
                         <div class="flex flex-wrap gap-1.5 mt-2">
-                            @foreach($band->tags->where('is_approved', true) as $tag)
+                            @foreach($band->approvedTags as $tag)
                             <span class="badge badge-accent">{{ $tag->name }}</span>
                             @endforeach
                         </div>
