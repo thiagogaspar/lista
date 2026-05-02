@@ -71,44 +71,37 @@ $seo = new \App\Values\SeoData(
     </div>
 </div>
 
-<!-- Bandcamp-style card grid -->
-<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<!-- Classifieds-style list -->
+<div class="divide-y divide-surface-200 dark:divide-ink-700 border-t border-surface-200 dark:border-ink-700">
     @forelse($bands as $band)
-        <a href="{{ route('bands.show', $band) }}" class="block group">
-            <div class="card-bandcamp">
-                <div class="aspect-square overflow-hidden">
-                    @if($band->photo)
-                    <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-full h-full object-cover" loading="lazy">
-                    @else
-                    <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-600">
-                        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                    </div>
-                    @endif
-                    <div class="card-bandcamp-overlay">
-                        <span class="text-white text-2xl font-light opacity-0 group-hover:opacity-100">&rarr;</span>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-2">
-                <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $band->name }}</h3>
-                <div class="flex flex-wrap gap-1 mt-0.5">
+        <a href="{{ route('bands.show', $band) }}" class="flex items-start gap-3 py-3 px-2 -mx-2 hover:bg-surface-100 dark:hover:bg-ink-800/50 transition-colors group">
+            @if($band->photo)
+            <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-10 h-10 object-cover shrink-0 mt-0.5" loading="lazy">
+            @endif
+            <div class="min-w-0 flex-1">
+                <h2 class="text-base font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $band->name }}</h2>
+                <div class="text-xs text-surface-500 dark:text-ink-500 mt-0.5 leading-relaxed">
                     @if($band->formed_year)
-                    <span class="text-[10px] font-semibold text-surface-400 dark:text-ink-500">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>
+                    <span>{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span><span class="mx-1">&middot;</span>
                     @endif
-                    @foreach($band->genres->take(2) as $genre)
-                    <span class="text-[10px] text-surface-400 dark:text-ink-500">{{ $genre->name }}</span>
+                    @foreach($band->genres->take(3) as $genre)
+                    <span>{{ $genre->name }}</span>@if(!$loop->last), @endif
                     @endforeach
-                </div>
-                <div class="flex items-center gap-2 mt-0.5">
-                    <span class="text-[9px] text-surface-400 dark:text-ink-600 font-semibold">{{ $band->artists_count }} member{{ $band->artists_count !== 1 ? 's' : '' }}</span>
                     @if($band->origin)
-                    <span class="text-[9px] text-surface-400 dark:text-ink-600 uppercase tracking-wider">{{ $band->origin }}</span>
+                    <span class="mx-1">&middot;</span><span>{{ $band->origin }}</span>
+                    @endif
+                </div>
+                <div class="text-[11px] text-surface-400 dark:text-ink-600 mt-0.5">
+                    <span>{{ $band->artists_count }} member{{ $band->artists_count !== 1 ? 's' : '' }}</span>
+                    @if($band->label)
+                    <span class="mx-1.5">&middot;</span><span>{{ $band->label->name }}</span>
                     @endif
                 </div>
             </div>
+            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
         </a>
     @empty
-        <div class="col-span-full text-center py-16">
+        <div class="text-center py-16">
             <p class="text-surface-500 mb-4">No bands found.</p>
             <a href="/admin/bands/create" class="btn btn-brand">Add First Band</a>
         </div>

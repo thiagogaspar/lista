@@ -38,30 +38,28 @@ $seo = new \App\Values\SeoData(
     </div>
 </div>
 
-<!-- Bandcamp-style card grid -->
-<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<!-- Classifieds-style list -->
+<div class="divide-y divide-surface-200 dark:divide-ink-700 border-t border-surface-200 dark:border-ink-700">
     @forelse($artists as $artist)
-        <a href="{{ route('artists.show', $artist) }}" class="block group">
-            <div class="card-bandcamp">
-                <div class="aspect-square overflow-hidden">
-                    @if($artist->photo)
-                    <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full h-full object-cover" loading="lazy">
-                    @else
-                    <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-600">
-                        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    </div>
+        <a href="{{ route('artists.show', $artist) }}" class="flex items-start gap-3 py-3 px-2 -mx-2 hover:bg-surface-100 dark:hover:bg-ink-800/50 transition-colors group">
+            @if($artist->photo)
+            <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-10 h-10 object-cover shrink-0 mt-0.5" loading="lazy">
+            @endif
+            <div class="min-w-0 flex-1">
+                <h2 class="text-base font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $artist->name }}</h2>
+                <div class="text-xs text-surface-500 dark:text-ink-500 mt-0.5 leading-relaxed">
+                    @if($artist->origin)
+                    <span>{{ $artist->origin }}</span>
                     @endif
-                    <div class="card-bandcamp-overlay">
-                        <span class="text-white text-2xl font-light opacity-0 group-hover:opacity-100">&rarr;</span>
-                    </div>
+                    @if($artist->birth_date)
+                    <span class="mx-1">&middot;</span><span>{{ $artist->birth_date->format('Y') }}@if($artist->death_date)&ndash;{{ $artist->death_date->format('Y') }}@endif</span>
+                    @endif
+                </div>
+                <div class="text-[11px] text-surface-400 dark:text-ink-600 mt-0.5">
+                    <span>{{ $artist->bands->count() }} band{{ $artist->bands->count() !== 1 ? 's' : '' }}</span>
                 </div>
             </div>
-            <div class="mt-2">
-                <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $artist->name }}</h3>
-                @if($artist->origin)
-                <p class="text-[9px] text-surface-400 dark:text-ink-600 mt-0.5 uppercase tracking-wider font-semibold">{{ $artist->origin }}</p>
-                @endif
-            </div>
+            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
         </a>
     @empty
         <div class="col-span-full text-center py-16">

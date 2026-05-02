@@ -85,122 +85,98 @@ $geo = match ($heroBand?->genres->first()?->slug) {
 </div>
 
 <div class="max-w-6xl mx-auto px-4">
-<div class="mb-12 max-w-2xl mx-auto text-center">
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-surface-900 dark:text-ink-200 leading-none tracking-tight">
+<div class="mb-10 max-w-2xl mx-auto text-center">
+    <h1 class="text-3xl sm:text-4xl font-black text-surface-900 dark:text-ink-200 leading-tight tracking-tight">
         {{ __('common.home.local') }} <span class="text-brand-600 dark:text-brand-500">{{ __('common.home.music') }}</span> {{ __('common.home.genealogy') }}
     </h1>
-    <p class="mt-4 text-surface-500 dark:text-ink-400 text-base leading-relaxed max-w-lg mx-auto">
+    <p class="mt-3 text-surface-500 dark:text-ink-400 text-sm max-w-md mx-auto">
         {{ __('common.home.subtitle') }}
     </p>
-    <div class="flex items-center justify-center gap-4 mt-6">
+    <div class="flex items-center justify-center gap-3 mt-5">
         <a href="{{ route('bands.index') }}" class="btn btn-brand">{{ __('common.home.browse_bands') }}</a>
         <a href="{{ route('genealogy') }}" class="btn btn-ghost">{{ __('common.home.view_graph') }}</a>
     </div>
 </div>
 
 <!-- Featured Bands -->
-<section class="mb-14">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_bands') }}</h2>
-        <a href="{{ route('bands.index') }}" class="text-xs font-semibold text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
+<section class="mb-10">
+    <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-surface-700 dark:text-ink-300">{{ __('common.home.featured_bands') }}</h2>
+        <a href="{{ route('bands.index') }}" class="text-xs text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="divide-y divide-surface-200 dark:divide-ink-700 border-t border-b border-surface-200 dark:border-ink-700">
         @forelse($featuredBands as $band)
-            <a href="{{ route('bands.show', $band) }}" class="block group">
-                <div class="card-bandcamp">
-                    <div class="aspect-square overflow-hidden">
-                        @if($band->photo)
-                        <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-full h-full object-cover" loading="lazy">
-                        @else
-                        <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-600">
-                            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                        </div>
-                        @endif
-                        <div class="card-bandcamp-overlay">
-                            <span class="text-white text-2xl font-light opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
-                        </div>
+            <a href="{{ route('bands.show', $band) }}" class="flex items-start gap-3 py-2.5 px-1 -mx-1 hover:bg-surface-100 dark:hover:bg-ink-800/50 group">
+                @if($band->photo)
+                <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-9 h-9 object-cover shrink-0 mt-0.5" loading="lazy">
+                @endif
+                <div class="min-w-0 flex-1">
+                    <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $band->name }}</h3>
+                    <div class="text-[11px] text-surface-500 dark:text-ink-500 mt-0.5">
+                        @if($band->formed_year)<span>{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>@endif
+                        @foreach($band->genres->take(2) as $genre)<span class="ml-1">{{ $genre->name }}</span>@endforeach
+                        @if($band->origin)<span class="ml-1">&middot; {{ $band->origin }}</span>@endif
                     </div>
                 </div>
-                <div class="mt-2">
-                    <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $band->name }}</h3>
-                    <div class="flex flex-wrap gap-1 mt-0.5">
-                        @if($band->formed_year)
-                        <span class="text-[10px] font-semibold text-surface-400 dark:text-ink-500">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>
-                        @endif
-                        @foreach($band->genres->take(2) as $genre)
-                        <span class="text-[10px] text-surface-400 dark:text-ink-500">{{ $genre->name }}</span>
-                        @endforeach
-                    </div>
-                    @if($band->origin)
-                    <p class="text-[9px] text-surface-400 dark:text-ink-600 mt-0.5 uppercase tracking-wider font-semibold">{{ $band->origin }}</p>
-                    @endif
-                </div>
+                <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
             </a>
         @empty
-            <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_featured_bands') }}</p>
+            <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_featured_bands') }}</p>
         @endforelse
     </div>
 </section>
 
 <!-- Featured Artists -->
-<section class="mb-14">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_artists') }}</h2>
-        <a href="{{ route('artists.index') }}" class="text-xs font-semibold text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
+<section class="mb-10">
+    <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-surface-700 dark:text-ink-300">{{ __('common.home.featured_artists') }}</h2>
+        <a href="{{ route('artists.index') }}" class="text-xs text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="divide-y divide-surface-200 dark:divide-ink-700 border-t border-b border-surface-200 dark:border-ink-700">
         @forelse($featuredArtists as $artist)
-            <a href="{{ route('artists.show', $artist) }}" class="block group">
-                <div class="card-bandcamp">
-                    <div class="aspect-square overflow-hidden">
-                        @if($artist->photo)
-                        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full h-full object-cover" loading="lazy">
-                        @else
-                        <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-600">
-                            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                        </div>
-                        @endif
-                        <div class="card-bandcamp-overlay">
-                            <span class="text-white text-2xl font-light opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
-                        </div>
+            <a href="{{ route('artists.show', $artist) }}" class="flex items-start gap-3 py-2.5 px-1 -mx-1 hover:bg-surface-100 dark:hover:bg-ink-800/50 group">
+                @if($artist->photo)
+                <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-9 h-9 object-cover shrink-0 mt-0.5" loading="lazy">
+                @endif
+                <div class="min-w-0 flex-1">
+                    <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $artist->name }}</h3>
+                    <div class="text-[11px] text-surface-500 dark:text-ink-500 mt-0.5">
+                        @if($artist->origin)<span>{{ $artist->origin }}</span>@endif
                     </div>
                 </div>
-                <div class="mt-2">
-                    <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $artist->name }}</h3>
-                    @if($artist->origin)
-                    <p class="text-[9px] text-surface-400 dark:text-ink-600 mt-0.5 uppercase tracking-wider font-semibold">{{ $artist->origin }}</p>
-                    @endif
-                </div>
+                <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
             </a>
         @empty
-            <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_featured_artists') }}</p>
+            <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_featured_artists') }}</p>
         @endforelse
     </div>
 </section>
 
 <!-- Featured Labels -->
-<section class="mb-14">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.labels') }}</h2>
-        <a href="{{ route('labels.index') }}" class="text-xs font-semibold text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
+<section class="mb-10">
+    <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-surface-700 dark:text-ink-300">{{ __('common.home.labels') }}</h2>
+        <a href="{{ route('labels.index') }}" class="text-xs text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div class="divide-y divide-surface-200 dark:divide-ink-700 border-t border-b border-surface-200 dark:border-ink-700">
         @forelse($featuredLabels as $label)
-        <a href="{{ route('labels.show', $label) }}" class="block group">
-            <div class="card p-5 text-center">
-                @if($label->logo)
-                <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="h-16 mx-auto object-contain mb-3" loading="lazy">
-                @else
-                <div class="w-16 h-16 mx-auto bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-400 dark:text-ink-400 text-lg font-bold mb-3">
-                    {{ $label->name[0] }}
+        <a href="{{ route('labels.show', $label) }}" class="flex items-start gap-3 py-2.5 px-1 -mx-1 hover:bg-surface-100 dark:hover:bg-ink-800/50 group">
+            @if($label->logo)
+            <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="w-9 h-9 object-contain shrink-0 mt-0.5" loading="lazy">
+            @else
+            <div class="w-9 h-9 shrink-0 bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-400 dark:text-ink-500 text-xs font-bold mt-0.5">{{ $label->name[0] }}</div>
+            @endif
+            <div class="min-w-0 flex-1">
+                <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $label->name }}</h3>
+                <div class="text-[11px] text-surface-500 dark:text-ink-500 mt-0.5">
+                    <span>{{ $label->bands_count }} band{{ $label->bands_count !== 1 ? 's' : '' }}</span>
+                    @if($label->country)<span class="ml-1">&middot; {{ $label->country }}</span>@endif
                 </div>
-                @endif
-                <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $label->name }}</h3>
-                <p class="text-[10px] text-surface-400 dark:text-ink-500 mt-1 font-semibold">{{ $label->bands_count }} band{{ $label->bands_count !== 1 ? 's' : '' }}</p>
             </div>
+            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
         </a>
         @empty
-        <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_labels') }}</p>
+        <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_labels') }}</p>
         @endforelse
     </div>
 </section>
