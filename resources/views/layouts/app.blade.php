@@ -28,7 +28,7 @@
         .skip-link:focus { top: 0; }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="min-h-screen font-sans antialiased bg-surface-50 dark:bg-ink text-surface-900 dark:text-ink-200">
     <a href="#main-content" class="skip-link">{{ __('common.skip_to_content') }}</a>
 
     <header class="sticky top-0 z-50 border-b border-surface-200 dark:border-ink-700 bg-white dark:bg-ink-900" x-data="{ menu: false }" role="banner">
