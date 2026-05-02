@@ -42,6 +42,7 @@
                 <a href="{{ route('bands.index') }}" class="px-3 py-1.5 font-medium text-surface-500 dark:text-ink-400 hover:text-brand-600 dark:hover:text-brand-400 {{ request()->routeIs('bands.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.bands') }}</a>
                 <a href="{{ route('artists.index') }}" class="px-3 py-1.5 font-medium text-surface-500 dark:text-ink-400 hover:text-brand-600 dark:hover:text-brand-400 {{ request()->routeIs('artists.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.artists') }}</a>
                 <a href="{{ route('genealogy') }}" class="px-3 py-1.5 font-medium text-surface-500 dark:text-ink-400 hover:text-brand-600 dark:hover:text-brand-400 {{ request()->routeIs('genealogy') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.genealogy') }}</a>
+                <a href="{{ route('blog.index') }}" class="px-3 py-1.5 font-medium text-surface-500 dark:text-ink-400 hover:text-brand-600 dark:hover:text-brand-400 {{ request()->routeIs('blog.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.blog') }}</a>
                 @auth
                 <a href="{{ route('favorites.index') }}" class="px-3 py-1.5 font-medium text-surface-500 dark:text-ink-400 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.favorites') }}</a>
                 @endauth
@@ -137,6 +138,7 @@
                 <a href="{{ route('bands.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-medium">{{ __('common.nav.bands') }}</a>
                 <a href="{{ route('artists.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-medium">{{ __('common.nav.artists') }}</a>
                 <a href="{{ route('genealogy') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-medium">{{ __('common.nav.genealogy') }}</a>
+                <a href="{{ route('blog.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-medium">{{ __('common.nav.blog') }}</a>
                 @auth
                 <a href="{{ route('favorites.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 font-medium">{{ __('common.nav.favorites') }}</a>
                 @endauth
