@@ -75,26 +75,11 @@
     --color-ink-50: #f2f2ec;
 }
 
-/* === Base === */
+/* === Base (scoped to frontend) === */
 @layer base {
     html {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-        font-family: var(--font-sans);
-        background-color: var(--color-surface-50);
-        color: var(--color-surface-900);
-    }
-    .dark body {
-        background-color: var(--color-ink);
-        color: var(--color-ink-200);
-    }
-
-    ::selection {
-        background-color: var(--color-brand-500);
-        color: white;
     }
 }
 
