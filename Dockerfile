@@ -2,7 +2,7 @@ FROM dunglas/frankenphp:1-php8.4-bookworm
 
 ARG APP_KEY
 ARG APP_ENV=production
-ARG APP_DEBUG=true
+ENV APP_DEBUG=true
 
 RUN install-php-extensions pdo_mysql mysqli mbstring intl zip gd opcache @composer
 
