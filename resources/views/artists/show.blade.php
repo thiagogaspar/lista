@@ -40,8 +40,10 @@ $seo = new \App\Values\SeoData(
         <div class="absolute w-[12vmin] h-[12vmin] rounded-full bg-warm-500/15 bottom-[30%] left-[10%]"></div>
     </div>
     <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
-    <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-8">
-        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $artist->name }}</h1>
+    <div class="relative z-10 flex flex-col justify-end h-full">
+        <div class="max-w-6xl mx-auto px-4 w-full pb-8 sm:pb-12 pt-6">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $artist->name }}</h1>
+        </div>
     </div>
 </section>
 

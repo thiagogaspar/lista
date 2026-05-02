@@ -30,8 +30,8 @@ if (!isset($seo)) {
         <div class="absolute w-[25vmin] h-[25vmin] rounded-full bg-accent-500/15 bottom-[8%] right-[12%]"></div>
         <div class="absolute w-[20vmin] h-[2vmin] bg-brand-500/20 top-[40%] left-[50%] -translate-x-1/2"></div>
     </div>
-    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20 flex items-center p-6 sm:p-10">
-        <div class="relative z-10 flex items-center gap-6">
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20 flex items-center">
+        <div class="relative z-10 max-w-6xl mx-auto px-4 w-full flex items-center gap-6">
             @if($label->logo)
             <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }}" class="w-24 h-24 object-contain shrink-0" style="border:1px solid var(--color-surface-700)">
             @endif

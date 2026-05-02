@@ -49,8 +49,8 @@ $geo = match ($heroBand?->genres->first()?->slug) {
 
     <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
 
-    <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-12">
-        <div>
+    <div class="relative z-10 flex flex-col justify-end h-full">
+        <div class="max-w-6xl mx-auto px-4 w-full pb-8 sm:pb-12 pt-6">
             <p class="text-xs font-bold tracking-[0.15em] uppercase mb-2" style="color:{{ $geo === 'sage' ? 'var(--color-accent-400)' : ($geo === 'ocher' ? 'var(--color-warm-400)' : 'var(--color-brand-400)') }}">{{ __('common.home.featured_band') }}</p>
             <h2 class="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-none tracking-tight">{{ $hero->name }}</h2>
             <div class="flex flex-wrap gap-2 mt-4">
