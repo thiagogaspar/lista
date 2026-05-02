@@ -15,6 +15,7 @@ return [
     'nav' => [
         'bands' => 'Bandas',
         'artists' => 'Artistas',
+        'albums' => 'Álbuns',
         'graph' => 'Grafo',
         'favorites' => 'Favoritos',
         'genealogy' => 'Genealogia',

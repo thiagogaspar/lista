@@ -149,36 +149,56 @@
         @yield('content')
     </main>
 
-    <footer class="border-t border-surface-200 dark:border-ink-700 mt-16 bg-white dark:bg-ink-900">
+    <footer class="border-t border-surface-200 dark:border-ink-700 mt-12 bg-white dark:bg-ink-900">
         <div class="max-w-6xl mx-auto px-4 py-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="col-span-1 md:col-span-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="col-span-2 md:col-span-1">
                     <div class="flex items-center gap-2 mb-3">
                         <svg class="w-5 h-5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                         <span class="text-base font-bold text-brand-600 dark:text-brand-500">{{ config('app.name', 'LISTA') }}</span>
                     </div>
-                    <p class="text-sm text-surface-500 dark:text-ink-400 max-w-sm">{{ __('common.footer.tagline') }}</p>
-                </div>
-                <div>
-                    <p class="text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">{{ __('common.footer.explore') }}</p>
-                    <div class="space-y-2 text-sm">
-                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.bands') }}</a>
-                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.artists') }}</a>
-                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.genealogy') }}</a>
-                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.blog') }}</a>
+                    <p class="text-sm text-surface-500 dark:text-ink-400 max-w-xs leading-relaxed">{{ __('common.footer.tagline') }}</p>
+                    <div class="flex gap-3 mt-4">
+                        <a href="{{ route('bands.index') }}" class="text-xs font-bold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">Bands</a>
+                        <a href="{{ route('artists.index') }}" class="text-xs font-bold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">Artists</a>
+                        <a href="{{ route('labels.index') }}" class="text-xs font-bold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400">Labels</a>
                     </div>
                 </div>
                 <div>
-                    <p class="text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">{{ __('common.footer.community') }}</p>
+                    <p class="text-xs font-bold uppercase tracking-wider text-surface-600 dark:text-ink-400 mb-3">{{ __('common.footer.explore') }}</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.join') }}</a>
-                        <a href="/admin" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.contribute') }}</a>
+                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.bands') }}</a>
+                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.artists') }}</a>
+                        <a href="{{ route('albums.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.albums') }}</a>
+                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.genealogy') }}</a>
+                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.blog') }}</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-surface-600 dark:text-ink-400 mb-3">{{ __('common.footer.community') }}</p>
+                    <div class="space-y-2 text-sm">
+                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.join') }}</a>
+                        <a href="/admin" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.contribute') }}</a>
+                        <a href="{{ route('labels.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">Labels A–Z</a>
+                        <a href="/sitemap.xml" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">Sitemap</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-surface-600 dark:text-ink-400 mb-3">Genres</p>
+                    <div class="space-y-2 text-sm">
+                        @php $footerGenres = app(\App\Services\BandService::class)->getGenres(); @endphp
+                        @foreach(array_slice($footerGenres, 0, 8) as $slug => $name)
+                        <a href="{{ route('genres.show', $slug) }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ $name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="mt-10 pt-6 border-t border-surface-200 dark:border-ink-700 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-surface-400">
                 <span>&copy; {{ date('Y') }} {{ config('app.name', 'LISTA') }}. {{ __('common.footer.copyright') }}</span>
-                <span>{{ __('common.footer.all_rights') }}</span>
+                <div class="flex gap-3">
+                    <a href="/sitemap.xml" class="hover:text-surface-600 dark:hover:text-ink-300">Sitemap</a>
+                    <a href="/admin" class="hover:text-surface-600 dark:hover:text-ink-300">Admin</a>
+                </div>
             </div>
         </div>
     </footer>
