@@ -140,8 +140,27 @@ GET  /api/labels          → REST API
 - [ ] **flushCache()**: Implementar ou remover definitivamente (hoje é no-op)
 
 ### Prod
-- [ ] Cache: reativar Cache::remember (file store) — ativar só em producao
-- [ ] config:cache + route:cache + view:cache
+- [x] Cache: reativar Cache::remember (file store)
+- [x] config:cache + route:cache + view:cache (via railway.json build)
+
+## Deploy Railway
+1. `git push` (Railway conecta via GitHub)
+2. Adicionar env vars no dashboard Railway:
+   ```
+   APP_KEY=<gerar: php artisan key:generate --show>
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=https://<project>.railway.app
+   DB_CONNECTION=mysql
+   DB_HOST=<Railway MySQL host>
+   DB_PORT=3306
+   DB_DATABASE=railway
+   DB_USERNAME=root
+   DB_PASSWORD=<Railway MySQL password>
+   ```
+3. Adicionar MySQL plugin no Railway dashboard
+4. Deploy automático via Git push (railway.json + Procfile gerenciam build/start)
+5. Opcional: configurar domínio customizado em Railway > Settings > Domains
 
 ### ✅ Concluído
 - [x] Vite minify (já ativo)

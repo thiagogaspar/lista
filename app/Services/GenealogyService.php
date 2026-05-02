@@ -70,12 +70,19 @@ class GenealogyService
         $processedBands = [];
         $processedArtists = [];
 
-        $bands = Band::with('genres')->withCount('artists')->get();
+        $maxNodes = (int) config('lista.genealogy_max_nodes', 500);
+
+        $bands = Band::with('genres')->withCount('artists')->limit($maxNodes)->get();
         foreach ($bands as $band) {
             $this->addBandNode($band, $nodes, $processedBands);
         }
 
-        $memberships = BandArtist::with(['band.genres', 'artist'])->get();
+        $bandIds = $bands->pluck('id');
+        $maxMemberships = (int) config('lista.genealogy_max_memberships', 2500);
+        $memberships = BandArtist::with(['band.genres', 'artist'])
+            ->whereIn('band_id', $bandIds)
+            ->limit($maxMemberships)
+            ->get();
         foreach ($memberships as $m) {
             $this->addArtistNode($m->artist, $nodes, $processedArtists);
             $edges[] = [
@@ -89,7 +96,11 @@ class GenealogyService
             ];
         }
 
-        $relationships = BandRelationship::with(['parentBand.genres', 'childBand.genres'])->get();
+        $relationships = BandRelationship::with(['parentBand.genres', 'childBand.genres'])
+            ->whereIn('parent_band_id', $bandIds)
+            ->whereIn('child_band_id', $bandIds)
+            ->limit($maxNodes * 2)
+            ->get();
         foreach ($relationships as $rel) {
             $this->addBandNode($rel->parentBand, $nodes, $processedBands);
             $this->addBandNode($rel->childBand, $nodes, $processedBands);

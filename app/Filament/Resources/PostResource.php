@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -72,6 +73,9 @@ class PostResource extends Resource
                 IconColumn::make('is_published')->boolean()->sortable(),
                 TextColumn::make('published_at')->dateTime('M j, Y')->sortable()->placeholder('Draft'),
                 TextColumn::make('created_at')->dateTime('M j, Y')->sortable()->toggleable(),
+            ])
+            ->filters([
+                SelectFilter::make('is_published')->options([true => 'Published', false => 'Draft'])->label('Status'),
             ])
             ->defaultSort('created_at', 'desc');
     }

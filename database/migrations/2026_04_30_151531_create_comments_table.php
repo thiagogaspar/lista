@@ -16,7 +16,6 @@ return new class extends Migration
             $table->boolean('is_approved')->default(false);
             $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
             $table->timestamps();
-            $table->index(['commentable_type', 'commentable_id']);
             $table->index('is_approved');
         });
     }

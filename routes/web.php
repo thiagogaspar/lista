@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
-use App\Http\Controllers\ApiBandGraphController;
-use App\Http\Controllers\ApiGenealogyController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\BlogController;
@@ -15,7 +13,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -80,10 +77,3 @@ Route::post('/logout', function () {
 })->name('logout')->middleware('auth');
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
-
-Route::get('/api/search', SearchController::class)->name('api.search')
-    ->middleware('throttle:60,1');
-Route::get('/api/bands/{slug}/graph', ApiBandGraphController::class)
-    ->middleware('throttle:60,1');
-Route::get('/api/genealogy', ApiGenealogyController::class)
-    ->middleware('throttle:30,1');

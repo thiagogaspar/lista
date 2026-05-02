@@ -22,6 +22,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
@@ -105,7 +106,8 @@ class ArtistResource extends Resource
             ])
             ->filters([
                 TrashedFilter::make(),
-                // TODO: Add origin, is_active filters
+                SelectFilter::make('origin')->options(fn () => Artist::whereNotNull('origin')->distinct()->orderBy('origin')->pluck('origin', 'origin')->all())->label('Origin'),
+                SelectFilter::make('is_active')->options([true => 'Active', false => 'Inactive'])->label('Status'),
             ])
             ->defaultSort('name', 'asc');
     }

@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CommentFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'user_id' => User::factory(),
+            'body' => fake()->paragraph(),
+            'is_approved' => true,
+        ];
+    }
+
+    public function pending(): static
+    {
+        return $this->state(fn () => ['is_approved' => false]);
+    }
+}

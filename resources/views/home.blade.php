@@ -52,14 +52,14 @@ $seo = new \App\Values\SeoData(
 
     <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent flex flex-col justify-end p-6 sm:p-12 anim-reveal">
         <div>
-            <p class="text-brand-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Featured Band</p>
+            <p class="text-brand-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">{{ __('common.home.featured_band') }}</p>
             <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-none tracking-tight">{{ $hero->name }}</h2>
             <div class="flex flex-wrap gap-2 mt-4">
-                @if($hero->formed_year)<span class="badge badge-brand">{{ $hero->formed_year }}&ndash;{{ $hero->dissolved_year ?? 'present' }}</span>@endif
+                @if($hero->formed_year)<span class="badge badge-brand">{{ $hero->formed_year }}&ndash;{{ $hero->dissolved_year ?? __('common.bands.present') }}</span>@endif
                 @foreach($hero->genres->take(3) as $genre)<span class="badge badge-surface">{{ $genre->name }}</span>@endforeach
             </div>
             <div class="mt-6">
-                <a href="{{ route('bands.show', $hero) }}" class="btn btn-brand">Explore {{ $hero->name }} &rarr;</a>
+                <a href="{{ route('bands.show', $hero) }}" class="btn btn-brand">{{ __('common.home.explore', ['name' => $hero->name]) }} &rarr;</a>
             </div>
         </div>
     </div>
@@ -70,35 +70,34 @@ $seo = new \App\Values\SeoData(
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-surface-200 dark:bg-ink-700 mb-12">
     <div class="stat bg-white dark:bg-ink-800">
         <div class="stat-value text-brand-600 dark:text-brand-500">{{ number_format($stats['bands']) }}</div>
-        <div class="stat-desc">Bands</div>
+        <div class="stat-desc">{{ __('common.home.bands') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
         <div class="stat-value text-accent-600 dark:text-accent-500">{{ number_format($stats['artists']) }}</div>
-        <div class="stat-desc">Artists</div>
+        <div class="stat-desc">{{ __('common.home.artists') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
         <div class="stat-value text-warm-600 dark:text-warm-500">{{ number_format($stats['memberships']) }}</div>
-        <div class="stat-desc">Links</div>
+        <div class="stat-desc">{{ __('common.home.links') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
         <div class="stat-value text-surface-700 dark:text-ink-200">{{ number_format($stats['relationships']) }}</div>
-        <div class="stat-desc">Connections</div>
+        <div class="stat-desc">{{ __('common.home.connections') }}</div>
     </div>
 </div>
 
 <!-- Hero text -->
 <div class="max-w-6xl mx-auto px-4">
 <div class="mb-12 text-center max-w-2xl mx-auto">
-    <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">
-        Local <span class="text-brand-600 dark:text-brand-500">Music</span> Genealogy
-    </h1>
-    <p class="mt-4 text-surface-500 dark:text-surface-400 text-base leading-relaxed">
-        A community-built directory mapping the connections between bands and artists.
-        Who played with whom, when, and where — the living history of your local scene.
-    </p>
-    <div class="flex items-center justify-center gap-3 mt-6">
-        <a href="{{ route('bands.index') }}" class="btn btn-brand">Browse Bands</a>
-        <a href="{{ route('genealogy') }}" class="btn btn-ghost">View Graph</a>
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">
+            {{ __('common.home.local') }} <span class="text-brand-600 dark:text-brand-500">{{ __('common.home.music') }}</span> {{ __('common.home.genealogy') }}
+        </h1>
+        <p class="mt-4 text-surface-500 dark:text-surface-400 text-base leading-relaxed">
+            {{ __('common.home.subtitle') }}
+        </p>
+        <div class="flex items-center justify-center gap-3 mt-6">
+            <a href="{{ route('bands.index') }}" class="btn btn-brand">{{ __('common.home.browse_bands') }}</a>
+            <a href="{{ route('genealogy') }}" class="btn btn-ghost">{{ __('common.home.view_graph') }}</a>
     </div>
 </div>
 
@@ -106,10 +105,10 @@ $seo = new \App\Values\SeoData(
 <section class="mb-12">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">Featured Bands</h2>
-            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">The scene's heavy hitters</p>
+            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_bands') }}</h2>
+            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">{{ __('common.home.featured_bands_desc') }}</p>
         </div>
-        <a href="{{ route('bands.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
+        <a href="{{ route('bands.index') }}" class="link text-xs uppercase tracking-wider font-semibold">{{ __('common.view_all') }} &rarr;</a>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         @forelse($featuredBands as $band)
@@ -137,7 +136,7 @@ $seo = new \App\Values\SeoData(
                 </div>
             </a>
         @empty
-            <p class="col-span-full text-sm text-surface-400 text-center py-8">No featured bands yet.</p>
+            <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_featured_bands') }}</p>
         @endforelse
     </div>
 </section>
@@ -146,8 +145,8 @@ $seo = new \App\Values\SeoData(
 <section class="mb-12">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">Featured Artists</h2>
-            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">The people behind the sound</p>
+            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_artists') }}</h2>
+            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">{{ __('common.home.featured_artists_desc') }}</p>
         </div>
         <a href="{{ route('artists.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
     </div>
@@ -169,7 +168,7 @@ $seo = new \App\Values\SeoData(
                 </div>
             </a>
         @empty
-            <p class="col-span-full text-sm text-surface-400 text-center py-8">No featured artists yet.</p>
+            <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_featured_artists') }}</p>
         @endforelse
     </div>
 </section>
@@ -178,8 +177,8 @@ $seo = new \App\Values\SeoData(
 <section class="mb-12">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">Labels</h2>
-            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">The record labels behind the scene</p>
+            <h2 class="font-display text-xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.labels') }}</h2>
+            <p class="text-xs text-surface-400 uppercase tracking-widest mt-0.5">{{ __('common.home.labels_desc') }}</p>
         </div>
         <a href="{{ route('labels.index') }}" class="link text-xs uppercase tracking-wider font-semibold">View all &rarr;</a>
     </div>
@@ -199,7 +198,7 @@ $seo = new \App\Values\SeoData(
             </div>
         </a>
         @empty
-        <p class="col-span-full text-sm text-surface-400 text-center py-8">No labels yet.</p>
+        <p class="col-span-full text-sm text-surface-400 text-center py-8">{{ __('common.home.no_labels') }}</p>
         @endforelse
     </div>
 </section>
@@ -207,10 +206,10 @@ $seo = new \App\Values\SeoData(
 <!-- CTA -->
 <section class="border-t border-surface-200 dark:border-ink-700 pt-10">
     <div class="max-w-xl mx-auto text-center">
-        <h2 class="font-display text-2xl font-bold text-surface-900 dark:text-ink-200 mb-3">Help build the directory</h2>
-        <p class="text-surface-500 dark:text-surface-400 text-sm leading-relaxed mb-5">Know a band that's missing? An artist who played in more groups than people remember? Contribute and help map the local scene.</p>
-        <a href="/admin" class="btn btn-brand">Contribute &rarr;</a>
-        <p class="text-[10px] text-surface-400 mt-4 uppercase tracking-wider">Or <a href="{{ route('register') }}" class="link">create an account</a></p>
+        <h2 class="font-display text-2xl font-bold text-surface-900 dark:text-ink-200 mb-3">{{ __('common.home.cta_title') }}</h2>
+        <p class="text-surface-500 dark:text-surface-400 text-sm leading-relaxed mb-5">{{ __('common.home.cta_desc') }}</p>
+        <a href="/admin" class="btn btn-brand">{{ __('common.home.cta_button') }} &rarr;</a>
+        <p class="text-[10px] text-surface-400 mt-4 uppercase tracking-wider">{{ __('common.contribute') }} <a href="{{ route('register') }}" class="link">{{ __('common.home.cta_register') }}</a></p>
     </div>
 </section>
 </div>

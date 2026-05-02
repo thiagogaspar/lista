@@ -6,8 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
     <link rel="preload" href="https://fonts.bunny.net/css?family=dm-serif-display:400&display=swap" as="style">
     <link rel="preload" href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700&display=swap" as="style">
@@ -19,7 +17,7 @@
     <link rel="icon" href="/favicon.svg">
     <link rel="apple-touch-icon" href="/favicon.svg">
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('head')
 
@@ -46,7 +44,7 @@
     </style>
 </head>
 <body class="min-h-screen bg-ink-50 dark:bg-ink font-sans antialiased text-surface-900 dark:text-ink-200">
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link">{{ __('common.skip_to_content') }}</a>
     <!-- Noise texture overlay -->
     <div class="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] dark:opacity-[0.06]" style="background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 512 512%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size:512px 512px"></div>
 
@@ -58,11 +56,11 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-0.5 text-xs font-semibold uppercase tracking-widest" aria-label="Main navigation">
-                <a href="{{ route('bands.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('bands.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">Bands</a>
-                <a href="{{ route('artists.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors {{ request()->routeIs('artists.*') ? 'text-accent-600 dark:text-accent-400' : '' }}">Artists</a>
-                <a href="{{ route('genealogy') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-warm-600 dark:hover:text-warm-400 transition-colors {{ request()->routeIs('genealogy') ? 'text-warm-600 dark:text-warm-400' : '' }}">Graph</a>
+                <a href="{{ route('bands.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('bands.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.bands') }}</a>
+                <a href="{{ route('artists.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors {{ request()->routeIs('artists.*') ? 'text-accent-600 dark:text-accent-400' : '' }}">{{ __('common.nav.artists') }}</a>
+                <a href="{{ route('genealogy') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-warm-600 dark:hover:text-warm-400 transition-colors {{ request()->routeIs('genealogy') ? 'text-warm-600 dark:text-warm-400' : '' }}">{{ __('common.nav.graph') }}</a>
                 @auth
-                <a href="{{ route('favorites.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 transition-colors">Favorites</a>
+                <a href="{{ route('favorites.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 transition-colors">{{ __('common.nav.favorites') }}</a>
                 @endauth
             </nav>
 
@@ -71,14 +69,14 @@
                     <form @submit.prevent class="relative">
                         <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-surface-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         <input x-model="query" @input.debounce.300ms="search()" @focus="if(query.length>=2) open=true" @keydown.escape="open=false"
-                               placeholder="Search..." x-ref="input" aria-label="Search bands and artists"
+                                placeholder="{{ __('common.search') }}..." x-ref="input" aria-label="{{ __('common.search') }}"
                                class="w-40 lg:w-48 pl-8 pr-2.5 py-1.5 text-xs font-medium uppercase tracking-wider border border-surface-200 dark:border-ink-600 bg-white dark:bg-ink-800 text-surface-900 dark:text-ink-200 placeholder-surface-400 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500 transition-shadow">
                     </form>
                     <div x-show="open && (results.bands.length || results.artists.length)" @click.away="open = false" x-cloak
                          class="absolute top-full mt-1 right-0 w-72 bg-white dark:bg-ink-800 border border-surface-200 dark:border-ink-700 shadow-2xl z-50 overflow-hidden">
                         <template x-if="results.bands.length">
                             <div>
-                                <div class="px-3 pt-2.5 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">Bands</div>
+                                <div class="px-3 pt-2.5 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">{{ __('common.nav.bands') }}</div>
                                 <template x-for="band in results.bands" :key="band.id">
                                     <button @click="select('band', band.slug)" class="w-full px-3 py-2 text-left hover:bg-brand-50 dark:hover:bg-brand-900/20 flex items-center justify-between">
                                         <span class="font-semibold text-sm text-brand-600 dark:text-brand-400" x-text="band.name"></span>
@@ -89,7 +87,7 @@
                         </template>
                         <template x-if="results.artists.length">
                             <div>
-                                <div class="px-3 pt-2.5 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">Artists</div>
+                                <div class="px-3 pt-2.5 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">{{ __('common.nav.artists') }}</div>
                                 <template x-for="artist in results.artists" :key="artist.id">
                                     <button @click="select('artist', artist.slug)" class="w-full px-3 py-2 text-left hover:bg-accent-50 dark:hover:bg-accent-900/20 flex items-center justify-between">
                                         <span class="font-semibold text-sm text-accent-600 dark:text-accent-400" x-text="artist.name"></span>
@@ -101,12 +99,12 @@
                     </div>
                 </div>
 
-                <a href="/admin" class="hidden sm:inline-flex items-center gap-1 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" title="Admin" rel="nofollow">Admin</a>
+                <a href="/admin" class="hidden sm:inline-flex items-center gap-1 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" title="{{ __('common.admin') }}" rel="nofollow">{{ __('common.admin') }}</a>
 
                 @auth
                 <span class="hidden sm:inline text-[10px] text-surface-400 font-medium mr-1 tracking-wider uppercase">{{ auth()->user()->name }}</span>
                 @else
-                <a href="{{ route('register') }}" class="hidden sm:inline-flex items-center gap-1 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Register</a>
+                <a href="{{ route('register') }}" class="hidden sm:inline-flex items-center gap-1 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.register') }}</a>
                 @endauth
 
                 <div x-data="{
@@ -180,13 +178,13 @@
                         </template>
                     </div>
                 </div>
-                <a href="{{ route('bands.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">Bands</a>
-                <a href="{{ route('artists.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-accent-600 dark:hover:text-accent-400">Artists</a>
-                <a href="{{ route('genealogy') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-warm-600 dark:hover:text-warm-400">Genealogy</a>
+                <a href="{{ route('bands.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.bands') }}</a>
+                <a href="{{ route('artists.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-accent-600 dark:hover:text-accent-400">{{ __('common.nav.artists') }}</a>
+                <a href="{{ route('genealogy') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-warm-600 dark:hover:text-warm-400">{{ __('common.nav.genealogy') }}</a>
                 @auth
-                <a href="{{ route('favorites.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600">Favorites</a>
+                <a href="{{ route('favorites.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600">{{ __('common.nav.favorites') }}</a>
                 @endauth
-                <a href="/admin" class="block px-3 py-2 text-[10px] uppercase tracking-wider text-surface-400">Admin</a>
+                <a href="/admin" class="block px-3 py-2 text-[10px] uppercase tracking-wider text-surface-400">{{ __('common.admin') }}</a>
             </div>
         </div>
     </header>
@@ -203,28 +201,28 @@
                         <svg class="w-5 h-5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                         <span class="font-display text-lg font-bold text-brand-600 dark:text-brand-500">{{ config('app.name', 'LISTA') }}</span>
                     </div>
-                    <p class="text-sm text-surface-500 dark:text-surface-400 max-w-sm leading-relaxed">A local music directory. We map the connections between bands and artists — who played with whom, when, and where.</p>
+                    <p class="text-sm text-surface-500 dark:text-surface-400 max-w-sm leading-relaxed">{{ __('common.footer.tagline') }}</p>
                 </div>
                 <div>
-                    <p class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">Explore</p>
+                    <p class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">{{ __('common.footer.explore') }}</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Bands</a>
-                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Artists</a>
-                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-warm-600 dark:hover:text-warm-400 transition-colors">Genealogy Graph</a>
-                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Blog</a>
+                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.bands') }}</a>
+                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">{{ __('common.nav.artists') }}</a>
+                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-warm-600 dark:hover:text-warm-400 transition-colors">{{ __('common.nav.genealogy') }} Graph</a>
+                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.blog') }}</a>
                     </div>
                 </div>
                 <div>
-                    <p class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">Community</p>
+                    <p class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">{{ __('common.footer.community') }}</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Join</a>
-                        <a href="/admin" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contribute</a>
+                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.join') }}</a>
+                        <a href="/admin" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.contribute') }}</a>
                     </div>
                 </div>
             </div>
             <div class="mt-10 pt-6 border-t border-surface-200 dark:border-ink-700 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-surface-400">
-                <span>&copy; {{ date('Y') }} {{ config('app.name', 'LISTA') }}. Built by the local scene, for the local scene.</span>
-                <span>All rights reserved.</span>
+                <span>&copy; {{ date('Y') }} {{ config('app.name', 'LISTA') }}. {{ __('common.footer.copyright') }}</span>
+                <span>{{ __('common.footer.all_rights') }}</span>
             </div>
         </div>
     </footer>
@@ -233,26 +231,11 @@
     <button x-data="{ visible: false }" x-on:scroll.window="visible = window.scrollY > 500"
             x-show="visible" @click="window.scrollTo({top:0,behavior:'smooth'})" x-cloak
             x-transition.opacity
-            class="fixed bottom-6 right-6 w-9 h-9 bg-brand-500 text-white hover:bg-brand-600 shadow-lg transition-colors flex items-center justify-center z-50" aria-label="Top">
+            class="fixed bottom-6 right-6 w-9 h-9 bg-brand-500 text-white hover:bg-brand-600 shadow-lg transition-colors flex items-center justify-center z-50" aria-label="{{ __('common.back_to_top') }}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M7 17l5-5 5 5M7 11l5-5 5 5"/></svg>
     </button>
 
     @livewireScripts
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
     <style>[x-cloak] { display: none !important; }</style>
-
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('searchBox', () => ({
-                query: '', results: { bands: [], artists: [] }, open: false,
-                search() {
-                    if (this.query.length < 2) { this.results = {bands:[],artists:[]}; this.open = false; return; }
-                    fetch('/api/search?q=' + encodeURIComponent(this.query))
-                        .then(r => r.json()).then(data => { this.results = data; this.open = true; });
-                },
-                select(type, slug) { this.open = false; this.query = ''; window.location.href = '/' + type + 's/' + slug; }
-            }));
-        });
-    </script>
 </body>
 </html>

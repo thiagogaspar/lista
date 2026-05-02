@@ -21,16 +21,29 @@ class SecurityHeaders
             $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
         }
 
-        $csp = "default-src 'self'; ".
-               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; ".
-               "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://cdn.jsdelivr.net; ".
-               "img-src 'self' data: https://picsum.photos https://*.picsum.photos https://via.placeholder.com; ".
-               "font-src 'self' https://fonts.bunny.net; ".
-               "connect-src 'self' https://cdn.jsdelivr.net https://fonts.bunny.net https://picsum.photos; ".
-               "frame-src 'none'; ".
-               "object-src 'none'; ".
-               "base-uri 'self'; ".
-               "form-action 'self'";
+        if (app()->environment('local')) {
+            $csp = "default-src 'self'; ".
+                   "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* http://[::1]:*; ".
+                   "style-src 'self' 'unsafe-inline' https://fonts.bunny.net http://localhost:*; ".
+                   "img-src 'self' data: https://picsum.photos https://*.picsum.photos https://via.placeholder.com http://localhost:*; ".
+                   "font-src 'self' https://fonts.bunny.net; ".
+                   "connect-src 'self' ws://localhost:* ws://[::1]:* http://localhost:* https://fonts.bunny.net; ".
+                   "frame-src 'none'; ".
+                   "object-src 'none'; ".
+                   "base-uri 'self'; ".
+                   "form-action 'self'";
+        } else {
+            $csp = "default-src 'self'; ".
+                   "script-src 'self' 'unsafe-inline' 'unsafe-eval'; ".
+                   "style-src 'self' 'unsafe-inline' https://fonts.bunny.net; ".
+                   "img-src 'self' data:; ".
+                   "font-src 'self' https://fonts.bunny.net; ".
+                   "connect-src 'self' https://fonts.bunny.net; ".
+                   "frame-src 'none'; ".
+                   "object-src 'none'; ".
+                   "base-uri 'self'; ".
+                   "form-action 'self'";
+        }
 
         $response->headers->set('Content-Security-Policy', $csp);
 

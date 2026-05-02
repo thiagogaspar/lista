@@ -17,7 +17,7 @@ class ArtistService
 
         return Artist::query()
             ->when($filters['search'] ?? null, fn ($q, $v) => $q->where('name', 'like', "%{$v}%"))
-            ->with('tags')
+            ->with(['tags' => fn ($q) => $q->where('is_approved', true)])
             ->orderBy($sort, $dir)
             ->paginate($perPage);
     }

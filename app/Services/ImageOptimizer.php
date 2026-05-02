@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageOptimizer
 {
-    public static function convertToWebp(string $path, ?string $disk = null): ?string
+    public function convertToWebp(string $path, ?string $disk = null): ?string
     {
         $disk ??= config('filesystems.default');
         $fullPath = Storage::disk($disk)->path($path);
@@ -51,13 +51,13 @@ class ImageOptimizer
         return $webpRelative;
     }
 
-    public static function handleUpload(UploadedFile $file, string $directory, ?string $disk = null): array
+    public function handleUpload(UploadedFile $file, string $directory, ?string $disk = null): array
     {
         $originalPath = $file->store($directory, $disk ?? config('filesystems.default'));
 
         $webpPath = null;
         try {
-            $webpPath = static::convertToWebp($originalPath, $disk);
+            $webpPath = $this->convertToWebp($originalPath, $disk);
         } catch (\Throwable $e) {
             report($e);
         }

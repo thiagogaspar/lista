@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Values\SeoData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AlbumController extends Controller
