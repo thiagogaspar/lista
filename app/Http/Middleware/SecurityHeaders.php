@@ -33,12 +33,13 @@ class SecurityHeaders
                    "base-uri 'self'; ".
                    "form-action 'self'";
         } else {
+            $origin = $request->getSchemeAndHttpHost();
             $csp = "default-src 'self'; ".
-                   "script-src 'self' 'unsafe-inline' 'unsafe-eval'; ".
-                   "style-src 'self' 'unsafe-inline' https://fonts.bunny.net; ".
-                   "img-src 'self' data:; ".
+                   "script-src 'self' 'unsafe-inline' 'unsafe-eval' {$origin}; ".
+                   "style-src 'self' 'unsafe-inline' https://fonts.bunny.net {$origin}; ".
+                   "img-src 'self' data: {$origin}; ".
                    "font-src 'self' https://fonts.bunny.net; ".
-                   "connect-src 'self' https://fonts.bunny.net; ".
+                   "connect-src 'self' https://fonts.bunny.net {$origin}; ".
                    "frame-src 'none'; ".
                    "object-src 'none'; ".
                    "base-uri 'self'; ".
