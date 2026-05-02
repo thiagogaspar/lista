@@ -6,6 +6,7 @@ use App\Models\Album;
 use App\Models\Artist;
 use App\Models\Band;
 use App\Models\Label;
+use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -138,5 +139,28 @@ class ContentSeeder extends Seeder
             Album::create(['band_id' => $rageMachine->id, 'title' => 'Rage Against the Machine', 'slug' => 'rage-against-the-machine', 'release_year' => 1992, 'cover_art' => $this->mockCover('Rage Against the Machine'), 'tracklist' => ['Killing in the Name', 'Bombtrack', 'Bullet in the Head']]);
             Album::create(['band_id' => $rageMachine->id, 'title' => 'Evil Empire', 'slug' => 'evil-empire', 'release_year' => 1996, 'cover_art' => $this->mockCover('Evil Empire')]);
         }
+
+        // Blog posts
+        Post::create([
+            'title' => 'The Seattle Sound: A Grunge Explosion',
+            'slug' => 'seattle-sound-grunge',
+            'excerpt' => 'How a rainy city in the Pacific Northwest changed rock music forever.',
+            'body' => "## The Birth of a Movement\n\nIn the late 1980s, Seattle's underground music scene gave birth to a genre that would dominate the early 1990s. **Grunge** was more than just music — it was a cultural shift.\n\nBands like **Nirvana**, **Pearl Jam**, **Soundgarden**, and **Alice in Chains** created a raw, unpolished sound that resonated with a generation.\n\n### Key Albums\n\n- **Nevermind** (Nirvana, 1991)\n- **Ten** (Pearl Jam, 1991)\n- **Superunknown** (Soundgarden, 1994)\n\n> \"Grunge was about stripping away the excess and playing from the heart.\"\n\nThe influence of the Seattle scene continues to be felt today, with new bands citing these pioneers as major influences.",
+            'author' => 'LISTA',
+            'is_published' => true,
+            'published_at' => now()->subDays(3),
+            'featured_image' => $this->mockHero('The Seattle Sound', '000000', 'ffffff'),
+        ]);
+
+        Post::create([
+            'title' => 'Band Genealogy: Tracing Musical Families',
+            'slug' => 'band-genealogy-families',
+            'excerpt' => 'Explore how bands are connected through shared members across decades of music history.',
+            'body' => "## The Web of Connections\n\nOne of the most fascinating aspects of music history is how bands are connected through their members. **Supergroups**, **side projects**, and **lineup changes** create a rich web of relationships.\n\n### The Pearl Jam Family Tree\n\nPearl Jam emerged from the ashes of **Mother Love Bone**, which itself formed from **Green River** — one of the first grunge bands.\n\nSoundgarden's Matt Cameron later joined Pearl Jam, connecting the two iconic bands.\n\n### The Dave Grohl Effect\n\nFrom Nirvana to Foo Fighters, Dave Grohl's career spans multiple genres and decades. He also played in **Them Crooked Vultures** with Josh Homme and John Paul Jones.\n\n> \"Every band is connected by six degrees of separation.\"\n\nUse our interactive [genealogy graph](/genealogy) to explore these connections yourself.",
+            'author' => 'LISTA',
+            'is_published' => true,
+            'published_at' => now()->subDays(1),
+            'featured_image' => $this->mockHero('Band Genealogy', '000000', 'ffffff'),
+        ]);
     }
 }

@@ -13,72 +13,73 @@
     --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
 
-    /* Brand — Dark gray (primary) */
+    /* Brand — Pure black (brutalist) */
     --color-brand-50: #f5f5f5;
     --color-brand-100: #e5e5e5;
     --color-brand-200: #cccccc;
-    --color-brand-300: #aaaaaa;
-    --color-brand-400: #888888;
-    --color-brand-500: #6b6b6b;
-    --color-brand-600: #555555;
-    --color-brand-700: #404040;
-    --color-brand-800: #2a2a2a;
-    --color-brand-900: #1a1a1a;
+    --color-brand-300: #999999;
+    --color-brand-400: #666666;
+    --color-brand-500: #000000;
+    --color-brand-600: #222222;
+    --color-brand-700: #111111;
+    --color-brand-800: #000000;
+    --color-brand-900: #000000;
 
-    /* Accent — Medium gray (secondary) */
-    --color-accent-50: #fafafa;
-    --color-accent-100: #eeeeee;
-    --color-accent-200: #dddddd;
-    --color-accent-300: #bbbbbb;
-    --color-accent-400: #999999;
-    --color-accent-500: #7a7a7a;
-    --color-accent-600: #606060;
-    --color-accent-700: #4a4a4a;
-    --color-accent-800: #333333;
-    --color-accent-900: #222222;
+    /* Accent — Dark gray */
+    --color-accent-50: #f0f0f0;
+    --color-accent-100: #dddddd;
+    --color-accent-200: #bbbbbb;
+    --color-accent-300: #888888;
+    --color-accent-400: #666666;
+    --color-accent-500: #444444;
+    --color-accent-600: #333333;
+    --color-accent-700: #222222;
+    --color-accent-800: #111111;
+    --color-accent-900: #000000;
 
-    /* Warm — Light gray (tertiary) */
-    --color-warm-50: #fcfcfc;
-    --color-warm-100: #f2f2f2;
-    --color-warm-200: #e6e6e6;
-    --color-warm-300: #cccccc;
-    --color-warm-400: #b3b3b3;
-    --color-warm-500: #999999;
-    --color-warm-600: #808080;
-    --color-warm-700: #666666;
-    --color-warm-800: #4d4d4d;
-    --color-warm-900: #333333;
+    /* Warm — Mid gray */
+    --color-warm-50: #f8f8f8;
+    --color-warm-100: #eeeeee;
+    --color-warm-200: #dddddd;
+    --color-warm-300: #bbbbbb;
+    --color-warm-400: #999999;
+    --color-warm-500: #777777;
+    --color-warm-600: #555555;
+    --color-warm-700: #444444;
+    --color-warm-800: #333333;
+    --color-warm-900: #222222;
 
-    /* Surface — clean off-white */
-    --color-surface-50: #faf8f3;
-    --color-surface-100: #f5f2eb;
-    --color-surface-200: #e8e4db;
-    --color-surface-300: #d6d1c6;
-    --color-surface-400: #81796a;
-    --color-surface-500: #6f675a;
-    --color-surface-600: #635c52;
-    --color-surface-700: #635c52;
-    --color-surface-800: #4d4840;
-    --color-surface-900: #3a3631;
-    --color-surface-950: #282521;
+    /* Surface — Pure white / near-white */
+    --color-surface-50: #ffffff;
+    --color-surface-100: #f8f8f8;
+    --color-surface-200: #e0e0e0;
+    --color-surface-300: #cccccc;
+    --color-surface-400: #aaaaaa;
+    --color-surface-500: #888888;
+    --color-surface-600: #666666;
+    --color-surface-700: #444444;
+    --color-surface-800: #222222;
+    --color-surface-900: #000000;
+    --color-surface-950: #000000;
 
-    /* Ink — dark charcoal (Bandcamp-inspired) */
-    --color-ink: #141413;
-    --color-ink-900: #1a1a18;
-    --color-ink-800: #242422;
-    --color-ink-700: #33332f;
-    --color-ink-600: #4a4a45;
-    --color-ink-500: #8a8a83;
-    --color-ink-400: #95958e;
-    --color-ink-300: #aeaea6;
-    --color-ink-200: #d0d0c8;
-    --color-ink-100: #e6e6df;
-    --color-ink-50: #f2f2ec;
+    /* Ink — Pure black / near-black */
+    --color-ink: #000000;
+    --color-ink-900: #000000;
+    --color-ink-800: #111111;
+    --color-ink-700: #222222;
+    --color-ink-600: #333333;
+    --color-ink-500: #555555;
+    --color-ink-400: #888888;
+    --color-ink-300: #bbbbbb;
+    --color-ink-200: #e0e0e0;
+    --color-ink-100: #f0f0f0;
+    --color-ink-50: #f8f8f8;
 }
 
-/* === Base (scoped to frontend) === */
+/* === Base — brutalist, high contrast, +10% font === */
 @layer base {
     html {
+        font-size: 110%;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
@@ -88,16 +89,16 @@
     }
 }
 
-/* === Bandcamp-style utilities === */
+/* === Brutalist utilities === */
 @utility badge {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
     padding: 0.125rem 0.5rem;
     font-size: 0.6875rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.25rem;
-    border: 1px solid currentColor;
+    border: 2px solid currentColor;
 }
 
 @utility badge-brand {
@@ -117,24 +118,23 @@
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.8125rem;
     line-height: 1.25rem;
-    padding: 0.625rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     cursor: pointer;
     white-space: nowrap;
-    letter-spacing: 0.02em;
 }
 
 @utility btn-brand {
     background-color: var(--color-brand-500);
     color: white;
-    &:hover { background-color: var(--color-brand-600); }
+    &:hover { background-color: var(--color-brand-700); }
 }
 
 @utility btn-ghost {
     background-color: transparent;
-    color: var(--color-surface-600);
+    color: var(--color-surface-700);
     border: 2px solid var(--color-surface-300);
     .dark & { color: var(--color-ink-300); border-color: var(--color-ink-600); }
     &:hover { background-color: var(--color-surface-100); .dark & { background-color: var(--color-ink-800); } }
@@ -144,80 +144,58 @@
     width: 100%;
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
-    border: 1px solid var(--color-surface-300);
+    border: 2px solid var(--color-surface-300);
     background-color: white;
-    color: var(--color-surface-900);
+    color: #000;
     outline: none;
     .dark & {
         background-color: var(--color-ink-800);
         border-color: var(--color-ink-600);
-        color: var(--color-ink-100);
+        color: #fff;
     }
-    &:focus { border-color: var(--color-brand-500); }
+    &:focus { border-color: #000; .dark & { border-color: #fff; } }
     &::placeholder { color: var(--color-surface-500); }
 }
 
 @utility select {
     padding: 0.5rem 2rem 0.5rem 0.75rem;
     font-size: 0.875rem;
-    border: 1px solid var(--color-surface-300);
+    border: 2px solid var(--color-surface-300);
     background-color: white;
-    color: var(--color-surface-900);
+    color: #000;
     outline: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23a89f8d' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888888' viewBox='0 0 24 24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.625rem center;
     .dark & {
         background-color: var(--color-ink-800);
         border-color: var(--color-ink-600);
-        color: var(--color-ink-100);
+        color: #fff;
     }
-    &:focus { border-color: var(--color-brand-500); }
+    &:focus { border-color: #000; .dark & { border-color: #fff; } }
 }
 
 @utility card {
     background-color: white;
-    .dark & { background-color: var(--color-ink-800); }
-}
-
-@utility card-hover {
-    transition: background-color .2s;
-    &:hover { background-color: var(--color-surface-100); .dark & { background-color: var(--color-ink-700); } }
-}
-
-/* Bandcamp-style image card with overlay */
-@utility card-bandcamp {
-    position: relative;
-    overflow: hidden;
-    background-color: var(--color-surface-100);
-    .dark & { background-color: var(--color-ink-900); }
-}
-
-@utility card-bandcamp-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0);
-    transition: background .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .group:hover & { background: rgba(0,0,0,0.55); }
+    border: 2px solid var(--color-surface-200);
+    .dark & { background-color: var(--color-ink-800); border-color: var(--color-ink-700); }
 }
 
 @utility prose {
-    line-height: 1.75;
-    color: var(--color-surface-700);
-    .dark & { color: var(--color-ink-300); }
+    line-height: 1.6;
+    color: #000;
+    .dark & { color: #fff; }
     & p { margin-bottom: 1rem; }
-    & a { color: var(--color-brand-600); text-decoration: underline; .dark & { color: var(--color-brand-400); } }
-    & strong { font-weight: 600; }
+    & a { color: #000; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; .dark & { color: #fff; } &:hover { background: #000; color: #fff; .dark & { background: #fff; color: #000; } } }
+    & strong { font-weight: 700; }
     & ul, & ol { padding-left: 1.5rem; margin-bottom: 1rem; }
     & li { margin-bottom: 0.25rem; }
     & blockquote {
-        border-left: 3px solid var(--color-brand-400);
+        border-left: 4px solid #000;
         padding-left: 1rem;
         margin: 1.5rem 0;
+        .dark & { border-color: #fff; }
     }
 }
 
@@ -228,14 +206,14 @@
 
 @utility stat-value {
     font-size: 1.75rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1;
     letter-spacing: -0.02em;
 }
 
 @utility stat-desc {
     font-size: 0.625rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-top: 0.25rem;
@@ -244,12 +222,12 @@
 }
 
 @utility link {
-    color: var(--color-brand-600);
+    color: #000;
     text-decoration: underline;
     text-underline-offset: 2px;
-    font-weight: 500;
-    .dark & { color: var(--color-brand-400); }
-    &:hover { color: var(--color-brand-900); background-color: var(--color-brand-50); text-decoration: none; .dark & { color: var(--color-brand-200); background-color: var(--color-brand-900); } }
+    font-weight: 600;
+    .dark & { color: #fff; }
+    &:hover { background: #000; color: #fff; text-decoration: none; .dark & { background: #fff; color: #000; } }
 }
 
 @utility divider {
@@ -264,14 +242,14 @@
     gap: 0.5rem;
     font-size: 0.8125rem;
     color: var(--color-surface-500);
-    & a { text-decoration: none; font-weight: 500; &:hover { text-decoration: underline; color: var(--color-brand-700); .dark & { color: var(--color-brand-300); } } }
-    & span { color: var(--color-surface-700); font-weight: 600; .dark & { color: var(--color-ink-200); } }
+    & a { text-decoration: none; font-weight: 600; &:hover { text-decoration: underline; color: #000; .dark & { color: #fff; } } }
+    & span { color: #000; font-weight: 600; .dark & { color: #fff; } }
 }
 
-/* Genealogy graph — dark, dot grid, left magenta band */
+/* Genealogy graph */
 .graph-container {
-    background-color: #1a1d23;
-    background-image: radial-gradient(circle, #2a2e36 1px, transparent 1px);
+    background-color: #000;
+    background-image: radial-gradient(circle, #222 1px, transparent 1px);
     background-size: 24px 24px;
     position: relative;
 }
@@ -283,11 +261,7 @@
     top: 0;
     bottom: 0;
     width: 6px;
-    background: repeating-linear-gradient(
-        -45deg,
-        transparent 0 3px,
-        rgba(236, 72, 153, 0.3) 3px 6px
-    );
+    background: repeating-linear-gradient(-45deg, transparent 0 3px, #666 3px 6px);
     z-index: 10;
     pointer-events: none;
 }
@@ -296,8 +270,8 @@
     position: absolute;
     top: 16px;
     left: 20px;
-    background: rgba(20, 22, 28, 0.92);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.9);
+    border: 1px solid #444;
     padding: 14px 18px;
     z-index: 20;
     min-width: 160px;
@@ -309,13 +283,12 @@
     gap: 8px;
     padding: 3px 0;
     font-size: 11px;
-    color: #a0a0a8;
+    color: #ccc;
 }
 
 .graph-legend-dot {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
     flex-shrink: 0;
 }
 
@@ -335,17 +308,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(20, 22, 28, 0.92);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: #a0a0a8;
+    background: rgba(0,0,0,0.9);
+    border: 1px solid #444;
+    color: #ccc;
     font-size: 16px;
     cursor: pointer;
-    transition: background .15s, color .15s;
 }
 
 .graph-zoom-btn:hover {
-    background: rgba(50, 54, 64, 0.92);
-    color: #ffffff;
+    background: #222;
+    color: #fff;
 }
 
 .graph-zoom-btn:first-child {
