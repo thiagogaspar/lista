@@ -2,7 +2,13 @@ FROM dunglas/frankenphp:1-php8.4-bookworm
 
 ARG APP_KEY
 ARG APP_ENV=production
-ARG APP_DEBUG=false
+ARG APP_DEBUG=true
+ARG DB_CONNECTION
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
 
 RUN install-php-extensions \
     pdo_mysql \
