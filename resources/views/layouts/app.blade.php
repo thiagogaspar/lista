@@ -7,10 +7,8 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
 
-    <link rel="preload" href="https://fonts.bunny.net/css?family=dm-serif-display:400&display=swap" as="style">
-    <link rel="preload" href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700&display=swap" as="style">
-    <link href="https://fonts.bunny.net/css?family=dm-serif-display:400&display=swap" rel="stylesheet">
-    <link href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" as="style">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
 
     @yield('preload')
 
@@ -43,10 +41,8 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-ink-50 dark:bg-ink font-sans antialiased text-surface-900 dark:text-ink-200">
+    <body class="min-h-screen bg-ink-50 dark:bg-ink font-sans antialiased text-surface-800 dark:text-ink-200">
     <a href="#main-content" class="skip-link">{{ __('common.skip_to_content') }}</a>
-    <!-- Noise texture overlay -->
-    <div class="fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] dark:opacity-[0.06]" style="background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 512 512%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size:512px 512px"></div>
 
     <header class="sticky top-0 z-50 border-b border-surface-200 dark:border-ink-700 bg-ink-50/95 dark:bg-ink/95 backdrop-blur-sm" x-data="{ menu: false }" role="banner">
         <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
@@ -55,12 +51,12 @@
                 <span class="font-display tracking-tight">{{ config('app.name', 'LISTA') }}</span>
             </a>
 
-            <nav class="hidden md:flex items-center gap-0.5 text-xs font-semibold uppercase tracking-widest" aria-label="Main navigation">
-                <a href="{{ route('bands.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('bands.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.bands') }}</a>
-                <a href="{{ route('artists.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors {{ request()->routeIs('artists.*') ? 'text-accent-600 dark:text-accent-400' : '' }}">{{ __('common.nav.artists') }}</a>
-                <a href="{{ route('genealogy') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-warm-600 dark:hover:text-warm-400 transition-colors {{ request()->routeIs('genealogy') ? 'text-warm-600 dark:text-warm-400' : '' }}">{{ __('common.nav.graph') }}</a>
+            <nav class="hidden md:flex items-center gap-1 text-sm font-medium" aria-label="Main navigation">
+                <a href="{{ route('bands.index') }}" class="px-3 py-1.5 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('bands.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.bands') }}</a>
+                <a href="{{ route('artists.index') }}" class="px-3 py-1.5 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('artists.*') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.artists') }}</a>
+                <a href="{{ route('genealogy') }}" class="px-3 py-1.5 text-surface-500 dark:text-surface-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors {{ request()->routeIs('genealogy') ? 'text-brand-600 dark:text-brand-400' : '' }}">{{ __('common.nav.genealogy') }}</a>
                 @auth
-                <a href="{{ route('favorites.index') }}" class="px-3 py-2 text-surface-500 dark:text-surface-400 hover:text-brand-600 transition-colors">{{ __('common.nav.favorites') }}</a>
+                <a href="{{ route('favorites.index') }}" class="px-3 py-1.5 text-surface-500 dark:text-surface-400 hover:text-brand-600 transition-colors">{{ __('common.nav.favorites') }}</a>
                 @endauth
             </nav>
 
@@ -89,8 +85,8 @@
                             <div>
                                 <div class="px-3 pt-2.5 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">{{ __('common.nav.artists') }}</div>
                                 <template x-for="artist in results.artists" :key="artist.id">
-                                    <button @click="select('artist', artist.slug)" class="w-full px-3 py-2 text-left hover:bg-accent-50 dark:hover:bg-accent-900/20 flex items-center justify-between">
-                                        <span class="font-semibold text-sm text-accent-600 dark:text-accent-400" x-text="artist.name"></span>
+                                    <button @click="select('artist', artist.slug)" class="w-full px-3 py-2 text-left hover:bg-brand-50 dark:hover:bg-brand-900/20 flex items-center justify-between">
+                                        <span class="font-semibold text-sm text-brand-600 dark:text-brand-400" x-text="artist.name"></span>
                                         <span x-show="artist.origin" class="text-[10px] text-surface-500" x-text="artist.origin"></span>
                                     </button>
                                 </template>
@@ -170,21 +166,21 @@
                             <div>
                                 <div class="px-3 pt-2 pb-1 text-[9px] font-bold text-surface-400 tracking-[0.15em] uppercase">Artists</div>
                                 <template x-for="artist in results.artists" :key="artist.id">
-                                    <button @click="select('artist', artist.slug)" class="w-full px-3 py-2 text-left hover:bg-accent-50 dark:hover:bg-accent-900/20 flex items-center justify-between">
-                                        <span class="font-semibold text-sm text-accent-600 dark:text-accent-400" x-text="artist.name"></span>
+                                    <button @click="select('artist', artist.slug)" class="w-full px-3 py-2 text-left hover:bg-brand-50 dark:hover:bg-brand-900/20 flex items-center justify-between">
+                                        <span class="font-semibold text-sm text-brand-600 dark:text-brand-400" x-text="artist.name"></span>
                                     </button>
                                 </template>
                             </div>
                         </template>
                     </div>
                 </div>
-                <a href="{{ route('bands.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.bands') }}</a>
-                <a href="{{ route('artists.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-accent-600 dark:hover:text-accent-400">{{ __('common.nav.artists') }}</a>
-                <a href="{{ route('genealogy') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-warm-600 dark:hover:text-warm-400">{{ __('common.nav.genealogy') }}</a>
+                <a href="{{ route('bands.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.bands') }}</a>
+                <a href="{{ route('artists.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.artists') }}</a>
+                <a href="{{ route('genealogy') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400">{{ __('common.nav.genealogy') }}</a>
                 @auth
-                <a href="{{ route('favorites.index') }}" class="block px-3 py-2 text-sm font-semibold text-surface-700 dark:text-ink-200 hover:text-brand-600">{{ __('common.nav.favorites') }}</a>
+                <a href="{{ route('favorites.index') }}" class="block px-3 py-2 text-sm text-surface-700 dark:text-ink-200 hover:text-brand-600">{{ __('common.nav.favorites') }}</a>
                 @endauth
-                <a href="/admin" class="block px-3 py-2 text-[10px] uppercase tracking-wider text-surface-400">{{ __('common.admin') }}</a>
+                <a href="/admin" class="block px-3 py-2 text-xs text-surface-400">{{ __('common.admin') }}</a>
             </div>
         </div>
     </header>
@@ -207,8 +203,8 @@
                     <p class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">{{ __('common.footer.explore') }}</p>
                     <div class="space-y-2 text-sm">
                         <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.bands') }}</a>
-                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">{{ __('common.nav.artists') }}</a>
-                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-warm-600 dark:hover:text-warm-400 transition-colors">{{ __('common.nav.genealogy') }} Graph</a>
+                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.artists') }}</a>
+                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.genealogy') }}</a>
                         <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">{{ __('common.nav.blog') }}</a>
                     </div>
                 </div>

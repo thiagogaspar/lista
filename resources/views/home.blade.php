@@ -24,33 +24,7 @@ $seo = new \App\Values\SeoData(
     <img src="{{ Storage::url($hero->photo) }}" alt="{{ $hero->name }}" class="absolute inset-0 w-full h-full object-cover opacity-40 dark:opacity-30" fetchpriority="high" decoding="async">
     @endif
 
-    <!-- Animated genealogy lines -->
-    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 400" preserveAspectRatio="none">
-        <defs>
-            <style>
-                .hl1 { animation: draw-line 2s ease-out forwards; stroke-dasharray: 900; stroke-dashoffset: 900; }
-                .hl2 { animation: draw-line 2.2s ease-out forwards .4s; stroke-dasharray: 800; stroke-dashoffset: 800; }
-                .hl3 { animation: draw-line 2.5s ease-out forwards .8s; stroke-dasharray: 1200; stroke-dashoffset: 1200; }
-                .hn1 { animation: fade-node .5s ease-out forwards 1.8s; opacity: 0; }
-                .hn2 { animation: fade-node .5s ease-out forwards 2s; opacity: 0; }
-                .hn3 { animation: fade-node .5s ease-out forwards 2.1s; opacity: 0; }
-                .hn4 { animation: fade-node .5s ease-out forwards 2.05s; opacity: 0; }
-                .hn5 { animation: fade-node .5s ease-out forwards 2.15s; opacity: 0; }
-                .hn6 { animation: fade-node .5s ease-out forwards 2.25s; opacity: 0; }
-            </style>
-        </defs>
-        <path d="M40,300 C150,80 280,200 400,120 C480,72 530,160 620,90 C680,44 750,140 830,100" stroke="currentColor" stroke-width="2" fill="none" class="hl1" style="color:var(--color-brand-500);"/>
-        <path d="M420,120 C500,80 550,40 650,60 C700,72 760,110 850,70" stroke="currentColor" stroke-width="1.5" fill="none" class="hl2" style="color:var(--color-accent-500);"/>
-        <path d="M120,340 C250,200 600,280 900,200 C1000,170 1100,200 1160,160" stroke="currentColor" stroke-width="1.8" fill="none" class="hl3" style="color:var(--color-warm-500);"/>
-        <circle cx="40" cy="300" r="5" fill="currentColor" class="hn1" style="color:var(--color-brand-500);"/>
-        <circle cx="420" cy="120" r="4" fill="currentColor" class="hn2" style="color:var(--color-brand-500);"/>
-        <circle cx="650" cy="60" r="5" fill="currentColor" class="hn3" style="color:var(--color-accent-500);"/>
-        <circle cx="120" cy="340" r="3.5" fill="currentColor" class="hn4" style="color:var(--color-warm-500);"/>
-        <circle cx="900" cy="200" r="4" fill="currentColor" class="hn5" style="color:var(--color-warm-500);"/>
-        <circle cx="1160" cy="160" r="5" fill="currentColor" class="hn6" style="color:var(--color-brand-500);"/>
-    </svg>
-
-    <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent flex flex-col justify-end p-6 sm:p-12 anim-reveal">
+    <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/20 flex flex-col justify-end p-6 sm:p-12 anim-reveal">
         <div>
             <p class="text-brand-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">{{ __('common.home.featured_band') }}</p>
             <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-none tracking-tight">{{ $hero->name }}</h2>
@@ -73,11 +47,11 @@ $seo = new \App\Values\SeoData(
         <div class="stat-desc">{{ __('common.home.bands') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
-        <div class="stat-value text-accent-600 dark:text-accent-500">{{ number_format($stats['artists']) }}</div>
+        <div class="stat-value text-accent-500 dark:text-accent-400">{{ number_format($stats['artists']) }}</div>
         <div class="stat-desc">{{ __('common.home.artists') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
-        <div class="stat-value text-warm-600 dark:text-warm-500">{{ number_format($stats['memberships']) }}</div>
+        <div class="stat-value text-brand-400">{{ number_format($stats['memberships']) }}</div>
         <div class="stat-desc">{{ __('common.home.links') }}</div>
     </div>
     <div class="stat bg-white dark:bg-ink-800">
