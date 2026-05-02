@@ -12,7 +12,7 @@
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
 
-    /* Brand — Japandi Terracotta (calor, comunidade) */
+    /* Brand — Japandi Terracotta */
     --color-brand-50: #fdf6f3;
     --color-brand-100: #f9e8e0;
     --color-brand-200: #f2d1c1;
@@ -24,7 +24,7 @@
     --color-brand-800: #753d2e;
     --color-brand-900: #5f3326;
 
-    /* Accent — Japandi Sage (natureza, equilíbrio) */
+    /* Accent — Sage */
     --color-accent-50: #f4f7f3;
     --color-accent-100: #e3ebe0;
     --color-accent-200: #c8d7c2;
@@ -36,7 +36,7 @@
     --color-accent-800: #3a5036;
     --color-accent-900: #2f422d;
 
-    /* Warm — Japandi Ocher (toque solar) */
+    /* Warm — Ocher */
     --color-warm-50: #fdf8ef;
     --color-warm-100: #f9edd4;
     --color-warm-200: #f2dba8;
@@ -48,31 +48,31 @@
     --color-warm-800: #745830;
     --color-warm-900: #5e4829;
 
-    /* Surface — warm cream paper */
-    --color-surface-50: #fdfcf9;
-    --color-surface-100: #f8f5ef;
-    --color-surface-200: #efebe3;
-    --color-surface-300: #e2dcd0;
-    --color-surface-400: #c9c0b0;
-    --color-surface-500: #a89f8d;
-    --color-surface-600: #857c6c;
-    --color-surface-700: #6a6255;
-    --color-surface-800: #564f44;
-    --color-surface-900: #454038;
-    --color-surface-950: #2c2822;
+    /* Surface — clean off-white */
+    --color-surface-50: #faf8f3;
+    --color-surface-100: #f5f2eb;
+    --color-surface-200: #e8e4db;
+    --color-surface-300: #d6d1c6;
+    --color-surface-400: #b8b1a3;
+    --color-surface-500: #9a9283;
+    --color-surface-600: #7d7568;
+    --color-surface-700: #635c52;
+    --color-surface-800: #4d4840;
+    --color-surface-900: #3a3631;
+    --color-surface-950: #282521;
 
-    /* Ink — warm charcoal */
-    --color-ink: #1a1a18;
-    --color-ink-900: #1f1e1b;
-    --color-ink-800: #2c2a26;
-    --color-ink-700: #3d3a35;
-    --color-ink-600: #525048;
-    --color-ink-500: #6b685e;
-    --color-ink-400: #8f8b80;
-    --color-ink-300: #b5b1a5;
-    --color-ink-200: #d6d2c7;
-    --color-ink-100: #eae6dc;
-    --color-ink-50: #f5f2eb;
+    /* Ink — dark charcoal (Bandcamp-inspired) */
+    --color-ink: #141413;
+    --color-ink-900: #1a1a18;
+    --color-ink-800: #242422;
+    --color-ink-700: #33332f;
+    --color-ink-600: #4a4a45;
+    --color-ink-500: #63635d;
+    --color-ink-400: #868680;
+    --color-ink-300: #aeaea6;
+    --color-ink-200: #d0d0c8;
+    --color-ink-100: #e6e6df;
+    --color-ink-50: #f2f2ec;
 }
 
 /* === Base === */
@@ -98,7 +98,7 @@
     }
 }
 
-/* === Japandi utilities — clean, structural, warm === */
+/* === Bandcamp-style utilities === */
 @utility badge {
     display: inline-flex;
     align-items: center;
@@ -187,8 +187,32 @@
 }
 
 @utility card {
-    border: 2px solid var(--color-surface-200);
-    .dark & { border-color: var(--color-ink-700); }
+    background-color: white;
+    .dark & { background-color: var(--color-ink-800); }
+}
+
+@utility card-hover {
+    transition: background-color .2s;
+    &:hover { background-color: var(--color-surface-100); .dark & { background-color: var(--color-ink-700); } }
+}
+
+/* Bandcamp-style image card with overlay */
+@utility card-bandcamp {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-surface-100);
+    .dark & { background-color: var(--color-ink-900); }
+}
+
+@utility card-bandcamp-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .group:hover & { background: rgba(0,0,0,0.55); }
 }
 
 @utility prose {
@@ -209,22 +233,22 @@
 
 @utility stat {
     text-align: center;
-    padding: 1.75rem 0.75rem;
+    padding: 1.5rem 0.75rem;
 }
 
 @utility stat-value {
-    font-size: 2.25rem;
+    font-size: 1.75rem;
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.02em;
 }
 
 @utility stat-desc {
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     color: var(--color-surface-500);
     .dark & { color: var(--color-ink-400); }
 }
@@ -251,4 +275,88 @@
     color: var(--color-surface-400);
     & a { text-decoration: none; &:hover { text-decoration: underline; color: var(--color-surface-600); } }
     & span { color: var(--color-surface-700); font-weight: 500; .dark & { color: var(--color-ink-200); } }
+}
+
+/* Genealogy graph — dark, dot grid, left magenta band */
+.graph-container {
+    background-color: #1a1d23;
+    background-image: radial-gradient(circle, #2a2e36 1px, transparent 1px);
+    background-size: 24px 24px;
+    position: relative;
+}
+
+.graph-container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent 0 3px,
+        rgba(236, 72, 153, 0.3) 3px 6px
+    );
+    z-index: 10;
+    pointer-events: none;
+}
+
+.graph-legend {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    background: rgba(20, 22, 28, 0.92);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 14px 18px;
+    z-index: 20;
+    min-width: 160px;
+}
+
+.graph-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 11px;
+    color: #a0a0a8;
+}
+
+.graph-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.graph-zoom {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.graph-zoom-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 22, 28, 0.92);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #a0a0a8;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+}
+
+.graph-zoom-btn:hover {
+    background: rgba(50, 54, 64, 0.92);
+    color: #ffffff;
+}
+
+.graph-zoom-btn:first-child {
+    border-bottom: none;
 }
