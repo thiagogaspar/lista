@@ -21,7 +21,37 @@ if (!isset($seo)) {
 @endsection
 
 @section('content')
+@php
+$albumGeo = match ($album->band?->genres->first()?->slug) {
+    'alternative-rock', 'indie-rock', 'dream-pop', 'shoegaze' => 'sage',
+    'grunge', 'punk-rock', 'post-grunge' => 'ocher',
+    default => 'terracotta',
+};
+@endphp
 <div class="max-w-6xl mx-auto px-4">
+<!-- Hero -->
+<section class="relative -mx-4 -mt-6 mb-8 overflow-hidden bg-ink" style="aspect-ratio:16/4; max-height:45vh;">
+    @if($album->cover_art)
+    <img src="{{ Storage::url($album->cover_art) }}" alt="{{ $album->title }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw">
+    @endif
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        @if($albumGeo === 'terracotta')
+        <div class="absolute w-[45vmin] h-[45vmin] rounded-full bg-brand-500/15 -top-[12%] -right-[8%]"></div>
+        <div class="absolute w-[8vmin] h-[8vmin] bg-accent-500/20 bottom-[30%] left-[15%]"></div>
+        @elseif($albumGeo === 'sage')
+        <div class="absolute w-[35vmin] h-[35vmin] rounded-full bg-accent-500/15 top-[10%] right-[10%]"></div>
+        <div class="absolute w-[30%] h-[12%] bg-brand-500/15 bottom-0 right-0"></div>
+        @else
+        <div class="absolute w-[30vmin] h-[30vmin] bg-warm-500/15 -top-[5%] -left-[5%] rotate-12"></div>
+        <div class="absolute w-[20vmin] h-[20vmin] rounded-full bg-accent-500/15 bottom-[10%] right-[8%]"></div>
+        @endif
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
+    <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-10">
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $album->title }}</h1>
+    </div>
+</section>
+
 <nav class="flex items-center gap-2 text-xs text-surface-400 mb-8 uppercase tracking-wider">
     <a href="{{ route('home') }}" class="hover:text-brand-600">Home</a><span>/</span>
     <a href="{{ route('albums.index') }}" class="hover:text-brand-600">Albums</a><span>/</span>

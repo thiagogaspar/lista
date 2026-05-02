@@ -22,11 +22,11 @@ $seo = new \App\Values\SeoData(
 );
 @endphp
 <x-seo-meta :seo="$seo" />
-<link rel="preload" href="{{ $heroPlaceholder ?: $thumbPlaceholder }}" as="image" fetchpriority="high">
+@if($heroPlaceholder)
+<link rel="preload" href="{{ $heroPlaceholder }}" as="image" fetchpriority="high">
+@endif
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://picsum.photos" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<link rel="dns-prefetch" href="https://picsum.photos">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="{{ $thumbPlaceholder }}">
 @endsection
@@ -34,16 +34,20 @@ $seo = new \App\Values\SeoData(
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <!-- Hero -->
-<section class="relative -mx-4 -mt-6 mb-10 overflow-hidden bg-ink-900 dark:bg-ink" style="aspect-ratio:16/5; max-height:55vh;">
+<section class="relative -mx-4 -mt-6 mb-10 overflow-hidden bg-ink" style="aspect-ratio:16/5; max-height:55vh;">
     @if($hero)
-    <img src="{{ $hero }}" alt="{{ $artist->name }}" class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-35" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
+    <img src="{{ $hero }}" alt="{{ $artist->name }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
     @elseif($thumb)
-    <img src="{{ $thumb }}" alt="{{ $artist->name }}" class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-35" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
-    @else
-    <div class="absolute inset-0 bg-gradient-to-br from-accent-500/30 via-brand-500/20 to-warm-500/10"></div>
+    <img src="{{ $thumb }}" alt="{{ $artist->name }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
     @endif
-    <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent flex items-end p-6 sm:p-10">
-        <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-none tracking-tight">{{ $artist->name }}</h1>
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute w-[40vmin] h-[40vmin] rounded-full bg-accent-500/15 top-[5%] right-[15%]"></div>
+        <div class="absolute w-[35%] h-[14%] bg-brand-500/15 bottom-0 right-0"></div>
+        <div class="absolute w-[12vmin] h-[12vmin] rounded-full bg-warm-500/15 bottom-[30%] left-[10%]"></div>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
+    <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-10">
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $artist->name }}</h1>
     </div>
 </section>
 

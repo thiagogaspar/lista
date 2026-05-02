@@ -7,6 +7,11 @@ $thumb = $band->photo ? Storage::url($band->photo) : null;
 $slug = md5($band->slug);
 $heroPlaceholder = $hero ?: $thumb ?: '';
 $thumbPlaceholder = $thumb ?: "https://picsum.photos/seed/{$slug}/400/400";
+$geoTheme = match ($band->genres->first()?->slug) {
+    'alternative-rock', 'indie-rock', 'dream-pop', 'shoegaze' => 'sage',
+    'grunge', 'punk-rock', 'post-grunge' => 'ocher',
+    default => 'terracotta',
+};
 $gallery = $band->gallery && count($band->gallery) ? $band->gallery : [
     "https://picsum.photos/seed/{$slug}-1/600/400",
     "https://picsum.photos/seed/{$slug}-2/600/400",
@@ -22,24 +27,42 @@ $seo = new \App\Values\SeoData(
 );
 @endphp
 <x-seo-meta :seo="$seo" />
-<link rel="preload" href="{{ $heroPlaceholder ?: $thumbPlaceholder }}" as="image" fetchpriority="high">
+@if($heroPlaceholder)
+<link rel="preload" href="{{ $heroPlaceholder }}" as="image" fetchpriority="high">
+@endif
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <meta name="twitter:card" content="summary">
+@if($thumbPlaceholder)
 <meta name="twitter:image" content="{{ $thumbPlaceholder }}">
+@endif
 @endsection
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <!-- Hero -->
-<section class="relative -mx-4 -mt-6 mb-10 overflow-hidden bg-ink dark:bg-ink-900" style="aspect-ratio:16/5; max-height:55vh;">
+<section class="relative -mx-4 -mt-6 mb-10 overflow-hidden bg-ink" style="aspect-ratio:16/5; max-height:55vh;">
     @if($heroPlaceholder)
-    <img src="{{ $heroPlaceholder }}" alt="{{ $band->name }}" class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-35" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
-    @else
-    <div class="absolute inset-0 bg-gradient-to-br from-brand-500/40 via-accent-500/30 to-warm-500/20"></div>
+    <img src="{{ $heroPlaceholder }}" alt="{{ $band->name }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw" width="1200" height="375">
     @endif
-    <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent flex items-end p-6 sm:p-10">
-        <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-none tracking-tight">{{ $band->name }}</h1>
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        @if($geoTheme === 'terracotta')
+        <div class="absolute w-[50vmin] h-[50vmin] rounded-full bg-brand-500/15 -top-[15%] -right-[5%]"></div>
+        <div class="absolute w-[55%] h-[10%] bg-warm-500/10 bottom-[20%] -left-[8%]"></div>
+        <div class="absolute w-[8vmin] h-[8vmin] bg-accent-500/20 bottom-[40%] left-[20%]"></div>
+        @elseif($geoTheme === 'sage')
+        <div class="absolute w-[40vmin] h-[40vmin] rounded-full bg-accent-500/15 top-[5%] right-[15%]"></div>
+        <div class="absolute w-[35%] h-[14%] bg-brand-500/15 bottom-0 right-0"></div>
+        <div class="absolute w-[12vmin] h-[12vmin] rounded-full bg-warm-500/15 bottom-[30%] left-[10%]"></div>
+        @else
+        <div class="absolute w-[35vmin] h-[35vmin] bg-warm-500/15 -top-[8%] -left-[8%] rotate-12"></div>
+        <div class="absolute w-[25vmin] h-[25vmin] rounded-full bg-accent-500/15 bottom-[8%] right-[12%]"></div>
+        <div class="absolute w-[20vmin] h-[2vmin] bg-brand-500/20 top-[40%] left-[50%] -translate-x-1/2"></div>
+        @endif
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
+    <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-10">
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $band->name }}</h1>
     </div>
 </section>
 

@@ -21,18 +21,23 @@ if (!isset($seo)) {
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <!-- Hero -->
-<section class="relative -mx-4 mb-8 overflow-hidden bg-ink dark:bg-ink-900" style="min-height:260px">
+<section class="relative -mx-4 mb-8 overflow-hidden bg-ink" style="min-height:260px">
     @if($label->logo)
-    <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-15" fetchpriority="high">
+    <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high">
     @endif
-    <div class="absolute inset-0 bg-gradient-to-r from-ink/90 to-ink/70 flex items-center p-6 sm:p-10">
-        <div class="flex items-center gap-6">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute w-[35vmin] h-[35vmin] bg-warm-500/15 -top-[8%] -left-[8%] rotate-12"></div>
+        <div class="absolute w-[25vmin] h-[25vmin] rounded-full bg-accent-500/15 bottom-[8%] right-[12%]"></div>
+        <div class="absolute w-[20vmin] h-[2vmin] bg-brand-500/20 top-[40%] left-[50%] -translate-x-1/2"></div>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20 flex items-center p-6 sm:p-10">
+        <div class="relative z-10 flex items-center gap-6">
             @if($label->logo)
             <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }}" class="w-24 h-24 object-contain shrink-0" style="border:1px solid var(--color-surface-700)">
             @endif
             <div>
-                <p class="text-brand-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Record Label</p>
-                <h1 class="font-display text-3xl sm:text-5xl font-bold text-white leading-none tracking-tight">{{ $label->name }}</h1>
+                <p class="text-xs font-bold tracking-[0.15em] uppercase mb-2 text-warm-400">Record Label</p>
+                <h1 class="text-3xl sm:text-5xl font-black text-white leading-none tracking-tight">{{ $label->name }}</h1>
             </div>
         </div>
     </div>
