@@ -25,15 +25,15 @@ $seo = new \App\Values\SeoData(
 <!-- Legend -->
 <div class="graph-legend">
     <div class="text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Types</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#ec4899"></span> Grunge</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#a855f7"></span> Alternative Rock</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#3b82f6"></span> Hard Rock</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#22c55e"></span> Indie Rock</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#eab308"></span> Rap Metal</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#f97316"></span> Punk Rock</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#8b5cf6"></span> Artist</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#f0f0f0"></span> Grunge</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#d0d0d0"></span> Alt Rock</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#b0b0b0"></span> Hard Rock</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#909090"></span> Rap Metal</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#808080"></span> Heavy Metal</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#e0e0e0"></span> Punk Rock</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#cccccc"></span> Artist</div>
     <div class="border-t border-white/10 mt-2 pt-2">
-        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px solid #ec4899"></span> Relationship</div>
+        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px solid #f0f0f0"></span> Relationship</div>
         <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px dashed #6b7280"></span> Membership</div>
     </div>
 </div>

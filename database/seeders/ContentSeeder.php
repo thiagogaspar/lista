@@ -15,19 +15,19 @@ class ContentSeeder extends Seeder
 {
     private const MOCK = 'https://placehold.co';
 
-    private function mockPhoto(string $name, string $bg = 'c6755a', string $fg = 'fff', int $size = 400): string
+    private function mockPhoto(string $name, string $bg = '6b6b6b', string $fg = 'fff', int $size = 400): string
     {
         return self::MOCK . "/{$size}x{$size}/{$bg}/{$fg}?text=" . urlencode($name) . '&font=inter';
     }
 
-    private function mockHero(string $name, string $bg = '2c2a26', string $fg = 'c6755a'): string
+    private function mockHero(string $name, string $bg = '2a2a2a', string $fg = 'cccccc'): string
     {
         return self::MOCK . "/1200x400/{$bg}/{$fg}?text=" . urlencode($name) . '&font=inter';
     }
 
     private function mockCover(string $title): string
     {
-        return self::MOCK . '/400x400/1a1a18/c4a35a?text=' . urlencode($title) . '&font=inter';
+        return self::MOCK . '/400x400/333333/aaaaaa?text=' . urlencode($title) . '&font=inter';
     }
 
     public function run(): void
@@ -54,11 +54,11 @@ class ContentSeeder extends Seeder
         // Seed photos — clean mocks with brand colors
         $bands = Band::all();
         $bandColors = [
-            'nirvana' => ['8f4a37', 'f9e8e0'], 'foo-fighters' => ['b05e46', 'fdf6f3'],
-            'pearl-jam' => ['753d2e', 'f2d1c1'], 'soundgarden' => ['5f3326', 'e8b59d'],
-            'audioslave' => ['8f4a37', 'fef3c7'], 'rage-against-the-machine' => ['b45309', 'fefce8'],
-            'green-river' => ['466341', 'f4f7f3'], 'mother-love-bone' => ['5a7d52', 'e3ebe0'],
-            'temple-of-the-dog' => ['c4a35a', '1a1a18'],
+            'nirvana' => ['555555', 'f5f5f5'], 'foo-fighters' => ['606060', 'fafafa'],
+            'pearl-jam' => ['4a4a4a', 'eeeeee'], 'soundgarden' => ['404040', 'e5e5e5'],
+            'audioslave' => ['555555', 'f2f2f2'], 'rage-against-the-machine' => ['666666', 'fcfcfc'],
+            'green-river' => ['606060', 'f5f5f5'], 'mother-love-bone' => ['4a4a4a', 'eeeeee'],
+            'temple-of-the-dog' => ['808080', '222222'],
         ];
         foreach ($bands as $band) {
             $c = $bandColors[$band->slug] ?? ['8f4a37', 'f9e8e0'];
@@ -71,7 +71,7 @@ class ContentSeeder extends Seeder
         $artists = Artist::all();
         foreach ($artists as $artist) {
             $artist->update([
-                'photo' => $this->mockPhoto($artist->name, '73996a', 'fff'),
+                'photo' => $this->mockPhoto($artist->name, '7a7a7a', 'fff'),
             ]);
         }
 

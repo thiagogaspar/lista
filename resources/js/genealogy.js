@@ -9,22 +9,22 @@ export function initGenealogy() {
     status.textContent = 'Fetching...'
 
     var genreNodeColors = {
-        'grunge':            { bg: '#1a0f1a', border: '#ec4899', label: 'Grunge' },
-        'alternative-rock':  { bg: '#0f0f1a', border: '#a855f7', label: 'Alt Rock' },
-        'hard-rock':         { bg: '#0a0f1a', border: '#3b82f6', label: 'Hard Rock' },
-        'rap-metal':         { bg: '#1a1a0a', border: '#eab308', label: 'Rap Metal' },
-        'heavy-metal':       { bg: '#0f0a1a', border: '#6366f1', label: 'Heavy Metal' },
-        'punk-rock':         { bg: '#1a0f0a', border: '#f97316', label: 'Punk Rock' },
-        'indie-rock':        { bg: '#0a1a0f', border: '#22c55e', label: 'Indie Rock' },
-        'pop-rock':          { bg: '#1a1a0a', border: '#eab308', label: 'Pop Rock' },
-        'post-grunge':       { bg: '#1a0a1a', border: '#d946ef', label: 'Post-Grunge' },
-        'nu-metal':          { bg: '#0f0f1a', border: '#8b5cf6', label: 'Nu Metal' },
-        'thrash-metal':      { bg: '#0a0a1a', border: '#60a5fa', label: 'Thrash Metal' },
-        'death-metal':       { bg: '#0a0a0a', border: '#6b7280', label: 'Death Metal' },
+        'grunge':            { bg: '#0a0a0a', border: '#f0f0f0', label: 'Grunge' },
+        'alternative-rock':  { bg: '#141414', border: '#d0d0d0', label: 'Alt Rock' },
+        'hard-rock':         { bg: '#1a1a1a', border: '#b0b0b0', label: 'Hard Rock' },
+        'rap-metal':         { bg: '#222222', border: '#909090', label: 'Rap Metal' },
+        'heavy-metal':       { bg: '#2a2a2a', border: '#808080', label: 'Heavy Metal' },
+        'punk-rock':         { bg: '#0f0f0f', border: '#e0e0e0', label: 'Punk Rock' },
+        'indie-rock':        { bg: '#181818', border: '#c0c0c0', label: 'Indie Rock' },
+        'pop-rock':          { bg: '#202020', border: '#a0a0a0', label: 'Pop Rock' },
+        'post-grunge':       { bg: '#0d0d0d', border: '#d8d8d8', label: 'Post-Grunge' },
+        'nu-metal':          { bg: '#161616', border: '#b8b8b8', label: 'Nu Metal' },
+        'thrash-metal':      { bg: '#1e1e1e', border: '#989898', label: 'Thrash Metal' },
+        'death-metal':       { bg: '#262626', border: '#787878', label: 'Death Metal' },
     }
 
-    var defaultColor = { bg: '#111118', border: '#6366f1', label: 'Other' }
-    var artistColor = { bg: '#0f0a1a', border: '#8b5cf6' }
+    var defaultColor = { bg: '#111111', border: '#aaaaaa', label: 'Other' }
+    var artistColor = { bg: '#1c1c1c', border: '#cccccc' }
 
     function getGenreColors(genre) {
         return genreNodeColors[genre] || defaultColor

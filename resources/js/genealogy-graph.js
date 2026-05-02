@@ -6,8 +6,8 @@ window.initBandGraph = function(containerId, graphData) {
     if (!container) return
     container.innerHTML = ''
 
-    var bandBg = '#059669', bandBorder = '#34d399'
-    var artistBg = '#7c3aed', artistBorder = '#a78bfa'
+    var bandBg = '#555555', bandBorder = '#aaaaaa'
+    var artistBg = '#777777', artistBorder = '#bbbbbb'
 
     graphData.nodes.forEach(function(n) {
         var isArtist = n.group === 'artist'
@@ -33,7 +33,7 @@ window.initBandGraph = function(containerId, graphData) {
             e.color = { color: isDark ? '#d6d3d1' : '#a8a29e' }
             e.width = 1.5
         } else {
-            e.color = { color: '#f59e0b' }
+            e.color = { color: '#888888' }
             e.width = 3
             e.font = { size: 10, color: isDark ? '#d6d3d1' : '#57534e', strokeWidth: 2, strokeColor: isDark ? '#292524' : '#ffffff' }
         }

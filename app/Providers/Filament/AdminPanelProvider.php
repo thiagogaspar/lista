@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->colors(['primary' => Color::Emerald])
+            ->colors(['primary' => Color::Stone])
             ->brandName('LISTA')
             ->brandLogo(fn () => view('filament.brand'))
             ->favicon(asset('favicon.svg'))

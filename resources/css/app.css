@@ -12,41 +12,41 @@
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
 
-    /* Brand — Japandi Terracotta */
-    --color-brand-50: #fdf6f3;
-    --color-brand-100: #f9e8e0;
-    --color-brand-200: #f2d1c1;
-    --color-brand-300: #e8b59d;
-    --color-brand-400: #d99273;
-    --color-brand-500: #c6755a;
-    --color-brand-600: #b05e46;
-    --color-brand-700: #8f4a37;
-    --color-brand-800: #753d2e;
-    --color-brand-900: #5f3326;
+    /* Brand — Dark gray (primary) */
+    --color-brand-50: #f5f5f5;
+    --color-brand-100: #e5e5e5;
+    --color-brand-200: #cccccc;
+    --color-brand-300: #aaaaaa;
+    --color-brand-400: #888888;
+    --color-brand-500: #6b6b6b;
+    --color-brand-600: #555555;
+    --color-brand-700: #404040;
+    --color-brand-800: #2a2a2a;
+    --color-brand-900: #1a1a1a;
 
-    /* Accent — Sage */
-    --color-accent-50: #f4f7f3;
-    --color-accent-100: #e3ebe0;
-    --color-accent-200: #c8d7c2;
-    --color-accent-300: #a5be9d;
-    --color-accent-400: #8aaa80;
-    --color-accent-500: #73996a;
-    --color-accent-600: #5a7d52;
-    --color-accent-700: #466341;
-    --color-accent-800: #3a5036;
-    --color-accent-900: #2f422d;
+    /* Accent — Medium gray (secondary) */
+    --color-accent-50: #fafafa;
+    --color-accent-100: #eeeeee;
+    --color-accent-200: #dddddd;
+    --color-accent-300: #bbbbbb;
+    --color-accent-400: #999999;
+    --color-accent-500: #7a7a7a;
+    --color-accent-600: #606060;
+    --color-accent-700: #4a4a4a;
+    --color-accent-800: #333333;
+    --color-accent-900: #222222;
 
-    /* Warm — Ocher */
-    --color-warm-50: #fdf8ef;
-    --color-warm-100: #f9edd4;
-    --color-warm-200: #f2dba8;
-    --color-warm-300: #e9c677;
-    --color-warm-400: #ddb454;
-    --color-warm-500: #c4a35a;
-    --color-warm-600: #ad8745;
-    --color-warm-700: #8e6c38;
-    --color-warm-800: #745830;
-    --color-warm-900: #5e4829;
+    /* Warm — Light gray (tertiary) */
+    --color-warm-50: #fcfcfc;
+    --color-warm-100: #f2f2f2;
+    --color-warm-200: #e6e6e6;
+    --color-warm-300: #cccccc;
+    --color-warm-400: #b3b3b3;
+    --color-warm-500: #999999;
+    --color-warm-600: #808080;
+    --color-warm-700: #666666;
+    --color-warm-800: #4d4d4d;
+    --color-warm-900: #333333;
 
     /* Surface — clean off-white */
     --color-surface-50: #faf8f3;
