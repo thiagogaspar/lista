@@ -4,7 +4,7 @@ ARG APP_KEY
 ARG APP_ENV=production
 ARG APP_DEBUG=true
 
-RUN install-php-extensions pdo_mysql intl @composer
+RUN install-php-extensions pdo_mysql mysqli mbstring intl zip gd opcache @composer
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates unzip \
     && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
