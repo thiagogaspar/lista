@@ -1,5 +1,9 @@
 FROM dunglas/frankenphp:1-php8.4-bookworm
 
+ARG APP_KEY
+ARG APP_ENV=production
+ARG APP_DEBUG=false
+
 RUN install-php-extensions \
     pdo_mysql \
     mysqli \
@@ -11,21 +15,22 @@ RUN install-php-extensions \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-COPY . .
+COPY package.json package-lock.json ./
+RUN npm ci
 
-RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm \
-    && npm ci \
-    && npm run build \
-    && npm prune --omit=dev \
-    && composer install --no-dev --optimize-autoloader \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
-    && apt-get remove -y nodejs npm \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/* /root/.npm /tmp/*
+COPY . .
+RUN npm run build && npm prune --omit=dev
+
+RUN composer install --no-dev --optimize-autoloader
+
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 ENV SERVER_NAME=:8080
 EXPOSE 8080
