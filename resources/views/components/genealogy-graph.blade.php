@@ -6,5 +6,7 @@
 
 @vite(['resources/js/genealogy-graph.js'])
 <script>
-initBandGraph('{{ $containerId }}', @json($graph));
+document.addEventListener('DOMContentLoaded', function () {
+    initBandGraph('{{ $containerId }}', @json($graph));
+});
 </script>
