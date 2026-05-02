@@ -57,7 +57,7 @@ $seo = new \App\Values\SeoData(
                 @endif
             </div>
         </div>
-        <span class="text-surface-300 dark:text-ink-600 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
+        <span class="text-surface-300 dark:text-ink-400 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
     </a>
     @empty
     <div class="col-span-full text-center py-16"><p class="text-surface-500">No albums found.</p></div>

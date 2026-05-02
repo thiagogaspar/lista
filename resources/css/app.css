@@ -54,9 +54,9 @@
     --color-surface-100: #f5f2eb;
     --color-surface-200: #e8e4db;
     --color-surface-300: #d6d1c6;
-    --color-surface-400: #b8b1a3;
-    --color-surface-500: #9a9283;
-    --color-surface-600: #7d7568;
+    --color-surface-400: #81796a;
+    --color-surface-500: #6f675a;
+    --color-surface-600: #635c52;
     --color-surface-700: #635c52;
     --color-surface-800: #4d4840;
     --color-surface-900: #3a3631;
@@ -68,8 +68,8 @@
     --color-ink-800: #242422;
     --color-ink-700: #33332f;
     --color-ink-600: #4a4a45;
-    --color-ink-500: #63635d;
-    --color-ink-400: #868680;
+    --color-ink-500: #8a8a83;
+    --color-ink-400: #95958e;
     --color-ink-300: #aeaea6;
     --color-ink-200: #d0d0c8;
     --color-ink-100: #e6e6df;
@@ -108,7 +108,7 @@
 
 @utility badge-surface {
     border-color: var(--color-surface-300);
-    color: var(--color-surface-600);
+    color: var(--color-surface-700);
     .dark & { border-color: var(--color-ink-600); color: var(--color-ink-300); }
 }
 
@@ -154,7 +154,7 @@
         color: var(--color-ink-100);
     }
     &:focus { border-color: var(--color-brand-500); }
-    &::placeholder { color: var(--color-surface-400); }
+    &::placeholder { color: var(--color-surface-500); }
 }
 
 @utility select {
@@ -239,7 +239,7 @@
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-top: 0.25rem;
-    color: var(--color-surface-500);
+    color: var(--color-surface-600);
     .dark & { color: var(--color-ink-400); }
 }
 
@@ -263,9 +263,9 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.8125rem;
-    color: var(--color-surface-400);
+    color: var(--color-surface-500);
     & a { text-decoration: none; font-weight: 500; &:hover { text-decoration: underline; color: var(--color-brand-700); .dark & { color: var(--color-brand-300); } } }
-    & span { color: var(--color-surface-700); font-weight: 500; .dark & { color: var(--color-ink-200); } }
+    & span { color: var(--color-surface-700); font-weight: 600; .dark & { color: var(--color-ink-200); } }
 }
 
 /* Genealogy graph — dark, dot grid, left magenta band */

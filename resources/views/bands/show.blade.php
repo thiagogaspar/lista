@@ -132,7 +132,7 @@ $seo = new \App\Values\SeoData(
                         @if($cover)
                         <img src="{{ $cover }}" alt="{{ $album->title }}" class="w-full h-full object-cover" loading="lazy">
                         @else
-                        <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-600">
+                        <div class="w-full h-full bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-400">
                             <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                         </div>
                         @endif
@@ -143,7 +143,7 @@ $seo = new \App\Values\SeoData(
                 </div>
                 <div class="mt-2">
                     <h3 class="text-sm font-bold text-surface-900 dark:text-ink-100 truncate">{{ $album->title }}</h3>
-                    @if($album->release_year)<p class="text-[10px] text-surface-400 dark:text-ink-600">{{ $album->release_year }}</p>@endif
+                    @if($album->release_year)<p class="text-[10px] text-surface-400 dark:text-ink-400">{{ $album->release_year }}</p>@endif
                 </div>
             </a>
             @endforeach

@@ -118,7 +118,7 @@ $geo = match ($heroBand?->genres->first()?->slug) {
                         @if($band->origin)<span class="ml-1">&middot; {{ $band->origin }}</span>@endif
                     </div>
                 </div>
-                <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
+                <span class="text-surface-300 dark:text-ink-400 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
             </a>
         @empty
             <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_featured_bands') }}</p>
@@ -144,7 +144,7 @@ $geo = match ($heroBand?->genres->first()?->slug) {
                         @if($artist->origin)<span>{{ $artist->origin }}</span>@endif
                     </div>
                 </div>
-                <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
+                <span class="text-surface-300 dark:text-ink-400 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
             </a>
         @empty
             <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_featured_artists') }}</p>
@@ -173,7 +173,7 @@ $geo = match ($heroBand?->genres->first()?->slug) {
                     @if($label->country)<span class="ml-1">&middot; {{ $label->country }}</span>@endif
                 </div>
             </div>
-            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
+            <span class="text-surface-300 dark:text-ink-400 text-xs mt-1 shrink-0 opacity-0 group-hover:opacity-100">&rarr;</span>
         </a>
         @empty
         <p class="text-sm text-surface-400 text-center py-6">{{ __('common.home.no_labels') }}</p>

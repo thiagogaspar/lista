@@ -55,11 +55,11 @@ $seo = new \App\Values\SeoData(
                     <span class="mx-1">&middot;</span><span>{{ $artist->birth_date->format('Y') }}@if($artist->death_date)&ndash;{{ $artist->death_date->format('Y') }}@endif</span>
                     @endif
                 </div>
-                <div class="text-[11px] text-surface-400 dark:text-ink-600 mt-0.5">
+                <div class="text-[11px] text-surface-400 dark:text-ink-400 mt-0.5">
                     <span>{{ $artist->bands->count() }} band{{ $artist->bands->count() !== 1 ? 's' : '' }}</span>
                 </div>
             </div>
-            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
+            <span class="text-surface-300 dark:text-ink-400 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
         </a>
     @empty
         <div class="col-span-full text-center py-16">

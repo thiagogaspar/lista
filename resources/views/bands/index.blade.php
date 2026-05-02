@@ -91,14 +91,14 @@ $seo = new \App\Values\SeoData(
                     <span class="mx-1">&middot;</span><span>{{ $band->origin }}</span>
                     @endif
                 </div>
-                <div class="text-[11px] text-surface-400 dark:text-ink-600 mt-0.5">
+                <div class="text-[11px] text-surface-400 dark:text-ink-400 mt-0.5">
                     <span>{{ $band->artists_count }} member{{ $band->artists_count !== 1 ? 's' : '' }}</span>
                     @if($band->label)
                     <span class="mx-1.5">&middot;</span><span>{{ $band->label->name }}</span>
                     @endif
                 </div>
             </div>
-            <span class="text-surface-300 dark:text-ink-600 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
+            <span class="text-surface-300 dark:text-ink-400 text-xs mt-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">&rarr;</span>
         </a>
     @empty
         <div class="text-center py-16">

@@ -65,7 +65,7 @@ $albumGeo = match ($album->band?->genres->first()?->slug) {
         @if($album->cover_art)
         <img src="{{ Storage::url($album->cover_art) }}" alt="{{ $album->title }} cover" class="w-full aspect-square object-cover" fetchpriority="high" style="border:1px solid var(--color-surface-200)">
         @else
-        <div class="w-full aspect-square bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-300 dark:text-ink-600" style="border:1px solid var(--color-surface-200)">
+        <div class="w-full aspect-square bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-300 dark:text-ink-400" style="border:1px solid var(--color-surface-200)">
             <svg class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
         </div>
         @endif
