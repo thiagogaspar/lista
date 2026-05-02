@@ -26,4 +26,4 @@ RUN php artisan route:cache && php artisan view:cache
 ENV SERVER_NAME=:8080
 EXPOSE 8080
 
-CMD mkdir -p /app/database && touch /app/database/database.sqlite && php artisan config:cache && php artisan cache:clear --no-interaction && php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=8080
+CMD mkdir -p /app/database && touch /app/database/database.sqlite && php artisan config:cache && php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=8080
