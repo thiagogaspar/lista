@@ -3,25 +3,10 @@ FROM dunglas/frankenphp:1-php8.4-bookworm
 ARG APP_KEY
 ARG APP_ENV=production
 ARG APP_DEBUG=true
-ARG DB_CONNECTION
-ARG DB_HOST
-ARG DB_PORT
-ARG DB_DATABASE
-ARG DB_USERNAME
-ARG DB_PASSWORD
 
-RUN install-php-extensions \
-    pdo_mysql \
-    mysqli \
-    mbstring \
-    intl \
-    zip \
-    gd \
-    opcache
+RUN install-php-extensions pdo_mysql intl @composer
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates unzip \
     && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
