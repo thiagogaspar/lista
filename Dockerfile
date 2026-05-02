@@ -32,7 +32,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
-ENV SERVER_NAME=:8080
-EXPOSE 8080
+ENV SERVER_NAME=:80
+EXPOSE 80
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-80}
