@@ -10,11 +10,10 @@ $seo = new \App\Values\SeoData(
     schema: json_encode(['@context'=>'https://schema.org','@type'=>'WebSite','name'=>'LISTA','url'=>url('/')], JSON_UNESCAPED_SLASHES),
 );
 
-// Derive hero stripe theme from first genre
-$heroStripe = match ($heroBand?->genres->first()?->slug) {
-    'alternative-rock', 'indie-rock', 'dream-pop', 'shoegaze' => 'hero-stripe-accent',
-    'grunge', 'punk-rock', 'post-grunge' => 'hero-stripe-warm',
-    default => 'hero-stripe-brand',
+$geo = match ($heroBand?->genres->first()?->slug) {
+    'alternative-rock', 'indie-rock', 'dream-pop', 'shoegaze' => 'sage',
+    'grunge', 'punk-rock', 'post-grunge' => 'ocher',
+    default => 'terracotta',
 };
 @endphp
 <x-seo-meta :seo="$seo" />
@@ -24,96 +23,113 @@ $heroStripe = match ($heroBand?->genres->first()?->slug) {
 @php $hero = $heroBand; @endphp
 
 @if($hero)
-<section class="relative -mx-4 -mt-6 mb-12 overflow-hidden bg-ink dark:bg-ink-900" style="aspect-ratio:16/5; max-height:60vh;">
+<section class="relative -mx-4 -mt-6 mb-12 overflow-hidden bg-ink" style="aspect-ratio:16/5; max-height:60vh;">
     @if($hero->hero_image)
-    <img src="{{ Storage::url($hero->hero_image) }}" alt="{{ $hero->name }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async">
+    <img src="{{ Storage::url($hero->hero_image) }}" alt="{{ $hero->name }}" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high" decoding="async">
     @elseif($hero->photo)
-    <img src="{{ Storage::url($hero->photo) }}" alt="{{ $hero->name }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async">
+    <img src="{{ Storage::url($hero->photo) }}" alt="{{ $hero->name }}" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high" decoding="async">
     @endif
-    <div class="absolute inset-0 hero-pattern {{ $heroStripe }}"></div>
 
-    <div class="absolute inset-0 bg-ink/60"></div>
+    <!-- Japandi geometric shapes -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        @if($geo === 'terracotta')
+        <div class="absolute w-[50vmin] h-[50vmin] rounded-full bg-brand-500/15 -top-[15%] -right-[5%]"></div>
+        <div class="absolute w-[55%] h-[10%] bg-warm-500/10 bottom-[20%] -left-[8%]"></div>
+        <div class="absolute w-[8vmin] h-[8vmin] bg-accent-500/20 bottom-[40%] left-[20%]"></div>
+        @elseif($geo === 'sage')
+        <div class="absolute w-[40vmin] h-[40vmin] rounded-full bg-accent-500/15 top-[5%] right-[15%]"></div>
+        <div class="absolute w-[35%] h-[14%] bg-brand-500/15 bottom-0 right-0"></div>
+        <div class="absolute w-[12vmin] h-[12vmin] rounded-full bg-warm-500/15 bottom-[30%] left-[10%]"></div>
+        @else
+        <div class="absolute w-[35vmin] h-[35vmin] bg-warm-500/15 -top-[8%] -left-[8%] rotate-12"></div>
+        <div class="absolute w-[25vmin] h-[25vmin] rounded-full bg-accent-500/15 bottom-[8%] right-[12%]"></div>
+        <div class="absolute w-[20vmin] h-[2vmin] bg-brand-500/20 top-[40%] left-[50%] -translate-x-1/2"></div>
+        @endif
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20"></div>
 
     <div class="relative z-10 flex flex-col justify-end h-full p-6 sm:p-12">
         <div>
-            <p class="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2">{{ __('common.home.featured_band') }}</p>
-            <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-none tracking-tight">{{ $hero->name }}</h2>
-            <div class="flex flex-wrap gap-2 mt-3">
-                @if($hero->formed_year)<span class="badge badge-brand">{{ $hero->formed_year }}&ndash;{{ $hero->dissolved_year ?? __('common.bands.present') }}</span>@endif
-                @foreach($hero->genres->take(3) as $genre)<span class="badge badge-surface text-white/70 bg-white/10 dark:bg-white/10">{{ $genre->name }}</span>@endforeach
+            <p class="text-xs font-bold tracking-[0.15em] uppercase mb-2" style="color:{{ $geo === 'sage' ? 'var(--color-accent-400)' : ($geo === 'ocher' ? 'var(--color-warm-400)' : 'var(--color-brand-400)') }}">{{ __('common.home.featured_band') }}</p>
+            <h2 class="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-none tracking-tight">{{ $hero->name }}</h2>
+            <div class="flex flex-wrap gap-2 mt-4">
+                @if($hero->formed_year)<span class="badge text-white/70" style="border-color:rgba(255,255,255,0.25)">{{ $hero->formed_year }}&ndash;{{ $hero->dissolved_year ?? __('common.bands.present') }}</span>@endif
+                @foreach($hero->genres->take(3) as $genre)<span class="badge text-white/50" style="border-color:rgba(255,255,255,0.15)">{{ $genre->name }}</span>@endforeach
             </div>
-            <div class="mt-5">
-                <a href="{{ route('bands.show', $hero) }}" class="btn btn-brand">{{ __('common.home.explore', ['name' => $hero->name]) }} &rarr;</a>
+            <div class="mt-6">
+                <a href="{{ route('bands.show', $hero) }}" class="btn btn-brand text-sm tracking-wider">{{ __('common.home.explore', ['name' => $hero->name]) }} &rarr;</a>
             </div>
         </div>
     </div>
 </section>
 @endif
 
-<!-- Stats -->
-<div class="grid grid-cols-2 sm:grid-cols-4 border border-surface-200 dark:border-ink-700 mb-12 mx-4 max-w-6xl lg:mx-auto">
-    <div class="stat border-r border-b border-surface-200 dark:border-ink-700 sm:border-b-0 bg-white dark:bg-ink-800">
-        <div class="stat-value text-brand-600 dark:text-brand-500">{{ number_format($stats['bands']) }}</div>
-        <div class="stat-desc">{{ __('common.home.bands') }}</div>
-    </div>
-    <div class="stat border-b border-surface-200 dark:border-ink-700 sm:border-b-0 sm:border-r bg-white dark:bg-ink-800">
-        <div class="stat-value text-accent-500 dark:text-accent-400">{{ number_format($stats['artists']) }}</div>
-        <div class="stat-desc">{{ __('common.home.artists') }}</div>
-    </div>
-    <div class="stat border-r border-surface-200 dark:border-ink-700 bg-white dark:bg-ink-800">
-        <div class="stat-value text-brand-400">{{ number_format($stats['memberships']) }}</div>
-        <div class="stat-desc">{{ __('common.home.links') }}</div>
-    </div>
-    <div class="stat bg-white dark:bg-ink-800">
-        <div class="stat-value text-surface-700 dark:text-ink-200">{{ number_format($stats['relationships']) }}</div>
-        <div class="stat-desc">{{ __('common.home.connections') }}</div>
+<!-- Stats bar -->
+<div class="border-t-2 border-b-2 border-surface-200 dark:border-ink-700 mb-12 mx-4 max-w-6xl lg:mx-auto">
+    <div class="grid grid-cols-2 sm:grid-cols-4 divide-x-2 divide-surface-200 dark:divide-ink-700">
+        <div class="stat">
+            <div class="stat-value text-brand-600 dark:text-brand-500">{{ number_format($stats['bands']) }}</div>
+            <div class="stat-desc">{{ __('common.home.bands') }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value text-accent-500 dark:text-accent-400">{{ number_format($stats['artists']) }}</div>
+            <div class="stat-desc">{{ __('common.home.artists') }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value text-warm-500 dark:text-warm-400">{{ number_format($stats['memberships']) }}</div>
+            <div class="stat-desc">{{ __('common.home.links') }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value text-surface-700 dark:text-ink-200">{{ number_format($stats['relationships']) }}</div>
+            <div class="stat-desc">{{ __('common.home.connections') }}</div>
+        </div>
     </div>
 </div>
 
-<!-- Hero text -->
 <div class="max-w-6xl mx-auto px-4">
 <div class="mb-12 max-w-2xl mx-auto text-center">
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-surface-900 dark:text-ink-200 leading-none tracking-tight">
         {{ __('common.home.local') }} <span class="text-brand-600 dark:text-brand-500">{{ __('common.home.music') }}</span> {{ __('common.home.genealogy') }}
     </h1>
-    <p class="mt-3 text-surface-500 dark:text-surface-400 text-base leading-relaxed">
+    <p class="mt-4 text-surface-500 dark:text-ink-400 text-base leading-relaxed max-w-lg mx-auto">
         {{ __('common.home.subtitle') }}
     </p>
-    <div class="flex items-center justify-center gap-3 mt-5">
+    <div class="flex items-center justify-center gap-4 mt-6">
         <a href="{{ route('bands.index') }}" class="btn btn-brand">{{ __('common.home.browse_bands') }}</a>
         <a href="{{ route('genealogy') }}" class="btn btn-ghost">{{ __('common.home.view_graph') }}</a>
     </div>
 </div>
 
 <!-- Featured Bands -->
-<section class="mb-12">
-    <div class="flex items-center justify-between mb-4">
+<section class="mb-14">
+    <div class="flex items-center justify-between mb-5 pb-3 border-b-2 border-surface-200 dark:border-ink-700">
         <div>
             <h2 class="text-lg font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_bands') }}</h2>
-            <p class="text-xs text-surface-400 mt-0.5">{{ __('common.home.featured_bands_desc') }}</p>
+            <p class="text-xs text-surface-400 dark:text-ink-500 mt-0.5">{{ __('common.home.featured_bands_desc') }}</p>
         </div>
         <a href="{{ route('bands.index') }}" class="link text-xs font-semibold">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         @forelse($featuredBands as $band)
-            <a href="{{ route('bands.show', $band) }}" class="block">
+            <a href="{{ route('bands.show', $band) }}" class="block group">
                 <div class="card bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
                         @if($band->photo)
-                        <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0 border border-surface-200 dark:border-ink-700" loading="lazy">
+                        <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-bold text-sm text-brand-600 dark:text-brand-400 truncate">{{ $band->name }}</h3>
-                            <div class="flex flex-wrap gap-1 mt-1">
+                            <div class="flex flex-wrap gap-1 mt-1.5">
                                 @if($band->formed_year)
-                                <span class="badge badge-brand">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>
+                                <span class="badge badge-brand text-[10px]">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>
                                 @endif
                                 @foreach($band->genres->take(2) as $genre)
-                                <span class="badge badge-surface">{{ $genre->name }}</span>
+                                <span class="badge badge-surface text-[10px]">{{ $genre->name }}</span>
                                 @endforeach
                             </div>
                             @if($band->origin)
-                            <p class="text-[11px] text-surface-400 mt-1.5 truncate uppercase tracking-wider">{{ $band->origin }}</p>
+                            <p class="text-[10px] text-surface-400 dark:text-ink-500 mt-2 uppercase tracking-wider font-semibold">{{ $band->origin }}</p>
                             @endif
                         </div>
                     </div>
@@ -126,26 +142,26 @@ $heroStripe = match ($heroBand?->genres->first()?->slug) {
 </section>
 
 <!-- Featured Artists -->
-<section class="mb-12">
-    <div class="flex items-center justify-between mb-4">
+<section class="mb-14">
+    <div class="flex items-center justify-between mb-5 pb-3 border-b-2 border-surface-200 dark:border-ink-700">
         <div>
             <h2 class="text-lg font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.featured_artists') }}</h2>
-            <p class="text-xs text-surface-400 mt-0.5">{{ __('common.home.featured_artists_desc') }}</p>
+            <p class="text-xs text-surface-400 dark:text-ink-500 mt-0.5">{{ __('common.home.featured_artists_desc') }}</p>
         </div>
         <a href="{{ route('artists.index') }}" class="link text-xs font-semibold">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         @forelse($featuredArtists as $artist)
             <a href="{{ route('artists.show', $artist) }}" class="block">
                 <div class="card bg-white dark:bg-ink-800">
                     <div class="p-4 flex gap-3">
                         @if($artist->photo)
-                        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-12 h-12 object-cover shrink-0 border border-surface-200 dark:border-ink-700" loading="lazy">
+                        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy">
                         @endif
                         <div class="min-w-0 flex-1">
                             <h3 class="font-bold text-sm text-brand-600 dark:text-brand-400 truncate">{{ $artist->name }}</h3>
                             @if($artist->origin)
-                            <p class="text-[11px] text-surface-400 mt-1.5 truncate uppercase tracking-wider">{{ $artist->origin }}</p>
+                            <p class="text-[10px] text-surface-400 dark:text-ink-500 mt-2 uppercase tracking-wider font-semibold">{{ $artist->origin }}</p>
                             @endif
                         </div>
                     </div>
@@ -158,27 +174,27 @@ $heroStripe = match ($heroBand?->genres->first()?->slug) {
 </section>
 
 <!-- Featured Labels -->
-<section class="mb-12">
-    <div class="flex items-center justify-between mb-4">
+<section class="mb-14">
+    <div class="flex items-center justify-between mb-5 pb-3 border-b-2 border-surface-200 dark:border-ink-700">
         <div>
             <h2 class="text-lg font-bold text-surface-900 dark:text-ink-200">{{ __('common.home.labels') }}</h2>
-            <p class="text-xs text-surface-400 mt-0.5">{{ __('common.home.labels_desc') }}</p>
+            <p class="text-xs text-surface-400 dark:text-ink-500 mt-0.5">{{ __('common.home.labels_desc') }}</p>
         </div>
         <a href="{{ route('labels.index') }}" class="link text-xs font-semibold">{{ __('common.view_all') }} &rarr;</a>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         @forelse($featuredLabels as $label)
         <a href="{{ route('labels.show', $label) }}" class="block">
-            <div class="card bg-white dark:bg-ink-800 p-4 text-center">
+            <div class="card bg-white dark:bg-ink-800 p-5 text-center">
                 @if($label->logo)
                 <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="h-14 mx-auto object-contain mb-3" loading="lazy">
                 @else
-                <div class="w-14 h-14 mx-auto bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-400 dark:text-ink-500 text-lg font-bold mb-3 border border-surface-200 dark:border-ink-600">
+                <div class="w-14 h-14 mx-auto bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-400 dark:text-ink-400 text-lg font-bold mb-3">
                     {{ $label->name[0] }}
                 </div>
                 @endif
                 <h3 class="font-bold text-xs text-brand-600 dark:text-brand-400 truncate">{{ $label->name }}</h3>
-                <p class="text-[10px] text-surface-400 mt-1">{{ $label->bands_count }} band{{ $label->bands_count !== 1 ? 's' : '' }}</p>
+                <p class="text-[10px] text-surface-400 dark:text-ink-500 mt-1 font-semibold">{{ $label->bands_count }} band{{ $label->bands_count !== 1 ? 's' : '' }}</p>
             </div>
         </a>
         @empty
@@ -188,12 +204,12 @@ $heroStripe = match ($heroBand?->genres->first()?->slug) {
 </section>
 
 <!-- CTA -->
-<section class="border-t border-surface-200 dark:border-ink-700 pt-10">
+<section class="border-t-2 border-surface-200 dark:border-ink-700 pt-10">
     <div class="max-w-xl mx-auto text-center">
-        <h2 class="text-2xl font-bold text-surface-900 dark:text-ink-200 mb-3">{{ __('common.home.cta_title') }}</h2>
-        <p class="text-surface-500 dark:text-surface-400 text-sm mb-5">{{ __('common.home.cta_desc') }}</p>
+        <h2 class="text-2xl font-black text-surface-900 dark:text-ink-200 mb-3">{{ __('common.home.cta_title') }}</h2>
+        <p class="text-surface-500 dark:text-ink-400 text-sm mb-5">{{ __('common.home.cta_desc') }}</p>
         <a href="/admin" class="btn btn-brand">{{ __('common.home.cta_button') }} &rarr;</a>
-        <p class="text-xs text-surface-400 mt-4">{{ __('common.contribute') }} <a href="{{ route('register') }}" class="link">{{ __('common.home.cta_register') }}</a></p>
+        <p class="text-xs text-surface-400 dark:text-ink-500 mt-4">{{ __('common.contribute') }} <a href="{{ route('register') }}" class="link">{{ __('common.home.cta_register') }}</a></p>
     </div>
 </section>
 </div>
