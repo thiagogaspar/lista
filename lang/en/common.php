@@ -51,6 +51,10 @@ return [
         'no_featured_artists' => 'No featured artists yet.',
         'no_labels' => 'No labels yet.',
         'explore' => 'Explore :name',
+        'hero_title' => 'Local Music.<br><span>Genealogy.</span>',
+        'hero_subtitle' => 'Explore connections between bands and artists of the original scene. A collaborative directory, in English.',
+        'hero_tag' => 'Collaborative Directory',
+        'present' => 'present',
     ],
 
     'bands' => [
@@ -238,13 +242,6 @@ return [
 
     'pagination' => [
         'of' => 'of',
-    ],
-
-    'home' => [
-        'hero_title' => 'Local Music.<br><span>Genealogy.</span>',
-        'hero_subtitle' => 'Explore connections between bands and artists of the original scene. A collaborative directory, in English.',
-        'hero_tag' => 'Collaborative Directory',
-        'present' => 'present',
     ],
 
     'common' => [

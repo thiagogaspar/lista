@@ -11,6 +11,7 @@
 | 2026-04-30 16:30 | CLI | P3 concluído: Comentários, Sugestões, Moderation, Blog, i18n, lazy loading, vis.js async. All routes 200. |
 | 2026-04-30 17:15 | CLI | Auto-WebP, Hero SVG animado, Dark mode suave, Genealogy refactor (clusters/hierarchical/focus), Like/favorite, Fotos nas listagens, Stats home, Lightbox, Breadcrumb component. All routes 200. |
 | 2026-05-03 19:00 | CLI | **Auditoria + Bugfix completo**: 17+ bugs (P0-XSS-404-N+1-CSP) em 35+ arquivos. img_url() helper, Section imports, Dockerfile db:seed crash, Cache::remember só stats, hero band card. Commits `5e8ed9d`→`fe97754`. |
+| 2026-05-03 21:30 | CLI | Artist thumbs portrait + i18n sweep + gallery lightbox. Alpines.js lightbox artist/show, ~150 __() em 25 blades, thumbs portrait w-14-h-20/home-aspect-[2/3]/seed-400x600. Commit `a5bf4af`. |
 
 ## Stack
 - **Laravel 13** + PHP 8.4

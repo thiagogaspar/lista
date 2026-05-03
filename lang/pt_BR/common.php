@@ -51,6 +51,10 @@ return [
         'no_featured_artists' => 'Nenhum artista em destaque ainda.',
         'no_labels' => 'Nenhuma gravadora ainda.',
         'explore' => 'Explorar :name',
+        'hero_title' => 'Música Local.<br><span>Genealogia.</span>',
+        'hero_subtitle' => 'Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.',
+        'hero_tag' => 'Diretório Colaborativo',
+        'present' => 'presente',
     ],
 
     'bands' => [
@@ -238,13 +242,6 @@ return [
 
     'pagination' => [
         'of' => 'de',
-    ],
-
-    'home' => [
-        'hero_title' => 'Música Local.<br><span>Genealogia.</span>',
-        'hero_subtitle' => 'Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.',
-        'hero_tag' => 'Diretório Colaborativo',
-        'present' => 'presente',
     ],
 
     'common' => [
