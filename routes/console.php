@@ -24,7 +24,7 @@ Artisan::command('images:optimize {disk=public}', function ($disk) {
             if (Storage::disk($disk)->exists($webp)) {
                 continue;
             }
-            if (ImageOptimizer::convertToWebp($file, $disk)) {
+            if ((new ImageOptimizer)->convertToWebp($file, $disk)) {
                 $total++;
                 $this->line("  Converted: {$file}");
             }

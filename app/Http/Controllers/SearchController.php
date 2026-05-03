@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $q = $request->get('q');
+        $q = $request->get('q', '');
 
         if (strlen($q) < 2) {
             return response()->json(['bands' => [], 'artists' => []]);

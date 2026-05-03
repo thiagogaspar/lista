@@ -28,13 +28,17 @@ class ImageOptimizer
             return $webpRelative;
         }
 
-        match ($mime) {
-            'image/jpeg' => $img = imagecreatefromjpeg($fullPath),
-            'image/png' => $img = imagecreatefrompng($fullPath),
-            'image/gif' => $img = imagecreatefromgif($fullPath),
-            'image/webp' => $img = imagecreatefromwebp($fullPath),
-            default => $img = null,
-        };
+        try {
+            $img = match ($mime) {
+                'image/jpeg' => imagecreatefromjpeg($fullPath),
+                'image/png' => imagecreatefrompng($fullPath),
+                'image/gif' => imagecreatefromgif($fullPath),
+                'image/webp' => imagecreatefromwebp($fullPath),
+                default => null,
+            };
+        } catch (\Throwable) {
+            return null;
+        }
 
         if (! $img) {
             return null;

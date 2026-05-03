@@ -7,7 +7,7 @@
         @if($value)
         <tr class="border-b border-surface-200 dark:border-ink-700 last:border-0">
             <td class="infobox-label">{{ $label }}</td>
-            <td class="infobox-value">{!! $value !!}</td>
+            <td class="infobox-value">{{ $value }}</td>
         </tr>
         @endif
         @endforeach

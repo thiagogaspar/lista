@@ -7,6 +7,7 @@ return [
     'view_all' => 'Ver todos',
     'skip_to_content' => 'Pular para o conteúdo',
     'back_to_top' => 'Topo',
+    'back_to_home' => 'Voltar ao Início',
     'admin' => 'Admin',
     'register' => 'Cadastre-se',
     'join' => 'Participe',

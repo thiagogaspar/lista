@@ -1,4 +1,4 @@
-<div class="flex items-center gap-2 font-bold text-xl text-gray-800 dark:text-gray-200">
+<div class="flex items-center gap-2 font-bold text-xl text-surface-800 dark:text-ink-200">
     <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
     LISTA
 </div>

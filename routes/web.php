@@ -45,28 +45,32 @@ Route::post('/comments', [CommentController::class, 'store'])->name('comments.st
     ->middleware(['auth', 'throttle:5,1']);
 
 Route::post('/favorites/band/{slug}', [FavoriteController::class, 'toggleBand'])->name('favorites.toggle-band')
-    ->middleware('auth');
+    ->middleware(['auth', 'throttle:30,1']);
 Route::post('/favorites/artist/{slug}', [FavoriteController::class, 'toggleArtist'])->name('favorites.toggle-artist')
-    ->middleware('auth');
-Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    ->middleware(['auth', 'throttle:30,1']);
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index')
+    ->middleware(['auth', 'throttle:30,1']);
 
 Route::post('/suggestions', [EditSuggestionController::class, 'store'])->name('suggestions.store')
-    ->middleware('auth');
+    ->middleware(['auth', 'throttle:5,1']);
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index')
     ->middleware('throttle:30,1');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show')
     ->middleware('throttle:30,1');
 
-Route::get('/register', [RegisterController::class, 'create'])->name('register');
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'create'])->name('register')
+    ->middleware('throttle:10,1');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('throttle:5,1');
 
 // Redirect Laravel's default 'login' route to admin login
-Route::get('/login', fn () => redirect()->route('filament.admin.auth.login'))->name('login');
+Route::get('/login', fn () => redirect()->route('filament.admin.auth.login'))->name('login')
+    ->middleware('throttle:10,1');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index')
     ->middleware('auth');
-Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show')
+    ->middleware(['auth', 'throttle:30,1']);
 
 Route::post('/logout', function () {
     auth()->logout();
@@ -76,4 +80,5 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout')->middleware('auth');
 
-Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap')
+    ->middleware('throttle:10,1');

@@ -6,7 +6,6 @@ use App\Models\Album;
 use App\Models\Genre;
 use App\Values\SeoData;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -50,7 +49,7 @@ class AlbumController extends Controller
             title: $album->title.' — '.$album->band->name,
             description: $album->description ? Str::limit(strip_tags($album->description), 160) : $album->title.' by '.$album->band->name,
             type: 'music.album',
-            image: $album->cover_art ? Storage::url($album->cover_art) : null,
+            image: $album->cover_art ? img_url($album->cover_art) : null,
             canonical: route('albums.show', $album),
         );
 

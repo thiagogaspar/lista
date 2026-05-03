@@ -1,6 +1,7 @@
 <nav class="breadcrumb">
-    @foreach($items as $item)
+    @forelse($items as $item)
     <a href="{{ $item['url'] }}">{{ $item['label'] }}</a><span>/</span>
-    @endforeach
+    @empty
+    @endforelse
     <span>{{ $last }}</span>
 </nav>

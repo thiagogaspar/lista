@@ -55,7 +55,7 @@ if (!isset($seo)) {
 
     <!-- Content — right side -->
     <div class="flex-1 min-w-0 mt-6 lg:mt-0">
-        <h1 class="font-display text-3xl sm:text-4xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">{{ $album->title }}</h1>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-surface-900 dark:text-ink-200 leading-tight tracking-tight">{{ $album->title }}</h2>
 
         <div class="flex flex-wrap gap-2 mt-3">
             <a href="{{ route('bands.show', $album->band) }}" class="badge badge-brand text-sm py-1 px-3">{{ $album->band->name }}</a>

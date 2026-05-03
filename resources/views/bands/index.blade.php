@@ -5,7 +5,7 @@
 $filterLabel = '';
 $genreSlug = $genreName ?? request('genre');
 if ($genreSlug) { $genreLabel = $genres[$genreSlug] ?? $genreSlug; $filterLabel = "{$genreLabel} — "; }
-if (request('label')) { $filterLabel = "Label: " . (request('label')) . " — "; }
+if (request('label')) { $filterLabel = "Label: " . e(request('label')) . " — "; }
 if (request('origin')) { $filterLabel = e(request('origin')) . " — "; }
 if (request('search')) { $filterLabel = "Search: " . e(request('search')) . " — "; }
 $seo = new \App\Values\SeoData(

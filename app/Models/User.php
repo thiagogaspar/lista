@@ -6,6 +6,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,6 +27,16 @@ class User extends Authenticatable
     const ROLE_VIEWER = 'viewer';
 
     public static array $roles = [self::ROLE_ADMIN, self::ROLE_EDITOR, self::ROLE_VIEWER];
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function suggestions(): HasMany
+    {
+        return $this->hasMany(EditSuggestion::class);
+    }
 
     public function favorites()
     {

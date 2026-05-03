@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use App\Values\SeoData;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -32,7 +31,7 @@ class LabelController extends Controller
             title: $label->name,
             description: Str::limit(strip_tags($label->description ?? $label->name.' — record label.'), 160),
             type: 'organization',
-            image: $label->logo ? Storage::url($label->logo) : null,
+            image: $label->logo ? img_url($label->logo) : null,
             canonical: route('labels.show', $label),
         );
 

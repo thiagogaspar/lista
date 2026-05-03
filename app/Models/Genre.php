@@ -16,4 +16,9 @@ class Genre extends Model
     {
         return $this->belongsToMany(Band::class, 'band_genre');
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

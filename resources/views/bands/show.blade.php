@@ -138,8 +138,8 @@ $seo = new \App\Values\SeoData(
             'Formed' => $band->formed_year ? (string) $band->formed_year : null,
             'Dissolved' => $band->dissolved_year ? (string) $band->dissolved_year : null,
             'Origin' => $band->origin ? e($band->origin) : null,
-            'Label' => $band->label ? '<a href=\"' . route('labels.show', $band->label) . '\" class=\"link text-xs\">' . e($band->label->name) . '</a>' : null,
-            'Genres' => $band->genres->count() ? $band->genres->pluck('name')->implode(', ') : null,
+            'Label' => $band->label ? e($band->label->name) : null,
+            'Genres' => $band->genres->count() ? e($band->genres->pluck('name')->implode(', ')) : null,
         ]" />
         <div class="mt-4"><x-ad-slot position="sidebar" /></div>
     </aside>

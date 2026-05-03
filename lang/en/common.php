@@ -7,6 +7,7 @@ return [
     'view_all' => 'View all',
     'skip_to_content' => 'Skip to content',
     'back_to_top' => 'Top',
+    'back_to_home' => 'Back to Home',
     'admin' => 'Admin',
     'register' => 'Register',
     'join' => 'Join',

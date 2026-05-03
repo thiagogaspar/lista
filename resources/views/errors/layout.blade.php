@@ -14,8 +14,8 @@
         <div class="text-center max-w-md">
             <h1 class="font-display text-6xl font-bold text-brand-500 mb-4">@yield('code')</h1>
             <h2 class="font-display text-xl font-bold mb-2 text-surface-800 dark:text-ink-200">@yield('message')</h2>
-            <p class="text-sm text-surface-500 dark:text-surface-400 mb-6">@yield('description')</p>
-            <a href="{{ route('home') }}" class="btn btn-brand" aria-label="Go to home page">Back to Home</a>
+            <p class="text-sm text-surface-500 dark:text-ink-400 mb-6">@yield('description')</p>
+            <a href="{{ route('home') }}" class="btn btn-brand" aria-label="Go to home page">{{ __('common.back_to_home') }}</a>
         </div>
     </div>
 </body>
