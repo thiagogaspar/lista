@@ -14,21 +14,21 @@ use Illuminate\Support\Facades\Hash;
 
 class ContentSeeder extends Seeder
 {
-    private const MOCK = 'https://placehold.co';
+    private const PICSUM = 'https://picsum.photos/seed';
 
-    private function mockPhoto(string $name, string $bg = '6b6b6b', string $fg = 'fff', int $size = 400): string
+    private function mockPhoto(string $seed, int $size = 400): string
     {
-        return self::MOCK . "/{$size}x{$size}/{$bg}/{$fg}?text=" . urlencode($name) . '&font=inter';
+        return self::PICSUM . "/{$seed}/{$size}/{$size}";
     }
 
-    private function mockHero(string $name, string $bg = '2a2a2a', string $fg = 'cccccc'): string
+    private function mockHero(string $seed): string
     {
-        return self::MOCK . "/1200x400/{$bg}/{$fg}?text=" . urlencode($name) . '&font=inter';
+        return self::PICSUM . "/{$seed}-hero/1200/400";
     }
 
-    private function mockCover(string $title): string
+    private function mockCover(string $seed): string
     {
-        return self::MOCK . '/400x400/333333/aaaaaa?text=' . urlencode($title) . '&font=inter';
+        return self::PICSUM . "/{$seed}-cover/400/400";
     }
 
     public function run(): void
@@ -52,27 +52,19 @@ class ContentSeeder extends Seeder
         Tag::create(['name' => 'One Hit Wonder', 'slug' => 'one-hit-wonder', 'is_approved' => false]);
         Tag::create(['name' => 'Hall of Fame', 'slug' => 'hall-of-fame', 'is_approved' => true]);
 
-        // Seed photos — clean mocks with brand colors
+        // Seed photos — real CC photos via picsum (seeded for consistency)
         $bands = Band::all();
-        $bandColors = [
-            'nirvana' => ['555555', 'f5f5f5'], 'foo-fighters' => ['606060', 'fafafa'],
-            'pearl-jam' => ['4a4a4a', 'eeeeee'], 'soundgarden' => ['404040', 'e5e5e5'],
-            'audioslave' => ['555555', 'f2f2f2'], 'rage-against-the-machine' => ['666666', 'fcfcfc'],
-            'green-river' => ['606060', 'f5f5f5'], 'mother-love-bone' => ['4a4a4a', 'eeeeee'],
-            'temple-of-the-dog' => ['808080', '222222'],
-        ];
         foreach ($bands as $band) {
-            $c = $bandColors[$band->slug] ?? ['8f4a37', 'f9e8e0'];
             $band->update([
-                'photo' => $this->mockPhoto($band->name, $c[0], $c[1]),
-                'hero_image' => $this->mockHero($band->name, '1a1a18', $c[0]),
+                'photo' => $this->mockPhoto($band->slug),
+                'hero_image' => $this->mockHero($band->slug),
             ]);
         }
 
         $artists = Artist::all();
         foreach ($artists as $artist) {
             $artist->update([
-                'photo' => $this->mockPhoto($artist->name, '7a7a7a', 'fff'),
+                'photo' => $this->mockPhoto($artist->slug),
             ]);
         }
 
@@ -110,34 +102,34 @@ class ContentSeeder extends Seeder
         if ($daveGrohl) { $daveGrohl->tags()->attach([$nineties->id]); }
         if ($kurtCobain) { $kurtCobain->tags()->attach([$nineties->id, $seattleSound->id]); }
 
-        // Albums with mock covers
+        // Albums with real CC photos via picsum
         if ($nirvana) {
-            Album::create(['band_id' => $nirvana->id, 'title' => 'Bleach', 'slug' => 'bleach', 'release_year' => 1989, 'cover_art' => $this->mockCover('Bleach')]);
-            Album::create(['band_id' => $nirvana->id, 'title' => 'Nevermind', 'slug' => 'nevermind', 'release_year' => 1991, 'cover_art' => $this->mockCover('Nevermind'), 'tracklist' => ['Smells Like Teen Spirit', 'Come as You Are', 'Lithium']]);
-            Album::create(['band_id' => $nirvana->id, 'title' => 'In Utero', 'slug' => 'in-utero', 'release_year' => 1993, 'cover_art' => $this->mockCover('In Utero')]);
+            Album::create(['band_id' => $nirvana->id, 'title' => 'Bleach', 'slug' => 'bleach', 'release_year' => 1989, 'cover_art' => $this->mockCover('bleach')]);
+            Album::create(['band_id' => $nirvana->id, 'title' => 'Nevermind', 'slug' => 'nevermind', 'release_year' => 1991, 'cover_art' => $this->mockCover('nevermind'), 'tracklist' => ['Smells Like Teen Spirit', 'Come as You Are', 'Lithium']]);
+            Album::create(['band_id' => $nirvana->id, 'title' => 'In Utero', 'slug' => 'in-utero', 'release_year' => 1993, 'cover_art' => $this->mockCover('in-utero')]);
         }
         if ($pearlJam) {
-            Album::create(['band_id' => $pearlJam->id, 'title' => 'Ten', 'slug' => 'ten', 'release_year' => 1991, 'cover_art' => $this->mockCover('Ten'), 'tracklist' => ['Alive', 'Even Flow', 'Jeremy']]);
-            Album::create(['band_id' => $pearlJam->id, 'title' => 'Vs.', 'slug' => 'vs', 'release_year' => 1993, 'cover_art' => $this->mockCover('Vs.')]);
-            Album::create(['band_id' => $pearlJam->id, 'title' => 'Vitalogy', 'slug' => 'vitalogy', 'release_year' => 1994, 'cover_art' => $this->mockCover('Vitalogy')]);
-            Album::create(['band_id' => $pearlJam->id, 'title' => 'Yield', 'slug' => 'yield', 'release_year' => 1998, 'cover_art' => $this->mockCover('Yield')]);
+            Album::create(['band_id' => $pearlJam->id, 'title' => 'Ten', 'slug' => 'ten', 'release_year' => 1991, 'cover_art' => $this->mockCover('ten'), 'tracklist' => ['Alive', 'Even Flow', 'Jeremy']]);
+            Album::create(['band_id' => $pearlJam->id, 'title' => 'Vs.', 'slug' => 'vs', 'release_year' => 1993, 'cover_art' => $this->mockCover('vs')]);
+            Album::create(['band_id' => $pearlJam->id, 'title' => 'Vitalogy', 'slug' => 'vitalogy', 'release_year' => 1994, 'cover_art' => $this->mockCover('vitalogy')]);
+            Album::create(['band_id' => $pearlJam->id, 'title' => 'Yield', 'slug' => 'yield', 'release_year' => 1998, 'cover_art' => $this->mockCover('yield')]);
         }
         if ($soundgarden) {
-            Album::create(['band_id' => $soundgarden->id, 'title' => 'Badmotorfinger', 'slug' => 'badmotorfinger', 'release_year' => 1991, 'cover_art' => $this->mockCover('Badmotorfinger')]);
-            Album::create(['band_id' => $soundgarden->id, 'title' => 'Superunknown', 'slug' => 'superunknown', 'release_year' => 1994, 'cover_art' => $this->mockCover('Superunknown'), 'tracklist' => ['Black Hole Sun', 'Spoonman', 'Fell on Black Days']]);
-            Album::create(['band_id' => $soundgarden->id, 'title' => 'Down on the Upside', 'slug' => 'down-on-the-upside', 'release_year' => 1996, 'cover_art' => $this->mockCover('Down on the Upside')]);
+            Album::create(['band_id' => $soundgarden->id, 'title' => 'Badmotorfinger', 'slug' => 'badmotorfinger', 'release_year' => 1991, 'cover_art' => $this->mockCover('badmotorfinger')]);
+            Album::create(['band_id' => $soundgarden->id, 'title' => 'Superunknown', 'slug' => 'superunknown', 'release_year' => 1994, 'cover_art' => $this->mockCover('superunknown'), 'tracklist' => ['Black Hole Sun', 'Spoonman', 'Fell on Black Days']]);
+            Album::create(['band_id' => $soundgarden->id, 'title' => 'Down on the Upside', 'slug' => 'down-on-the-upside', 'release_year' => 1996, 'cover_art' => $this->mockCover('down-on-the-upside')]);
         }
         if ($fooFighters) {
-            Album::create(['band_id' => $fooFighters->id, 'title' => 'Foo Fighters', 'slug' => 'foo-fighters', 'release_year' => 1995, 'cover_art' => $this->mockCover('Foo Fighters')]);
-            Album::create(['band_id' => $fooFighters->id, 'title' => 'The Colour and the Shape', 'slug' => 'the-colour-and-the-shape', 'release_year' => 1997, 'cover_art' => $this->mockCover('The Colour and the Shape')]);
+            Album::create(['band_id' => $fooFighters->id, 'title' => 'Foo Fighters', 'slug' => 'foo-fighters', 'release_year' => 1995, 'cover_art' => $this->mockCover('foo-fighters')]);
+            Album::create(['band_id' => $fooFighters->id, 'title' => 'The Colour and the Shape', 'slug' => 'the-colour-and-the-shape', 'release_year' => 1997, 'cover_art' => $this->mockCover('the-colour-and-the-shape')]);
         }
         if ($audioslave) {
-            Album::create(['band_id' => $audioslave->id, 'title' => 'Audioslave', 'slug' => 'audioslave', 'release_year' => 2002, 'cover_art' => $this->mockCover('Audioslave')]);
-            Album::create(['band_id' => $audioslave->id, 'title' => 'Out of Exile', 'slug' => 'out-of-exile', 'release_year' => 2005, 'cover_art' => $this->mockCover('Out of Exile')]);
+            Album::create(['band_id' => $audioslave->id, 'title' => 'Audioslave', 'slug' => 'audioslave', 'release_year' => 2002, 'cover_art' => $this->mockCover('audioslave')]);
+            Album::create(['band_id' => $audioslave->id, 'title' => 'Out of Exile', 'slug' => 'out-of-exile', 'release_year' => 2005, 'cover_art' => $this->mockCover('out-of-exile')]);
         }
         if ($rageMachine) {
-            Album::create(['band_id' => $rageMachine->id, 'title' => 'Rage Against the Machine', 'slug' => 'rage-against-the-machine', 'release_year' => 1992, 'cover_art' => $this->mockCover('Rage Against the Machine'), 'tracklist' => ['Killing in the Name', 'Bombtrack', 'Bullet in the Head']]);
-            Album::create(['band_id' => $rageMachine->id, 'title' => 'Evil Empire', 'slug' => 'evil-empire', 'release_year' => 1996, 'cover_art' => $this->mockCover('Evil Empire')]);
+            Album::create(['band_id' => $rageMachine->id, 'title' => 'Rage Against the Machine', 'slug' => 'rage-against-the-machine', 'release_year' => 1992, 'cover_art' => $this->mockCover('rage-against-the-machine'), 'tracklist' => ['Killing in the Name', 'Bombtrack', 'Bullet in the Head']]);
+            Album::create(['band_id' => $rageMachine->id, 'title' => 'Evil Empire', 'slug' => 'evil-empire', 'release_year' => 1996, 'cover_art' => $this->mockCover('evil-empire')]);
         }
 
         // Blog posts
@@ -149,7 +141,7 @@ class ContentSeeder extends Seeder
             'author' => 'LISTA',
             'is_published' => true,
             'published_at' => now()->subDays(3),
-            'featured_image' => $this->mockHero('The Seattle Sound', '000000', 'ffffff'),
+            'featured_image' => $this->mockHero('seattle-sound'),
         ]);
 
         Post::create([
@@ -160,7 +152,7 @@ class ContentSeeder extends Seeder
             'author' => 'LISTA',
             'is_published' => true,
             'published_at' => now()->subDays(1),
-            'featured_image' => $this->mockHero('Band Genealogy', '000000', 'ffffff'),
+            'featured_image' => $this->mockHero('band-genealogy'),
         ]);
     }
 }
