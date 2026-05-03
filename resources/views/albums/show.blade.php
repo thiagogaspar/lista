@@ -7,16 +7,16 @@ if (!isset($seo)) {
         title: $album->title . ' — ' . $album->band->name,
         description: $album->description ? Str::limit(strip_tags($album->description), 160) : $album->title . ' by ' . $album->band->name,
         type: 'music.album',
-        image: $album->cover_art ? \Illuminate\Support\Facades\Storage::url($album->cover_art) : null,
+        image: $album->cover_art ? img_url($album->cover_art) : null,
         canonical: route('albums.show', $album),
     );
 }
 @endphp
 <x-seo-meta :seo="$seo" />
 @if($album->cover_art)
-<link rel="preload" href="{{ Storage::url($album->cover_art) }}" as="image" fetchpriority="high">
+<link rel="preload" href="{{ img_url($album->cover_art) }}" as="image" fetchpriority="high">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="{{ Storage::url($album->cover_art) }}">
+<meta name="twitter:image" content="{{ img_url($album->cover_art) }}">
 @endif
 @endsection
 
@@ -25,7 +25,7 @@ if (!isset($seo)) {
 <!-- Hero — foto sem shapes -->
 <section class="relative -mx-4 -mt-6 mb-8 overflow-hidden bg-black" style="aspect-ratio:16/4; max-height:45vh;">
     @if($album->cover_art)
-    <img src="{{ Storage::url($album->cover_art) }}" alt="{{ $album->title }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw">
+    <img src="{{ img_url($album->cover_art) }}" alt="{{ $album->title }}" class="absolute inset-0 w-full h-full object-cover opacity-30" fetchpriority="high" decoding="async" sizes="100vw">
     @endif
     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20"></div>
     <div class="relative z-10 flex flex-col justify-end h-full">
@@ -45,7 +45,7 @@ if (!isset($seo)) {
     <!-- Cover — left side -->
     <div class="lg:w-72 shrink-0">
         @if($album->cover_art)
-        <img src="{{ Storage::url($album->cover_art) }}" alt="{{ $album->title }} cover" class="w-full aspect-square object-cover border-2 border-surface-200 dark:border-ink-700" fetchpriority="high">
+        <img src="{{ img_url($album->cover_art) }}" alt="{{ $album->title }} cover" class="w-full aspect-square object-cover border-2 border-surface-200 dark:border-ink-700" fetchpriority="high">
         @else
         <div class="w-full aspect-square bg-surface-100 dark:bg-ink-700 flex items-center justify-center text-surface-300 dark:text-ink-400 border-2 border-surface-200 dark:border-ink-700">
             <svg class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>

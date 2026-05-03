@@ -47,7 +47,7 @@ $seo = new \App\Values\SeoData(
     <a href="{{ route('albums.show', $album) }}" class="group">
         <div class="border-2 border-surface-200 dark:border-ink-700 bg-white dark:bg-ink-800 hover:border-brand-500 dark:hover:border-brand-400 transition-colors">
             @if($album->cover_art)
-            <img src="{{ Storage::url($album->cover_art) }}" alt="{{ $album->title }} cover" class="w-full aspect-square object-cover" loading="lazy">
+            <img src="{{ img_url($album->cover_art) }}" alt="{{ $album->title }} cover" class="w-full aspect-square object-cover" loading="lazy">
             @else
             <div class="w-full aspect-square bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-300 dark:text-ink-400">
                 <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-width="1.5" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>

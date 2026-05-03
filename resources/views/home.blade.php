@@ -72,7 +72,7 @@ $seo = new \App\Values\SeoData(
         @forelse($featuredBands as $band)
             <a href="{{ route('bands.show', $band) }}" class="bg-white dark:bg-ink-800 p-4 hover:bg-surface-50 dark:hover:bg-ink-700 group flex flex-col gap-2">
                 @if($band->photo)
-                <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-full aspect-[3/2] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+                <img src="{{ img_url($band->photo) }}" alt="{{ $band->name }}" class="w-full aspect-[3/2] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                 @endif
                 <h3 class="font-display font-bold text-sm text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $band->name }}</h3>
                 <div class="text-[11px] text-surface-500 dark:text-ink-500 leading-relaxed">
@@ -97,7 +97,7 @@ $seo = new \App\Values\SeoData(
         @forelse($featuredArtists as $artist)
             <a href="{{ route('artists.show', $artist) }}" class="bg-white dark:bg-ink-800 p-4 hover:bg-surface-50 dark:hover:bg-ink-700 group flex flex-col gap-2">
                 @if($artist->photo)
-                <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full aspect-[3/2] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+                <img src="{{ img_url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full aspect-[3/2] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                 @endif
                 <h3 class="font-display font-bold text-sm text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $artist->name }}</h3>
                 <div class="text-[11px] text-surface-500 dark:text-ink-500">
@@ -120,7 +120,7 @@ $seo = new \App\Values\SeoData(
         @forelse($featuredLabels as $label)
         <a href="{{ route('labels.show', $label) }}" class="bg-white dark:bg-ink-800 p-4 hover:bg-surface-50 dark:hover:bg-ink-700 group flex items-center gap-3">
             @if($label->logo)
-            <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="w-10 h-10 object-contain shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+            <img src="{{ img_url($label->logo) }}" alt="{{ $label->name }} logo" class="w-10 h-10 object-contain shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
             @else
             <div class="w-10 h-10 shrink-0 bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-400 dark:text-ink-500 font-display text-sm font-bold border-2 border-surface-200 dark:border-ink-600">{{ $label->name[0] }}</div>
             @endif

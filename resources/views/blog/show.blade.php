@@ -24,7 +24,7 @@ $seo = new \App\Values\SeoData(
 
 <article class="max-w-3xl mx-auto">
     @if($post->featured_image)
-    <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-72 object-cover mb-8 border-2 border-black dark:border-white" loading="lazy">
+    <img src="{{ img_url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-72 object-cover mb-8 border-2 border-black dark:border-white" loading="lazy">
     @endif
 
     <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-black dark:text-white leading-tight tracking-tight mb-4">{{ $post->title }}</h1>

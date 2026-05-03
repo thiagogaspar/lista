@@ -7,14 +7,14 @@ if (!isset($seo)) {
         title: $label->name,
         description: Str::limit(strip_tags($label->description ?? $label->name . ' — record label.'), 160),
         type: 'organization',
-        image: $label->logo ? \Illuminate\Support\Facades\Storage::url($label->logo) : null,
+        image: $label->logo ? img_url($label->logo) : null,
         canonical: route('labels.show', $label),
     );
 }
 @endphp
 <x-seo-meta :seo="$seo" />
 @if($label->logo)
-<link rel="preload" href="{{ Storage::url($label->logo) }}" as="image" fetchpriority="high">
+<link rel="preload" href="{{ img_url($label->logo) }}" as="image" fetchpriority="high">
 @endif
 @endsection
 
@@ -23,12 +23,12 @@ if (!isset($seo)) {
 <!-- Hero — sem shapes geométricos -->
 <section class="relative -mx-4 mb-8 overflow-hidden bg-black" style="min-height:240px">
     @if($label->logo)
-    <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high">
+    <img src="{{ img_url($label->logo) }}" alt="{{ $label->name }} logo" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high">
     @endif
     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20 flex items-center">
         <div class="relative z-10 max-w-6xl mx-auto px-4 w-full flex items-center gap-6">
             @if($label->logo)
-            <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }}" class="w-20 h-20 object-contain shrink-0 border-2 border-white/20">
+            <img src="{{ img_url($label->logo) }}" alt="{{ $label->name }}" class="w-20 h-20 object-contain shrink-0 border-2 border-white/20">
             @endif
             <div>
                 <p class="font-display text-xs font-bold tracking-[0.15em] uppercase text-white/40 mb-2">Gravadora</p>
@@ -57,7 +57,7 @@ if (!isset($seo)) {
             <a href="{{ route('bands.show', $band) }}" class="group">
                 <div class="card p-3 flex gap-2.5 card-hover h-full">
                     @if($band->photo)
-                    <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+                    <img src="{{ img_url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                     @endif
                     <div class="min-w-0 flex-1">
                         <h3 class="font-display font-bold text-sm text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $band->name }}</h3>

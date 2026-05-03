@@ -34,7 +34,7 @@
         <a href="{{ route('labels.show', $label) }}" class="group">
             <div class="card p-4 flex items-center gap-4 card-hover">
                 @if($label->logo)
-                <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="w-14 h-14 object-contain shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+                <img src="{{ img_url($label->logo) }}" alt="{{ $label->name }} logo" class="w-14 h-14 object-contain shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                 @else
                 <div class="w-14 h-14 shrink-0 bg-surface-100 dark:bg-ink-900 flex items-center justify-center text-surface-400 dark:text-ink-500 font-display text-base font-bold border-2 border-surface-200 dark:border-ink-600">
                     {{ $label->name[0] }}

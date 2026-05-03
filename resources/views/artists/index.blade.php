@@ -42,7 +42,7 @@ $seo = new \App\Values\SeoData(
 @forelse($artists as $artist)
     <a href="{{ route('artists.show', $artist) }}" class="flex items-start gap-4 py-3 px-3 -mx-3 border-b-2 border-surface-200 dark:border-ink-700 hover:bg-surface-100 dark:hover:bg-ink-800/50 transition-colors group">
         @if($artist->photo)
-        <img src="{{ Storage::url($artist->photo) }}" alt="{{ $artist->name }}" class="w-12 h-12 object-cover shrink-0 mt-0.5 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+        <img src="{{ img_url($artist->photo) }}" alt="{{ $artist->name }}" class="w-12 h-12 object-cover shrink-0 mt-0.5 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
         @endif
         <div class="min-w-0 flex-1">
             <h2 class="font-display text-base font-bold text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $artist->name }}</h2>

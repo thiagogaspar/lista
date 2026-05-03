@@ -20,7 +20,7 @@
     @forelse($posts as $post)
     <a href="{{ route('blog.show', $post) }}" class="flex items-start gap-4 py-4 px-2 -mx-2 hover:bg-surface-100 dark:hover:bg-ink-800 group">
         @if($post->featured_image)
-        <img src="{{ Storage::url($post->featured_image) }}" alt="" class="w-16 h-16 object-cover shrink-0 mt-1 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+        <img src="{{ img_url($post->featured_image) }}" alt="" class="w-16 h-16 object-cover shrink-0 mt-1 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
         @endif
         <div class="min-w-0 flex-1">
             <h2 class="font-display text-base font-bold text-black dark:text-white group-hover:underline leading-tight">{{ $post->title }}</h2>

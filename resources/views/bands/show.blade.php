@@ -3,8 +3,8 @@
 @section('head')
 @php
 $photo = $band->photo;
-$bandPhotoUrl = $photo ? (str_starts_with($photo, 'http') ? $photo : Storage::url($photo)) : null;
-$heroImg = $band->hero_image ? (str_starts_with($band->hero_image, 'http') ? $band->hero_image : Storage::url($band->hero_image)) : null;
+$bandPhotoUrl = $photo ? img_url($photo) : null;
+$heroImg = $band->hero_image ? img_url($band->hero_image) : null;
 $heroPlaceholder = $heroImg ?: $bandPhotoUrl;
 
 $seo = new \App\Values\SeoData(
@@ -102,7 +102,7 @@ $seo = new \App\Values\SeoData(
             @foreach($band->albums as $album)
             <a href="{{ route('albums.show', $album) }}" class="group">
                 <div class="border-2 border-surface-200 dark:border-ink-700 bg-white dark:bg-ink-800 hover:border-brand-500 dark:hover:border-brand-400 transition-colors">
-                    @php $cover = $album->cover_art ? (str_starts_with($album->cover_art, 'http') ? $album->cover_art : Storage::url($album->cover_art)) : null; @endphp
+                    @php $cover = $album->cover_art ? img_url($album->cover_art) : null; @endphp
                     @if($cover)
                     <img src="{{ $cover }}" alt="{{ $album->title }}" class="w-full aspect-square object-cover" loading="lazy">
                     @else

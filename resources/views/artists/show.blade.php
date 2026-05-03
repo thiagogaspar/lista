@@ -3,8 +3,8 @@
 @section('head')
 @php
 $photo = $artist->photo;
-$artistPhotoUrl = $photo ? (str_starts_with($photo, 'http') ? $photo : Storage::url($photo)) : null;
-$heroImg = $artist->hero_image ? (str_starts_with($artist->hero_image, 'http') ? $artist->hero_image : Storage::url($artist->hero_image)) : null;
+$artistPhotoUrl = $photo ? img_url($photo) : null;
+$heroImg = $artist->hero_image ? img_url($artist->hero_image) : null;
 $heroPlaceholder = $heroImg ?: $artistPhotoUrl;
 
 $seo = new \App\Values\SeoData(

@@ -27,7 +27,7 @@
     <a href="{{ $fav->favoriteable_type === 'App\Models\Band' ? route('bands.show', $item) : route('artists.show', $item) }}" class="block group">
         <div class="card card-hover h-full bg-white dark:bg-ink-800 p-3 flex gap-2.5">
             @if(method_exists($item, 'getAttribute') && $item->photo)
-            <img src="{{ Storage::url($item->photo) }}" alt="{{ $item->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+            <img src="{{ img_url($item->photo) }}" alt="{{ $item->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
             @endif
             <div class="min-w-0 flex-1">
                 <h3 class="font-display font-bold text-xs text-brand-600 dark:text-brand-400 truncate">{{ $item->name }}</h3>
