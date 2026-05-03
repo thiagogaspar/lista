@@ -24,17 +24,50 @@ $seo = new \App\Values\SeoData(
 <!-- Hero tipográfico — estilo newspaper -->
 <section class="home-hero -mx-4 -mt-6 mb-10 bg-black">
     <div class="max-w-6xl mx-auto px-4 w-full py-16 sm:py-20">
-        <p class="font-display text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-4">Diretório Colaborativo</p>
-        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black text-white leading-none tracking-tight max-w-4xl">
-            Música Local.<br>
-            <span class="text-white/80">Genealogia.</span>
-        </h1>
-        <p class="mt-4 text-base sm:text-lg text-white/50 max-w-xl leading-relaxed font-serif">
-            Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.
-        </p>
-        <div class="flex flex-wrap items-center gap-3 mt-8">
-            <a href="{{ route('bands.index') }}" class="btn text-sm bg-white text-black border-white hover:bg-white/90 tracking-wider font-bold">{{ __('common.home.browse_bands') }} &rarr;</a>
-            <a href="{{ route('genealogy') }}" class="btn text-sm text-white/70 border-2 border-white/20 hover:border-white/50 hover:text-white tracking-wider font-bold">{{ __('common.home.view_graph') }}</a>
+        <div class="lg:flex lg:items-center lg:gap-12 xl:gap-16">
+            <div class="flex-1 min-w-0">
+                <p class="font-display text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-4">Diretório Colaborativo</p>
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black text-white leading-none tracking-tight max-w-4xl">
+                    Música Local.<br>
+                    <span class="text-white/80">Genealogia.</span>
+                </h1>
+                <p class="mt-4 text-base sm:text-lg text-white/50 max-w-xl leading-relaxed font-serif">
+                    Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.
+                </p>
+                <div class="flex flex-wrap items-center gap-3 mt-8">
+                    <a href="{{ route('bands.index') }}" class="btn text-sm bg-white text-black border-white hover:bg-white/90 tracking-wider font-bold">{{ __('common.home.browse_bands') }} &rarr;</a>
+                    <a href="{{ route('genealogy') }}" class="btn text-sm text-white/70 border-2 border-white/20 hover:border-white/50 hover:text-white tracking-wider font-bold">{{ __('common.home.view_graph') }}</a>
+                </div>
+            </div>
+            @if($heroBand)
+            <div class="shrink-0 mt-8 lg:mt-0 lg:w-72">
+                <div class="border border-white/10 bg-white/5 p-4 group hover:bg-white/[7%] transition-colors">
+                    <p class="font-display text-[10px] font-bold tracking-[0.15em] uppercase text-white/30 mb-3">Banda em Destaque</p>
+                    @if($heroBand->photo)
+                    <img src="{{ img_url($heroBand->photo) }}" alt="{{ $heroBand->name }}" class="w-full aspect-[3/2] object-cover border border-white/10" loading="lazy">
+                    @else
+                    <div class="w-full aspect-[3/2] bg-white/5 border border-white/10 flex items-center justify-center text-white/20 font-display text-4xl font-black">{{ $heroBand->name[0] }}</div>
+                    @endif
+                    <h3 class="font-display font-bold text-lg text-white mt-3 leading-tight">{{ $heroBand->name }}</h3>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5">
+                        @foreach($heroBand->genres->take(2) as $genre)
+                        <span class="font-display text-[10px] font-bold tracking-wider uppercase text-white/40">{{ $genre->name }}</span>
+                        @if(!$loop->last)<span class="text-white/20 text-[8px]">|</span>@endif
+                        @endforeach
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        @if($heroBand->formed_year)
+                        <span class="font-display text-[10px] text-white/30">{{ $heroBand->formed_year }}{{ $heroBand->dissolved_year ? '&ndash;'.$heroBand->dissolved_year : '' }}</span>
+                        @endif
+                        @if($heroBand->origin)
+                        <span class="text-white/15 text-[8px]">/</span>
+                        <span class="font-display text-[10px] text-white/30">{{ $heroBand->origin }}</span>
+                        @endif
+                    </div>
+                    <a href="{{ route('bands.show', $heroBand) }}" class="inline-block mt-3 font-display text-[11px] font-bold tracking-wider uppercase text-white/50 hover:text-white transition-colors">Explorar &rarr;</a>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
