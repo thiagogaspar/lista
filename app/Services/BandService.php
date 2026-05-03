@@ -68,7 +68,5 @@ class BandService
     public function flushCache(Band $band): void
     {
         Cache::forget('home.stats');
-        Cache::forget('home.hero');
-        Cache::forget('home.labels');
     }
 }
