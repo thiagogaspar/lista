@@ -7,10 +7,8 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preload" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" as="style">
-    <link rel="preload" href="https://fonts.bunny.net/css?family=playfair-display:400,500,600,700,800,900&display=swap" as="style">
     <link rel="preload" href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500,600,700&display=swap" as="style">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.bunny.net/css?family=playfair-display:400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500,600,700&display=swap" rel="stylesheet">
 
     @yield('preload')
@@ -33,9 +31,8 @@
 
     <header class="sticky top-0 z-50 border-b border-surface-200 dark:border-ink-700 bg-white dark:bg-ink-900" x-data="{ menu: false }" role="banner">
         <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
-            <a href="{{ route('home') }}" class="flex items-center gap-2 text-sm font-bold text-brand-600 dark:text-brand-500 shrink-0 hover:text-brand-700 dark:hover:text-brand-400">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                <span class="tracking-tight">{{ config('app.name', 'LISTA') }}</span>
+            <a href="{{ route('home') }}" class="text-sm font-bold text-brand-600 dark:text-brand-500 shrink-0 hover:text-brand-700 dark:hover:text-brand-400">
+                {{ config('app.name', 'LISTA') }}
             </a>
 
             <nav class="hidden md:flex items-center gap-0 text-sm" aria-label="Main navigation">
@@ -155,8 +152,7 @@
         <div class="max-w-6xl mx-auto px-4 py-10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="col-span-2 md:col-span-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <svg class="w-5 h-5 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    <div class="mb-3">
                         <span class="text-base font-bold text-brand-600 dark:text-brand-500">{{ config('app.name', 'LISTA') }}</span>
                     </div>
                     <p class="text-sm text-surface-500 dark:text-ink-400 max-w-xs leading-relaxed">{{ __('common.footer.tagline') }}</p>

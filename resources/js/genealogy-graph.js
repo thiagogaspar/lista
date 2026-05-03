@@ -6,8 +6,8 @@ window.initBandGraph = function(containerId, graphData) {
     if (!container) return
     container.innerHTML = ''
 
-    var bandBg = '#555555', bandBorder = '#aaaaaa'
-    var artistBg = '#777777', artistBorder = '#bbbbbb'
+    var bandBg = '#000000', bandBorder = '#ffffff'
+    var artistBg = '#222222', artistBorder = '#cccccc'
 
     graphData.nodes.forEach(function(n) {
         var isArtist = n.group === 'artist'

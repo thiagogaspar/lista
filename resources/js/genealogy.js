@@ -8,27 +8,8 @@ export function initGenealogy() {
 
     status.textContent = 'Fetching...'
 
-    var genreNodeColors = {
-        'grunge':            { bg: '#0a0a0a', border: '#f0f0f0', label: 'Grunge' },
-        'alternative-rock':  { bg: '#141414', border: '#d0d0d0', label: 'Alt Rock' },
-        'hard-rock':         { bg: '#1a1a1a', border: '#b0b0b0', label: 'Hard Rock' },
-        'rap-metal':         { bg: '#222222', border: '#909090', label: 'Rap Metal' },
-        'heavy-metal':       { bg: '#2a2a2a', border: '#808080', label: 'Heavy Metal' },
-        'punk-rock':         { bg: '#0f0f0f', border: '#e0e0e0', label: 'Punk Rock' },
-        'indie-rock':        { bg: '#181818', border: '#c0c0c0', label: 'Indie Rock' },
-        'pop-rock':          { bg: '#202020', border: '#a0a0a0', label: 'Pop Rock' },
-        'post-grunge':       { bg: '#0d0d0d', border: '#d8d8d8', label: 'Post-Grunge' },
-        'nu-metal':          { bg: '#161616', border: '#b8b8b8', label: 'Nu Metal' },
-        'thrash-metal':      { bg: '#1e1e1e', border: '#989898', label: 'Thrash Metal' },
-        'death-metal':       { bg: '#262626', border: '#787878', label: 'Death Metal' },
-    }
-
-    var defaultColor = { bg: '#111111', border: '#aaaaaa', label: 'Other' }
-    var artistColor = { bg: '#1c1c1c', border: '#cccccc' }
-
-    function getGenreColors(genre) {
-        return genreNodeColors[genre] || defaultColor
-    }
+    var bandColor = { bg: '#111111', border: '#ffffff' }
+    var artistColor = { bg: '#222222', border: '#cccccc' }
 
     fetch('/api/genealogy')
         .then(function(r) { return r.json() })
@@ -39,9 +20,8 @@ export function initGenealogy() {
 
             data.nodes.forEach(function(n) {
                 if (n.group === 'band') {
-                    var c = getGenreColors(n.genre)
-                    nodeColors[n.id] = c.border
-                    n.color = { background: c.bg, border: c.border }
+                    nodeColors[n.id] = bandColor.border
+                    n.color = { background: bandColor.bg, border: bandColor.border }
                     n.borderWidth = 3
                     n.borderWidthSelected = 3
                     n.shapeProperties = { borderRadius: 8 }
