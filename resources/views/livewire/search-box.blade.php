@@ -13,7 +13,7 @@
     </form>
 
     @if(strlen($query) >= 2 && ($bands->count() || $artists->count()))
-        <div x-show="open" class="absolute top-full mt-1 left-0 right-0 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg z-50 overflow-hidden">
+        <div x-show="open" class="absolute top-full mt-1 left-0 right-0 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
             @if($bands->count())
                 <div class="px-3 pt-2 pb-1 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Bands</div>
                 @foreach($bands as $band)

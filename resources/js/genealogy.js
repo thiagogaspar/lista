@@ -24,7 +24,7 @@ export function initGenealogy() {
                     n.color = { background: bandColor.bg, border: bandColor.border }
                     n.borderWidth = 3
                     n.borderWidthSelected = 3
-                    n.shapeProperties = { borderRadius: 8 }
+                    n.shapeProperties = { borderRadius: 0 }
                     n.widthConstraint = { minimum: 110, maximum: 200 }
                     n.font = {
                         color: '#e0e0e8',

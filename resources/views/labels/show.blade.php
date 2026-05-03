@@ -20,51 +20,44 @@ if (!isset($seo)) {
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
-<!-- Hero -->
-<section class="relative -mx-4 mb-8 overflow-hidden bg-ink" style="min-height:260px">
+<!-- Hero — sem shapes geométricos -->
+<section class="relative -mx-4 mb-8 overflow-hidden bg-black" style="min-height:240px">
     @if($label->logo)
     <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }} logo" class="absolute inset-0 w-full h-full object-cover opacity-25" fetchpriority="high">
     @endif
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute w-[35vmin] h-[35vmin] bg-warm-500/15 -top-[8%] -left-[8%] rotate-12"></div>
-        <div class="absolute w-[25vmin] h-[25vmin] rounded-full bg-accent-500/15 bottom-[8%] right-[12%]"></div>
-        <div class="absolute w-[20vmin] h-[2vmin] bg-brand-500/20 top-[40%] left-[50%] -translate-x-1/2"></div>
-    </div>
-    <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/50 to-ink/20 flex items-center">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20 flex items-center">
         <div class="relative z-10 max-w-6xl mx-auto px-4 w-full flex items-center gap-6">
             @if($label->logo)
-            <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }}" class="w-24 h-24 object-contain shrink-0" style="border:1px solid var(--color-surface-700)">
+            <img src="{{ Storage::url($label->logo) }}" alt="{{ $label->name }}" class="w-20 h-20 object-contain shrink-0 border-2 border-white/20">
             @endif
             <div>
-                <p class="text-xs font-bold tracking-[0.15em] uppercase mb-2 text-warm-400">Record Label</p>
-                <h1 class="text-3xl sm:text-5xl font-black text-white leading-none tracking-tight">{{ $label->name }}</h1>
+                <p class="font-display text-xs font-bold tracking-[0.15em] uppercase text-white/40 mb-2">Gravadora</p>
+                <h1 class="font-display text-3xl sm:text-5xl font-black text-white leading-none tracking-tight">{{ $label->name }}</h1>
             </div>
         </div>
     </div>
 </section>
 
-<nav class="flex items-center gap-2 text-xs text-surface-400 mb-8 uppercase tracking-wider">
-    <a href="{{ route('home') }}" class="hover:text-brand-600">Home</a><span>/</span>
-    <a href="{{ route('labels.index') }}" class="hover:text-brand-600">Labels</a><span>/</span>
-    <span class="text-surface-700 dark:text-ink-200 font-medium">{{ $label->name }}</span>
+<nav class="breadcrumb mb-8">
+    <a href="{{ route('home') }}">Home</a><span>/</span>
+    <a href="{{ route('labels.index') }}">Labels</a><span>/</span>
+    <span>{{ $label->name }}</span>
 </nav>
 
 <div class="lg:flex lg:gap-8">
-    <div class="flex-1 min-w-0">
+    <div class="flex-1 min-w-0 order-2 lg:order-1">
         @if($label->description)
         <div class="prose max-w-none mb-8">{{ $label->description }}</div>
         @endif
 
-        <h2 class="font-display text-2xl font-bold mb-5 text-surface-900 dark:text-ink-200">
-            Bands <span class="text-base font-sans font-normal text-surface-400">({{ $label->bands->count() }})</span>
-        </h2>
+        <x-section-header tag="h2" :count="$label->bands->count()">Bandas</x-section-header>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             @forelse($label->bands as $band)
-            <a href="{{ route('bands.show', $band) }}" class="block group">
-                <div class="card card-hover h-full bg-white dark:bg-ink-800 p-3 flex gap-2.5">
+            <a href="{{ route('bands.show', $band) }}" class="group">
+                <div class="card p-3 flex gap-2.5 card-hover h-full">
                     @if($band->photo)
-                    <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0" loading="lazy" style="border:1px solid var(--color-surface-200)">
+                    <img src="{{ Storage::url($band->photo) }}" alt="{{ $band->name }}" class="w-12 h-12 object-cover shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                     @endif
                     <div class="min-w-0 flex-1">
                         <h3 class="font-display font-bold text-sm text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $band->name }}</h3>
@@ -76,35 +69,29 @@ if (!isset($seo)) {
                             <span class="badge badge-surface">{{ $genre->name }}</span>
                             @endforeach
                         </div>
-                        <span class="text-[10px] text-surface-400 mt-1 block">{{ $band->artists_count }} member{{ $band->artists_count !== 1 ? 's' : '' }}</span>
+                        <span class="font-display text-[10px] font-bold text-surface-400 mt-1 block">{{ $band->artists_count }} membro{{ $band->artists_count !== 1 ? 's' : '' }}</span>
                     </div>
                 </div>
             </a>
             @empty
-            <p class="col-span-full text-surface-500 text-sm">No bands on this label yet.</p>
+            <p class="col-span-full text-surface-500 text-sm">Nenhuma banda nesta gravadora.</p>
             @endforelse
         </div>
     </div>
 
-    <aside class="lg:w-64 mt-8 lg:mt-0 shrink-0 lg:sticky lg:top-16 self-start space-y-4">
-        <div class="card bg-white dark:bg-ink-800 p-4">
-            <h3 class="font-display text-sm font-bold mb-3 text-surface-700 dark:text-ink-200">Info</h3>
-            <div class="space-y-2 text-xs">
-                @if($label->country)
-                <div class="flex justify-between"><span class="text-surface-400">Country</span><span class="font-bold text-surface-700 dark:text-ink-200">{{ $label->country }}</span></div>
-                @endif
-                @if($label->founded_year)
-                <div class="flex justify-between"><span class="text-surface-400">Founded</span><span class="font-bold text-surface-700 dark:text-ink-200">{{ $label->founded_year }}</span></div>
-                @endif
-                <div class="flex justify-between"><span class="text-surface-400">Bands</span><span class="font-bold text-surface-700 dark:text-ink-200">{{ $label->bands->count() }}</span></div>
-                @if($label->website)
-                <div class="pt-2 border-t border-surface-200 dark:border-ink-700">
-                    <a href="{{ $label->website }}" target="_blank" rel="noopener noreferrer" class="link text-xs font-semibold">Visit Website &nearr;</a>
-                </div>
-                @endif
-            </div>
+    <!-- Infobox -->
+    <aside class="lg:w-72 mt-8 lg:mt-0 shrink-0 self-start order-1 lg:order-2 lg:sticky lg:top-16">
+        <x-infobox :title="$label->name" :items="[
+            'Country' => $label->country ? e($label->country) : null,
+            'Founded' => $label->founded_year ? (string) $label->founded_year : null,
+            'Bands' => (string) $label->bands->count(),
+        ]" />
+        @if($label->website)
+        <div class="mt-3">
+            <a href="{{ $label->website }}" target="_blank" rel="noopener noreferrer" class="btn w-full text-xs bg-black text-white border-black hover:bg-surface-800">Visitar Site &nearr;</a>
         </div>
-        <div><x-ad-slot position="sidebar" /></div>
+        @endif
+        <div class="mt-4"><x-ad-slot position="sidebar" /></div>
     </aside>
 </div>
 </div>

@@ -20,7 +20,7 @@ $seo = new \App\Values\SeoData(
 <div class="lg:flex lg:gap-8">
     <div class="lg:w-72 shrink-0">
         <div class="card bg-white dark:bg-ink-800 p-5 text-center">
-            <div class="w-20 h-20 rounded-full bg-brand-500 flex items-center justify-center text-white font-display text-3xl font-bold mx-auto">
+            <div class="w-20 h-20 bg-brand-500 flex items-center justify-center text-white font-display text-3xl font-bold mx-auto border-2 border-brand-700">
                 {{ strtoupper($user->name[0] ?? '?') }}
             </div>
             <h1 class="font-display font-bold text-xl mt-3 text-surface-900 dark:text-ink-200">{{ $user->name }}</h1>

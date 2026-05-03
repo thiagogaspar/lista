@@ -15,21 +15,22 @@ use Illuminate\Support\Facades\Hash;
 class ContentSeeder extends Seeder
 {
     private const WIKI = 'https://upload.wikimedia.org/wikipedia/commons';
+
     private const PICSUM = 'https://picsum.photos/seed';
 
     private function photoUrl(?string $commons, string $fallbackSeed): string
     {
-        return $commons ?? (self::PICSUM . "/{$fallbackSeed}/400/400");
+        return $commons ?? (self::PICSUM."/{$fallbackSeed}/400/400");
     }
 
     private function photoHero(?string $commons, string $fallbackSeed): string
     {
-        return $commons ?? (self::PICSUM . "/{$fallbackSeed}-hero/1200/400");
+        return $commons ?? (self::PICSUM."/{$fallbackSeed}-hero/1200/400");
     }
 
     private function coverUrl(string $seed): string
     {
-        return self::PICSUM . "/{$seed}-cover/400/400";
+        return self::PICSUM."/{$seed}-cover/400/400";
     }
 
     public function run(): void
@@ -55,26 +56,26 @@ class ContentSeeder extends Seeder
 
         // Seed photos — Wikimedia Commons CC images
         $bandImages = [
-            'nirvana' => self::WIKI . '/1/19/Nirvana_around_1992.jpg',
-            'pearl-jam' => self::WIKI . '/b/bf/Pearl_Jam_1991.jpg',
-            'soundgarden' => self::WIKI . '/9/9b/Soundgarden_Chicago.jpg',
-            'foo-fighters' => self::WIKI . '/thumb/c/cb/Glasto2023.jpg/500px-Glasto2023.jpg',
-            'rage-against-the-machine' => self::WIKI . '/thumb/b/b8/Rage_Against_The_Machine_%28cropped%29.jpg/500px-Rage_Against_The_Machine_%28cropped%29.jpg',
-            'audioslave' => self::WIKI . '/thumb/5/51/Audioslave_2005_%28cropped%29.jpg/500px-Audioslave_2005_%28cropped%29.jpg',
-            'green-river' => self::WIKI . '/thumb/2/2c/Green_River_%281980s_Sub_Pop_promo_photo%29.jpg/500px-Green_River_%281980s_Sub_Pop_promo_photo%29.jpg',
+            'nirvana' => self::WIKI.'/1/19/Nirvana_around_1992.jpg',
+            'pearl-jam' => self::WIKI.'/b/bf/Pearl_Jam_1991.jpg',
+            'soundgarden' => self::WIKI.'/9/9b/Soundgarden_Chicago.jpg',
+            'foo-fighters' => self::WIKI.'/thumb/c/cb/Glasto2023.jpg/500px-Glasto2023.jpg',
+            'rage-against-the-machine' => self::WIKI.'/thumb/b/b8/Rage_Against_The_Machine_%28cropped%29.jpg/500px-Rage_Against_The_Machine_%28cropped%29.jpg',
+            'audioslave' => self::WIKI.'/thumb/5/51/Audioslave_2005_%28cropped%29.jpg/500px-Audioslave_2005_%28cropped%29.jpg',
+            'green-river' => self::WIKI.'/thumb/2/2c/Green_River_%281980s_Sub_Pop_promo_photo%29.jpg/500px-Green_River_%281980s_Sub_Pop_promo_photo%29.jpg',
         ];
 
         $artistImages = [
-            'dave-grohl' => self::WIKI . '/thumb/0/03/FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg/500px-FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg',
-            'kurt-cobain' => self::WIKI . '/3/37/Nirvana_around_1992_%28cropped%29.jpg',
-            'krist-novoselic' => self::WIKI . '/thumb/9/93/Krist_Novoselic%27s_Bona_Fide_Band_2024-07-23_-_13.jpg/500px-Krist_Novoselic%27s_Bona_Fide_Band_2024-07-23_-_13.jpg',
-            'eddie-vedder' => self::WIKI . '/thumb/4/49/Eddie_Vedder_2018_-2.jpg/500px-Eddie_Vedder_2018_-2.jpg',
-            'chris-cornell' => self::WIKI . '/thumb/5/58/ChrisCornellTIFFSept2011.jpg/500px-ChrisCornellTIFFSept2011.jpg',
-            'tom-morello' => self::WIKI . '/thumb/f/fa/Tom_Morello.jpg/500px-Tom_Morello.jpg',
-            'jeff-ament' => self::WIKI . '/thumb/f/f8/Jeff-Ament.jpg/500px-Jeff-Ament.jpg',
-            'mike-mccready' => self::WIKI . '/thumb/3/34/Mike_McCready_2009.jpg/500px-Mike_McCready_2009.jpg',
-            'stone-gossard' => self::WIKI . '/thumb/6/6a/Stone_Gossard_2014_%28cropped%29.jpg/500px-Stone_Gossard_2014_%28cropped%29.jpg',
-            'matt-cameron' => self::WIKI . '/thumb/e/e6/Matt_Cameron_SG_2013.jpg/500px-Matt_Cameron_SG_2013.jpg',
+            'dave-grohl' => self::WIKI.'/thumb/0/03/FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg/500px-FoosDublin210819-6_%2848620330261%29_%28cropped%29.jpg',
+            'kurt-cobain' => self::WIKI.'/3/37/Nirvana_around_1992_%28cropped%29.jpg',
+            'krist-novoselic' => self::WIKI.'/thumb/9/93/Krist_Novoselic%27s_Bona_Fide_Band_2024-07-23_-_13.jpg/500px-Krist_Novoselic%27s_Bona_Fide_Band_2024-07-23_-_13.jpg',
+            'eddie-vedder' => self::WIKI.'/thumb/4/49/Eddie_Vedder_2018_-2.jpg/500px-Eddie_Vedder_2018_-2.jpg',
+            'chris-cornell' => self::WIKI.'/thumb/5/58/ChrisCornellTIFFSept2011.jpg/500px-ChrisCornellTIFFSept2011.jpg',
+            'tom-morello' => self::WIKI.'/thumb/f/fa/Tom_Morello.jpg/500px-Tom_Morello.jpg',
+            'jeff-ament' => self::WIKI.'/thumb/f/f8/Jeff-Ament.jpg/500px-Jeff-Ament.jpg',
+            'mike-mccready' => self::WIKI.'/thumb/3/34/Mike_McCready_2009.jpg/500px-Mike_McCready_2009.jpg',
+            'stone-gossard' => self::WIKI.'/thumb/6/6a/Stone_Gossard_2014_%28cropped%29.jpg/500px-Stone_Gossard_2014_%28cropped%29.jpg',
+            'matt-cameron' => self::WIKI.'/thumb/e/e6/Matt_Cameron_SG_2013.jpg/500px-Matt_Cameron_SG_2013.jpg',
         ];
 
         $bands = Band::all();
@@ -105,26 +106,60 @@ class ContentSeeder extends Seeder
         $aandm = Label::whereSlug('a-m-records')->first();
 
         // Assign labels
-        if ($nirvana) { $nirvana->label()->associate($dgc); $nirvana->save(); }
-        if ($fooFighters) { $fooFighters->label()->associate($interscope); $fooFighters->save(); }
-        if ($pearlJam) { $pearlJam->label()->associate($epic); $pearlJam->save(); }
-        if ($soundgarden) { $soundgarden->label()->associate($aandm); $soundgarden->save(); }
-        if ($audioslave) { $audioslave->label()->associate($epic); $audioslave->save(); }
-        if ($rageMachine) { $rageMachine->label()->associate($epic); $rageMachine->save(); }
+        if ($nirvana) {
+            $nirvana->label()->associate($dgc);
+            $nirvana->save();
+        }
+        if ($fooFighters) {
+            $fooFighters->label()->associate($interscope);
+            $fooFighters->save();
+        }
+        if ($pearlJam) {
+            $pearlJam->label()->associate($epic);
+            $pearlJam->save();
+        }
+        if ($soundgarden) {
+            $soundgarden->label()->associate($aandm);
+            $soundgarden->save();
+        }
+        if ($audioslave) {
+            $audioslave->label()->associate($epic);
+            $audioslave->save();
+        }
+        if ($rageMachine) {
+            $rageMachine->label()->associate($epic);
+            $rageMachine->save();
+        }
 
         // Attach tags
-        if ($nirvana) { $nirvana->tags()->attach([$seattleSound->id, $nineties->id]); }
-        if ($fooFighters) { $fooFighters->tags()->attach([$nineties->id]); }
-        if ($pearlJam) { $pearlJam->tags()->attach([$seattleSound->id, $nineties->id]); }
-        if ($soundgarden) { $soundgarden->tags()->attach([$seattleSound->id, $nineties->id]); }
-        if ($audioslave) { $audioslave->tags()->attach([$supergroup->id]); }
-        if ($rageMachine) { $rageMachine->tags()->attach([$nineties->id, $supergroup->id]); }
+        if ($nirvana) {
+            $nirvana->tags()->attach([$seattleSound->id, $nineties->id]);
+        }
+        if ($fooFighters) {
+            $fooFighters->tags()->attach([$nineties->id]);
+        }
+        if ($pearlJam) {
+            $pearlJam->tags()->attach([$seattleSound->id, $nineties->id]);
+        }
+        if ($soundgarden) {
+            $soundgarden->tags()->attach([$seattleSound->id, $nineties->id]);
+        }
+        if ($audioslave) {
+            $audioslave->tags()->attach([$supergroup->id]);
+        }
+        if ($rageMachine) {
+            $rageMachine->tags()->attach([$nineties->id, $supergroup->id]);
+        }
 
         // Attach tags to artists
         $daveGrohl = Artist::whereSlug('dave-grohl')->first();
         $kurtCobain = Artist::whereSlug('kurt-cobain')->first();
-        if ($daveGrohl) { $daveGrohl->tags()->attach([$nineties->id]); }
-        if ($kurtCobain) { $kurtCobain->tags()->attach([$nineties->id, $seattleSound->id]); }
+        if ($daveGrohl) {
+            $daveGrohl->tags()->attach([$nineties->id]);
+        }
+        if ($kurtCobain) {
+            $kurtCobain->tags()->attach([$nineties->id, $seattleSound->id]);
+        }
 
         // Albums with real CC photos via picsum (album art is fair-use, using CC photos instead)
         if ($nirvana) {
@@ -165,7 +200,7 @@ class ContentSeeder extends Seeder
             'author' => 'LISTA',
             'is_published' => true,
             'published_at' => now()->subDays(3),
-            'featured_image' => $this->photoHero(self::WIKI . '/b/bf/Pearl_Jam_1991.jpg', 'seattle-sound'),
+            'featured_image' => $this->photoHero(self::WIKI.'/b/bf/Pearl_Jam_1991.jpg', 'seattle-sound'),
         ]);
 
         Post::create([
@@ -176,7 +211,7 @@ class ContentSeeder extends Seeder
             'author' => 'LISTA',
             'is_published' => true,
             'published_at' => now()->subDays(1),
-            'featured_image' => $this->photoHero(self::WIKI . '/thumb/c/cb/Glasto2023.jpg/500px-Glasto2023.jpg', 'band-genealogy'),
+            'featured_image' => $this->photoHero(self::WIKI.'/thumb/c/cb/Glasto2023.jpg/500px-Glasto2023.jpg', 'band-genealogy'),
         ]);
     }
 }

@@ -8,8 +8,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preload" href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" as="style">
     <link rel="preload" href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500,600,700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.bunny.net/css?family=source-serif-4:ital,wght@0,400;0,600;0,700;1,400&display=swap" as="style">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=source-serif-4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     @yield('preload')
 
@@ -165,20 +167,20 @@
                 <div>
                     <p class="text-xs font-bold uppercase tracking-wider text-surface-600 dark:text-ink-400 mb-3">{{ __('common.footer.explore') }}</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.bands') }}</a>
-                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.artists') }}</a>
-                        <a href="{{ route('albums.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.albums') }}</a>
-                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.genealogy') }}</a>
-                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.nav.blog') }}</a>
+                        <a href="{{ route('bands.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.nav.bands') }}</a>
+                        <a href="{{ route('artists.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.nav.artists') }}</a>
+                        <a href="{{ route('albums.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.nav.albums') }}</a>
+                        <a href="{{ route('genealogy') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.nav.genealogy') }}</a>
+                        <a href="{{ route('blog.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.nav.blog') }}</a>
                     </div>
                 </div>
                 <div>
                     <p class="text-xs font-bold uppercase tracking-wider text-surface-600 dark:text-ink-400 mb-3">{{ __('common.footer.community') }}</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.join') }}</a>
-                        <a href="/admin" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ __('common.contribute') }}</a>
-                        <a href="{{ route('labels.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">Labels A–Z</a>
-                        <a href="/sitemap.xml" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">Sitemap</a>
+                        <a href="{{ route('register') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.join') }}</a>
+                        <a href="/admin" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ __('common.contribute') }}</a>
+                        <a href="{{ route('labels.index') }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">Labels A–Z</a>
+                        <a href="/sitemap.xml" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">Sitemap</a>
                     </div>
                 </div>
                 <div>
@@ -186,7 +188,7 @@
                     <div class="space-y-2 text-sm">
                         @php $footerGenres = app(\App\Services\BandService::class)->getGenres(); @endphp
                         @foreach(array_slice($footerGenres, 0, 8) as $slug => $name)
-                        <a href="{{ route('genres.show', $slug) }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 rounded-sm">{{ $name }}</a>
+                        <a href="{{ route('genres.show', $slug) }}" class="block text-surface-500 hover:text-surface-900 dark:hover:text-ink-100 hover:bg-surface-100 dark:hover:bg-ink-800 px-1 -mx-1 ">{{ $name }}</a>
                         @endforeach
                     </div>
                 </div>

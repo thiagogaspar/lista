@@ -22,7 +22,7 @@ window.initBandGraph = function(containerId, graphData) {
         } else {
             n.shape = 'box'
             n.widthConstraint = { minimum: 120, maximum: 200 }
-            n.shapeProperties = { borderRadius: 6 }
+            n.shapeProperties = { borderRadius: 0 }
             n.font = { color: '#ffffff', size: 16, face: 'DM Sans, system-ui', bold: true }
         }
     })

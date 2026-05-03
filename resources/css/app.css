@@ -10,10 +10,11 @@
 
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-    --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+    --font-display: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+    --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+    --font-serif: 'Source Serif 4', Georgia, ui-serif, serif;
 
-    /* Brand — Pure black (brutalist) */
+    /* Legacy tokens — kept for backward compat */
     --color-brand-50: #f5f5f5;
     --color-brand-100: #e5e5e5;
     --color-brand-200: #cccccc;
@@ -25,7 +26,6 @@
     --color-brand-800: #000000;
     --color-brand-900: #000000;
 
-    /* Accent — Dark gray */
     --color-accent-50: #f0f0f0;
     --color-accent-100: #dddddd;
     --color-accent-200: #bbbbbb;
@@ -37,7 +37,6 @@
     --color-accent-800: #111111;
     --color-accent-900: #000000;
 
-    /* Warm — Mid gray */
     --color-warm-50: #f8f8f8;
     --color-warm-100: #eeeeee;
     --color-warm-200: #dddddd;
@@ -49,7 +48,6 @@
     --color-warm-800: #333333;
     --color-warm-900: #222222;
 
-    /* Surface — Pure white / near-white */
     --color-surface-50: #ffffff;
     --color-surface-100: #f8f8f8;
     --color-surface-200: #e0e0e0;
@@ -62,7 +60,6 @@
     --color-surface-900: #000000;
     --color-surface-950: #000000;
 
-    /* Ink — Pure black / near-black */
     --color-ink: #000000;
     --color-ink-900: #000000;
     --color-ink-800: #111111;
@@ -76,7 +73,7 @@
     --color-ink-50: #f8f8f8;
 }
 
-/* === Base — brutalist, high contrast, +10% font === */
+/* Base — no curves, high contrast, +10% font */
 @layer base {
     html {
         font-size: 110%;
@@ -84,17 +81,18 @@
         -moz-osx-font-smoothing: grayscale;
     }
 
-    h1, h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-display);
     }
 }
 
-/* === Brutalist utilities === */
+/* === Brutalist utilities — zero border-radius, 2px borders === */
 @utility badge {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
     padding: 0.125rem 0.5rem;
+    font-family: var(--font-display);
     font-size: 0.6875rem;
     font-weight: 700;
     line-height: 1.25rem;
@@ -113,23 +111,32 @@
     .dark & { border-color: var(--color-ink-600); color: var(--color-ink-300); }
 }
 
+@utility badge-accent {
+    border-color: var(--color-accent-300);
+    color: var(--color-accent-700);
+    .dark & { border-color: var(--color-accent-600); color: var(--color-accent-300); }
+}
+
 @utility btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 0.8125rem;
     line-height: 1.25rem;
     padding: 0.5rem 1.25rem;
     cursor: pointer;
     white-space: nowrap;
+    border: 2px solid transparent;
 }
 
 @utility btn-brand {
     background-color: var(--color-brand-500);
     color: white;
-    &:hover { background-color: var(--color-brand-700); }
+    border-color: var(--color-brand-500);
+    &:hover { background-color: var(--color-brand-700); border-color: var(--color-brand-700); }
 }
 
 @utility btn-ghost {
@@ -182,6 +189,10 @@
     .dark & { background-color: var(--color-ink-800); border-color: var(--color-ink-700); }
 }
 
+@utility card-hover {
+    &:hover { border-color: var(--color-brand-500); .dark &:hover { border-color: var(--color-brand-400); } }
+}
+
 @utility prose {
     line-height: 1.6;
     color: #000;
@@ -199,12 +210,32 @@
     }
 }
 
+@utility prose-serif {
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: #000;
+    .dark & { color: #fff; }
+    & p { margin-bottom: 1.125rem; }
+    & a { color: #000; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; .dark & { color: #fff; } &:hover { background: #000; color: #fff; .dark & { background: #fff; color: #000; } } }
+    & strong { font-weight: 700; }
+    & ul, & ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    & li { margin-bottom: 0.25rem; }
+    & blockquote {
+        border-left: 4px solid #000;
+        padding-left: 1rem;
+        font-style: italic;
+        margin: 1.5rem 0;
+        .dark & { border-color: #fff; }
+    }
+}
+
 @utility stat {
     text-align: center;
     padding: 1.5rem 0.75rem;
 }
 
 @utility stat-value {
+    font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 900;
     line-height: 1;
@@ -212,6 +243,7 @@
 }
 
 @utility stat-desc {
+    font-family: var(--font-display);
     font-size: 0.625rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -240,10 +272,59 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8125rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
     color: var(--color-surface-500);
     & a { text-decoration: none; font-weight: 600; &:hover { text-decoration: underline; color: #000; .dark & { color: #fff; } } }
     & span { color: #000; font-weight: 600; .dark & { color: #fff; } }
+}
+
+/* Section header — newspaper style */
+@utility section-header {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-surface-700);
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    .dark & { color: var(--color-ink-300); border-color: #fff; }
+}
+
+/* Infobox — Wikipedia style */
+@utility infobox {
+    border: 2px solid var(--color-surface-300);
+    background: var(--color-surface-50);
+    font-size: 0.8125rem;
+    .dark & { background: var(--color-ink-800); border-color: var(--color-ink-600); }
+}
+
+@utility infobox-label {
+    font-weight: 600;
+    color: var(--color-surface-700);
+    white-space: nowrap;
+    padding: 0.375rem 0.75rem;
+    border-right: 2px solid var(--color-surface-300);
+    vertical-align: top;
+    width: 40%;
+    .dark & { color: var(--color-ink-300); border-color: var(--color-ink-600); }
+}
+
+@utility infobox-value {
+    padding: 0.375rem 0.75rem;
+    color: #000;
+    width: 60%;
+    .dark & { color: #fff; }
+}
+
+/* Newspaper grid */
+@utility newspaper-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    @media (min-width: 640px) { grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* Genealogy graph */

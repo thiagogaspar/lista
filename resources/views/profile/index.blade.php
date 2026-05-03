@@ -18,7 +18,7 @@ $seo = new \App\Values\SeoData(title: 'My Profile', description: 'Your LISTA pro
     <div class="lg:w-72 shrink-0">
         <div class="card bg-white dark:bg-ink-800 p-5">
             <div class="flex items-center gap-4">
-                <div class="w-16 h-16 rounded-full bg-brand-500 flex items-center justify-center text-white font-display text-2xl font-bold shrink-0">
+                <div class="w-16 h-16 bg-brand-500 flex items-center justify-center text-white font-display text-2xl font-bold shrink-0 border-2 border-brand-700">
                     {{ strtoupper($user->name[0] ?? '?') }}
                 </div>
                 <div>

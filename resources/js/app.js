@@ -26,4 +26,31 @@ Alpine.data('searchBox', () => ({
     }
 }))
 
+Alpine.data('gallery', (images) => ({
+    images: images,
+    show: false,
+    current: 0,
+
+    init() {},
+
+    open(i) {
+        this.current = i
+        this.show = true
+        document.body.style.overflow = 'hidden'
+    },
+
+    close() {
+        this.show = false
+        document.body.style.overflow = ''
+    },
+
+    prev() {
+        this.current = this.current > 0 ? this.current - 1 : this.images.length - 1
+    },
+
+    next() {
+        this.current = this.current < this.images.length - 1 ? this.current + 1 : 0
+    }
+}))
+
 Alpine.start()
