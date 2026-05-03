@@ -37,7 +37,7 @@ class SecurityHeaders
             $csp = "default-src 'self'; ".
                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' {$origin}; ".
                    "style-src 'self' 'unsafe-inline' https://fonts.bunny.net {$origin}; ".
-                   "img-src 'self' data: {$origin}; ".
+                    "img-src 'self' data: https://picsum.photos https://upload.wikimedia.org {$origin}; ".
                    "font-src 'self' https://fonts.bunny.net; ".
                    "connect-src 'self' https://fonts.bunny.net {$origin}; ".
                    "frame-src 'none'; ".
