@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
 @section('head')
-@php $seo = new \App\Values\SeoData(title: 'Labels', description: 'Browse record labels in the directory.', canonical: route('labels.index')); @endphp
+@php $seo = new \App\Values\SeoData(title: __('common.labels.title'), description: __('common.labels.seo_description'), canonical: route('labels.index')); @endphp
 <x-seo-meta :seo="$seo" />
 @endsection
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <div class="flex items-center gap-4 mb-8">
-    <h1 class="font-display text-xl sm:text-2xl font-bold text-surface-900 dark:text-ink-200">Labels</h1>
+    <h1 class="font-display text-xl sm:text-2xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.labels.title') }}</h1>
     <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>
 </div>
 
 @if($labels->isEmpty())
-<div class="text-center py-16 border-2 border-surface-200 dark:border-ink-700"><p class="text-surface-500">Nenhuma gravadora ainda.</p></div>
+<div class="text-center py-16 border-2 border-surface-200 dark:border-ink-700"><p class="text-surface-500">{{ __('common.labels.no_labels') }}</p></div>
 @else
 <!-- Alphabet nav -->
-<div class="flex flex-wrap gap-1.5 mb-8" aria-label="Alphabetical index">
+<div class="flex flex-wrap gap-1.5 mb-8" aria-label="{{ __('common.labels.aria_index') }}">
     @foreach($alphabet as $letter)
     <a href="#letter-{{ $letter }}"
        class="w-8 h-8 flex items-center justify-center font-display text-xs font-bold uppercase border-2 border-surface-200 dark:border-ink-700 text-surface-500 dark:text-surface-400 hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-700 dark:hover:text-brand-400 {{ isset($labels[$letter]) ? '' : 'opacity-40 pointer-events-none' }}">
@@ -44,7 +44,7 @@
                     <h3 class="font-display font-bold text-sm text-surface-900 dark:text-ink-100 truncate group-hover:text-brand-600 dark:group-hover:text-brand-400">{{ $label->name }}</h3>
                     <div class="flex flex-wrap gap-2 mt-1 font-display text-xs font-bold text-surface-500 dark:text-ink-500">
                         @if($label->country)<span>{{ $label->country }}</span>@endif
-                        <span>{{ $label->bands_count }} banda{{ $label->bands_count !== 1 ? 's' : '' }}</span>
+                        <span>{{ $label->bands_count }} {{ __('common.labels.bands') }}</span>
                     </div>
                 </div>
             </div>

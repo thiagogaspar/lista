@@ -40,7 +40,7 @@ $seo = new \App\Values\SeoData(
     </div>
 
     <div class="mt-12 pt-6 border-t-2 border-surface-200 dark:border-ink-700">
-        <a href="{{ route('blog.index') }}" class="font-display font-bold text-black dark:text-white hover:underline">&larr; Voltar ao Blog</a>
+        <a href="{{ route('blog.index') }}" class="font-display font-bold text-black dark:text-white hover:underline">{!! __('common.blog.back') !!}</a>
     </div>
 </article>
 </div>

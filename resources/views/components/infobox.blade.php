@@ -1,6 +1,6 @@
 <div class="infobox w-full">
     <div class="border-b-2 border-surface-300 dark:border-ink-600 px-3 py-2 bg-surface-100 dark:bg-ink-700">
-        <h3 class="font-display font-bold text-xs uppercase tracking-wider text-surface-700 dark:text-ink-200">{{ $title ?? 'Info' }}</h3>
+        <h3 class="font-display font-bold text-xs uppercase tracking-wider text-surface-700 dark:text-ink-200">{{ $title ?? __('common.labels.info') }}</h3>
     </div>
     <table class="w-full">
         @foreach($items as $label => $value)

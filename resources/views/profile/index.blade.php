@@ -2,7 +2,7 @@
 
 @section('head')
 @php
-$seo = new \App\Values\SeoData(title: 'My Profile', description: 'Your LISTA profile.');
+$seo = new \App\Values\SeoData(title: __('common.profile.title'), description: __('common.profile.seo_description'));
 @endphp
 <x-seo-meta :seo="$seo" />
 @endsection
@@ -10,7 +10,7 @@ $seo = new \App\Values\SeoData(title: 'My Profile', description: 'Your LISTA pro
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <div class="flex items-center gap-4 mb-8">
-    <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Profile</h1>
+    <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.profile.title') }}</h1>
     <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>
 </div>
 
@@ -32,7 +32,7 @@ $seo = new \App\Values\SeoData(title: 'My Profile', description: 'Your LISTA pro
                 </div>
             </div>
             <div class="mt-4 pt-4 space-y-2">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-ghost btn-sm w-full justify-center text-xs">Logout</a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-ghost btn-sm w-full justify-center text-xs">{{ __('common.profile.logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
             </div>
             <div class="mt-4 pt-4 border-t border-surface-200 dark:border-ink-700 space-y-2 text-xs">

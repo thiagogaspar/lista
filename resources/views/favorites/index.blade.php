@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('head')
-@php $seo = new \App\Values\SeoData(title: 'My Favorites', description: 'Your favorited bands and artists.'); @endphp
+@php $seo = new \App\Values\SeoData(title: __('common.favorites.title'), description: __('common.favorites.seo_description')); @endphp
 <x-seo-meta :seo="$seo" />
 @endsection
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <div class="flex items-center gap-4 mb-8">
-    <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">Favorites</h1>
+    <h1 class="font-display text-2xl sm:text-3xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.favorites.title') }}</h1>
     <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>
 </div>
 

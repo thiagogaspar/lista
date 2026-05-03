@@ -1,6 +1,6 @@
 @extends('errors.layout')
 
-@section('title', 'Service Unavailable')
+@section('title', __('common.errors.503_title'))
 @section('code', '503')
-@section('message', 'Service Unavailable')
-@section('description', 'We are performing maintenance. Please check back soon.')
+@section('message', __('common.errors.503_title'))
+@section('description', __('common.errors.503_message'))

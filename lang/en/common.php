@@ -17,10 +17,12 @@ return [
         'bands' => 'Bands',
         'artists' => 'Artists',
         'albums' => 'Albums',
+        'labels' => 'Labels',
         'graph' => 'Graph',
         'favorites' => 'Favorites',
         'genealogy' => 'Genealogy',
         'blog' => 'Blog',
+        'sitemap' => 'Sitemap',
     ],
 
     'home' => [
@@ -54,6 +56,7 @@ return [
     'bands' => [
         'all' => 'All Bands',
         'search' => 'Search bands...',
+        'search_aria' => 'Search bands',
         'all_genres' => 'All genres',
         'year' => 'Year',
         'all_origins' => 'All origins',
@@ -68,25 +71,62 @@ return [
         'genres' => 'Genres',
         'labels' => 'Labels',
         'origins' => 'Origins',
+        'seo_description' => 'Browse all bands in the directory.',
+        'seo_search' => 'Search: :query — All Bands',
+        'members_heading' => 'Members',
+        'no_members' => 'No members registered.',
+        'discography' => 'Discography',
+        'connections' => 'Connections',
+        'formed' => 'Formed',
+        'dissolved' => 'Dissolved',
+        'origin' => 'Origin',
+        'label' => 'Label',
+        'genre' => 'Genre',
+        'album' => 'Album',
+        'filter_genre_aria' => 'Filter by genre',
+        'filter_year_aria' => 'Filter by year',
+        'filter_origin_aria' => 'Filter by origin',
+        'count' => ':count band|:count bands',
+        'aria_label' => 'Filter by :name',
     ],
 
     'artists' => [
         'all' => 'All Artists',
         'search' => 'Search artists...',
+        'search_aria' => 'Search artists',
         'sort_name' => 'Name',
         'sort_origin' => 'Origin',
         'no_artists' => 'No artists found.',
         'add_first' => 'Add First Artist',
         'stats' => 'Stats',
         'catalogued' => ':count artists catalogued',
+        'seo_description' => 'Browse all artists in the directory.',
+        'seo_search' => 'Search: :query — All Artists',
+        'birth' => 'Birth',
+        'origin' => 'Origin',
+        'bands' => 'Bands',
+        'band_history' => 'Band History',
+        'no_history' => 'No history recorded.',
+        'present' => 'present',
+        'count' => ':count artist|:count artists',
+        'favorite_title' => 'Favorite',
+        'bands_count' => ':count band|:count bands',
     ],
 
     'albums' => [
         'all' => 'All Albums',
         'search' => 'Search albums...',
+        'search_aria' => 'Search albums',
         'all_genres' => 'All genres',
         'all_years' => 'All years',
         'no_albums' => 'No albums found.',
+        'seo_description' => 'Browse album discography.',
+        'seo_search' => 'Search: :query — All Albums',
+        'filter_genre_aria' => 'Filter by genre',
+        'filter_year_aria' => 'Filter by year',
+        'count' => ':count album|:count albums',
+        'tracks' => 'Tracks',
+        'by' => 'by',
     ],
 
     'labels' => [
@@ -100,12 +140,16 @@ return [
         'website' => 'Visit Website',
         'no_bands' => 'No bands on this label yet.',
         'bands_count' => 'bands',
+        'seo_description' => 'Browse record labels in the directory.',
+        'aria_index' => 'Alphabetical index',
     ],
 
     'blog' => [
         'title' => 'Blog',
         'read_more' => 'Read more',
         'no_posts' => 'No posts yet.',
+        'seo_description' => 'Latest news and articles about local music.',
+        'back' => '&larr; Back to Blog',
     ],
 
     'favorites' => [
@@ -113,6 +157,7 @@ return [
         'no_favorites' => 'No favorites yet.',
         'browse_bands' => 'Browse Bands',
         'login_prompt' => 'Register or log in to save favorites.',
+        'seo_description' => 'Your favorited bands and artists.',
     ],
 
     'profile' => [
@@ -134,6 +179,9 @@ return [
         'status_pending' => 'Pending',
         'on' => 'on',
         'deleted' => '[deleted]',
+        'seo_description' => 'Your LISTA profile.',
+        'seo_public' => 'Profile of :name on LISTA.',
+        'logout' => 'Logout',
     ],
 
     'auth' => [
@@ -145,6 +193,8 @@ return [
         'register_button' => 'Register',
         'already_account' => 'Already have an account?',
         'login' => 'Log in',
+        'seo_title' => 'Register — LISTA',
+        'seo_description' => 'Create an account to save favorites, comment, and suggest edits.',
     ],
 
     'genealogy' => [
@@ -160,6 +210,46 @@ return [
         'fetching' => 'Fetching data...',
         'rendering' => 'Rendering :count nodes...',
         'status' => ':nodes nodes, :edges connections',
+        'seo_description' => 'Interactive band genealogy graph. Explore connections between bands and artists.',
+        'legend' => 'Legend',
+        'zoom_in' => 'Zoom in',
+        'zoom_out' => 'Zoom out',
+    ],
+
+    'errors' => [
+        '404_title' => 'Page Not Found',
+        '404_message' => 'The page you are looking for does not exist or has been moved.',
+        '403_title' => 'Forbidden',
+        '403_message' => 'You do not have permission to access this page.',
+        '500_title' => 'Server Error',
+        '500_message' => 'Something went wrong. Please try again later.',
+        '503_title' => 'Service Unavailable',
+        '503_message' => 'We are performing maintenance. Please check back soon.',
+    ],
+
+    'footer' => [
+        'tagline' => 'A local music directory. We map the connections between bands and artists.',
+        'explore' => 'Explore',
+        'community' => 'Community',
+        'copyright' => 'Built by the local scene, for the local scene.',
+        'all_rights' => 'All rights reserved.',
+        'labels_az' => 'Labels A–Z',
+    ],
+
+    'pagination' => [
+        'of' => 'of',
+    ],
+
+    'home' => [
+        'hero_title' => 'Local Music.<br><span>Genealogy.</span>',
+        'hero_subtitle' => 'Explore connections between bands and artists of the original scene. A collaborative directory, in English.',
+        'hero_tag' => 'Collaborative Directory',
+        'present' => 'present',
+    ],
+
+    'common' => [
+        'learn_about' => 'Learn about :name and their musical journey.',
+        'learn_about_artist' => 'Learn about :name and their musical career.',
     ],
 
     'comments' => [
@@ -169,13 +259,5 @@ return [
         'login' => 'Log in to leave a comment.',
         'placeholder' => 'Leave a comment...',
         'submit' => 'Post Comment',
-    ],
-
-    'footer' => [
-        'tagline' => 'A local music directory. We map the connections between bands and artists.',
-        'explore' => 'Explore',
-        'community' => 'Community',
-        'copyright' => 'Built by the local scene, for the local scene.',
-        'all_rights' => 'All rights reserved.',
     ],
 ];

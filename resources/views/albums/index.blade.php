@@ -3,8 +3,8 @@
 @section('head')
 @php
 $seo = new \App\Values\SeoData(
-    title: request('search') ? 'Search: ' . e(request('search')) . ' — All Albums' : 'All Albums',
-    description: 'Browse album discography.',
+    title: request('search') ? __('common.albums.seo_search', ['query' => e(request('search'))]) : __('common.albums.all'),
+    description: __('common.albums.seo_description'),
     canonical: route('albums.index'),
 );
 @endphp
@@ -16,29 +16,29 @@ $seo = new \App\Values\SeoData(
 @section('content')
 <div class="max-w-6xl mx-auto px-4">
 <div class="flex items-center gap-4 mb-6">
-    <h1 class="font-display text-xl sm:text-2xl font-bold text-surface-900 dark:text-ink-200">Albums</h1>
+    <h1 class="font-display text-xl sm:text-2xl font-bold text-surface-900 dark:text-ink-200">{{ __('common.nav.albums') }}</h1>
     <span class="h-px flex-1 bg-surface-200 dark:bg-ink-700"></span>
 </div>
 
 <form method="GET" class="flex flex-wrap gap-2 mb-6">
-    <input name="search" value="{{ request('search') }}" placeholder="Search albums..." aria-label="Search albums" class="input flex-1 min-w-[160px]">
-    <select name="genre" aria-label="Filter by genre" class="select" style="max-width:150px">
-        <option value="">All genres</option>
+    <input name="search" value="{{ request('search') }}" placeholder="{{ __('common.albums.search') }}" aria-label="{{ __('common.albums.search_aria') }}" class="input flex-1 min-w-[160px]">
+    <select name="genre" aria-label="{{ __('common.albums.filter_genre_aria') }}" class="select" style="max-width:150px">
+        <option value="">{{ __('common.albums.all_genres') }}</option>
         @foreach($genres as $slug => $name)
         <option value="{{ $slug }}" {{ request('genre') === $slug ? 'selected' : '' }}>{{ $name }}</option>
         @endforeach
     </select>
-    <select name="year" aria-label="Filter by year" class="select" style="max-width:110px">
-        <option value="">All years</option>
+    <select name="year" aria-label="{{ __('common.albums.filter_year_aria') }}" class="select" style="max-width:110px">
+        <option value="">{{ __('common.albums.all_years') }}</option>
         @foreach($years as $y)
         <option value="{{ $y }}" {{ (string) request('year') === (string) $y ? 'selected' : '' }}>{{ $y }}</option>
         @endforeach
     </select>
-    <button type="submit" class="btn bg-black text-white border-black hover:bg-surface-800 text-xs">Filter</button>
+    <button type="submit" class="btn bg-black text-white border-black hover:bg-surface-800 text-xs">{{ __('common.filter') }}</button>
 </form>
 
 <div class="flex items-center justify-between mb-4 font-display text-xs text-surface-500">
-    <span class="font-bold uppercase tracking-wider">{{ $albums->total() }} album{{ $albums->total() !== 1 ? 's' : '' }}</span>
+    <span class="font-bold uppercase tracking-wider">{{ trans_choice('common.albums.count', $albums->total()) }}</span>
 </div>
 
 <!-- Album grid — capas com borda 2px -->
@@ -65,12 +65,12 @@ $seo = new \App\Values\SeoData(
         </div>
     </a>
     @empty
-    <div class="col-span-full text-center py-16 border-2 border-surface-200 dark:border-ink-700"><p class="text-surface-500">Nenhum álbum encontrado.</p></div>
+    <div class="col-span-full text-center py-16 border-2 border-surface-200 dark:border-ink-700"><p class="text-surface-500">{{ __('common.albums.no_albums') }}</p></div>
     @endforelse
 </div>
 
 <div class="mt-8 flex items-center justify-between font-display text-xs text-surface-500">
-    <span class="font-bold uppercase tracking-wider">{{ $albums->firstItem() }}&ndash;{{ $albums->lastItem() }} of {{ $albums->total() }}</span>
+    <span class="font-bold uppercase tracking-wider">{{ $albums->firstItem() }}&ndash;{{ $albums->lastItem() }} {{ __('common.pagination.of') }} {{ $albums->total() }}</span>
     {{ $albums->appends(request()->query())->links('pagination::tailwind') }}
 </div>
 </div>

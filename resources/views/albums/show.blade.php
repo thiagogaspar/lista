@@ -5,7 +5,7 @@
 if (!isset($seo)) {
     $seo = new \App\Values\SeoData(
         title: $album->title . ' — ' . $album->band->name,
-        description: $album->description ? Str::limit(strip_tags($album->description), 160) : $album->title . ' by ' . $album->band->name,
+        description: $album->description ? Str::limit(strip_tags($album->description), 160) : $album->title . ' ' . __('common.albums.by') . ' ' . $album->band->name,
         type: 'music.album',
         image: $album->cover_art ? img_url($album->cover_art) : null,
         canonical: route('albums.show', $album),
@@ -36,8 +36,8 @@ if (!isset($seo)) {
 </section>
 
 <nav class="breadcrumb mb-8">
-    <a href="{{ route('home') }}">Home</a><span>/</span>
-    <a href="{{ route('albums.index') }}">Albums</a><span>/</span>
+    <a href="{{ route('home') }}">{{ __('common.home') }}</a><span>/</span>
+    <a href="{{ route('albums.index') }}">{{ __('common.nav.albums') }}</a><span>/</span>
     <span>{{ $album->title }}</span>
 </nav>
 
@@ -69,7 +69,7 @@ if (!isset($seo)) {
         @endif
 
         @if($album->tracklist)
-        <x-section-header tag="h2" :count="count($album->tracklist)" class="mt-8">Faixas</x-section-header>
+        <x-section-header tag="h2" :count="count($album->tracklist)" class="mt-8">{{ __('common.albums.tracks') }}</x-section-header>
         <x-data-table>
             <ol class="divide-y-2 divide-surface-200 dark:divide-ink-700">
                 @foreach($album->tracklist as $i => $track)

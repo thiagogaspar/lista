@@ -5,7 +5,7 @@
 if (!isset($seo)) {
     $seo = new \App\Values\SeoData(
         title: $label->name,
-        description: Str::limit(strip_tags($label->description ?? $label->name . ' — record label.'), 160),
+        description: Str::limit(strip_tags($label->description ?? $label->name . ' — ' . __('common.labels.record_label')), 160),
         type: 'organization',
         image: $label->logo ? img_url($label->logo) : null,
         canonical: route('labels.show', $label),
@@ -31,7 +31,7 @@ if (!isset($seo)) {
             <img src="{{ img_url($label->logo) }}" alt="{{ $label->name }}" class="w-20 h-20 object-contain shrink-0 border-2 border-white/20">
             @endif
             <div>
-                <p class="font-display text-xs font-bold tracking-[0.15em] uppercase text-white/40 mb-2">Gravadora</p>
+                <p class="font-display text-xs font-bold tracking-[0.15em] uppercase text-white/40 mb-2">{{ __('common.labels.record_label') }}</p>
                 <h1 class="font-display text-3xl sm:text-5xl font-black text-white leading-none tracking-tight">{{ $label->name }}</h1>
             </div>
         </div>
@@ -39,8 +39,8 @@ if (!isset($seo)) {
 </section>
 
 <nav class="breadcrumb mb-8">
-    <a href="{{ route('home') }}">Home</a><span>/</span>
-    <a href="{{ route('labels.index') }}">Labels</a><span>/</span>
+    <a href="{{ route('home') }}">{{ __('common.home') }}</a><span>/</span>
+    <a href="{{ route('labels.index') }}">{{ __('common.labels.title') }}</a><span>/</span>
     <span>{{ $label->name }}</span>
 </nav>
 
@@ -50,7 +50,7 @@ if (!isset($seo)) {
         <div class="prose max-w-none mb-8">{{ $label->description }}</div>
         @endif
 
-        <x-section-header tag="h2" :count="$label->bands->count()">Bandas</x-section-header>
+        <x-section-header tag="h2" :count="$label->bands->count()">{{ __('common.labels.bands') }}</x-section-header>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             @forelse($label->bands as $band)
@@ -63,18 +63,18 @@ if (!isset($seo)) {
                         <h3 class="font-display font-bold text-sm text-brand-600 dark:text-brand-400 group-hover:text-brand-700 dark:group-hover:text-brand-300 truncate">{{ $band->name }}</h3>
                         <div class="flex flex-wrap gap-1 mt-1">
                             @if($band->formed_year)
-                            <span class="badge badge-brand">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>
+                            <span class="badge badge-brand">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? __('common.bands.present') }}</span>
                             @endif
                             @foreach($band->genres->take(2) as $genre)
                             <span class="badge badge-surface">{{ $genre->name }}</span>
                             @endforeach
                         </div>
-                        <span class="font-display text-[10px] font-bold text-surface-400 mt-1 block">{{ $band->artists_count }} membro{{ $band->artists_count !== 1 ? 's' : '' }}</span>
+                        <span class="font-display text-[10px] font-bold text-surface-400 mt-1 block">{{ $band->artists_count }} {{ $band->artists_count !== 1 ? __('common.bands.members') : __('common.bands.member') }}</span>
                     </div>
                 </div>
             </a>
             @empty
-            <p class="col-span-full text-surface-500 text-sm">Nenhuma banda nesta gravadora.</p>
+            <p class="col-span-full text-surface-500 text-sm">{{ __('common.labels.no_bands') }}</p>
             @endforelse
         </div>
     </div>
@@ -82,13 +82,13 @@ if (!isset($seo)) {
     <!-- Infobox -->
     <aside class="lg:w-72 mt-8 lg:mt-0 shrink-0 self-start order-1 lg:order-2 lg:sticky lg:top-16">
         <x-infobox :title="$label->name" :items="[
-            'Country' => $label->country ? e($label->country) : null,
-            'Founded' => $label->founded_year ? (string) $label->founded_year : null,
-            'Bands' => (string) $label->bands->count(),
+            __('common.labels.country') => $label->country ? e($label->country) : null,
+            __('common.labels.founded') => $label->founded_year ? (string) $label->founded_year : null,
+            __('common.labels.bands') => (string) $label->bands->count(),
         ]" />
         @if($label->website)
         <div class="mt-3">
-            <a href="{{ $label->website }}" target="_blank" rel="noopener noreferrer" class="btn w-full text-xs bg-black text-white border-black hover:bg-surface-800">Visitar Site &nearr;</a>
+            <a href="{{ $label->website }}" target="_blank" rel="noopener noreferrer" class="btn w-full text-xs bg-black text-white border-black hover:bg-surface-800">{{ __('common.labels.website') }} &nearr;</a>
         </div>
         @endif
         <div class="mt-4"><x-ad-slot position="sidebar" /></div>

@@ -23,6 +23,11 @@ class ContentSeeder extends Seeder
         return $commons ?? (self::PICSUM."/{$fallbackSeed}/400/400");
     }
 
+    private function photoUrlPortrait(?string $commons, string $fallbackSeed): string
+    {
+        return $commons ?? (self::PICSUM."/{$fallbackSeed}/400/600");
+    }
+
     private function photoHero(?string $commons, string $fallbackSeed): string
     {
         return $commons ?? (self::PICSUM."/{$fallbackSeed}-hero/1200/400");
@@ -89,7 +94,7 @@ class ContentSeeder extends Seeder
         $artists = Artist::all();
         foreach ($artists as $artist) {
             $artist->update([
-                'photo' => $this->photoUrl($artistImages[$artist->slug] ?? null, $artist->slug),
+                'photo' => $this->photoUrlPortrait($artistImages[$artist->slug] ?? null, $artist->slug),
             ]);
         }
 

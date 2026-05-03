@@ -4,7 +4,7 @@
 @php
 $seo = new \App\Values\SeoData(
     title: $user->name,
-    description: 'Profile of ' . $user->name . ' on LISTA.',
+    description: __('common.profile.seo_public', ['name' => $user->name]),
 );
 @endphp
 <x-seo-meta :seo="$seo" />

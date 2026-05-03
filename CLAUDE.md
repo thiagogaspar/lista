@@ -10,6 +10,7 @@
 | 2026-04-30 16:00 | CLI | P2 concluído: Audit log, User roles, API REST, Timeline, Clusters, Tooltip, Fullscreen. All routes 200. |
 | 2026-04-30 16:30 | CLI | P3 concluído: Comentários, Sugestões, Moderation, Blog, i18n, lazy loading, vis.js async. All routes 200. |
 | 2026-04-30 17:15 | CLI | Auto-WebP, Hero SVG animado, Dark mode suave, Genealogy refactor (clusters/hierarchical/focus), Like/favorite, Fotos nas listagens, Stats home, Lightbox, Breadcrumb component. All routes 200. |
+| 2026-05-03 19:00 | CLI | **Auditoria + Bugfix completo**: 17+ bugs (P0-XSS-404-N+1-CSP) em 35+ arquivos. img_url() helper, Section imports, Dockerfile db:seed crash, Cache::remember só stats, hero band card. Commits `5e8ed9d`→`fe97754`. |
 
 ## Stack
 - **Laravel 13** + PHP 8.4
@@ -97,19 +98,39 @@ GET  /api/labels          → REST API
 ## Cronograma de Melhorias (após auditoria completa em 2026-04-30)
 
 ### P0 — Bugs críticos (1-2h)
-- [ ] **Filament: EditSuggestionResource** — `Select` import missing (fatal error ao acessar edit page)
-- [ ] **Filament: CommentResource** — `Select::make()->boolean()` método não existe
-- [ ] **Album/Label show pages** — `rel="preload" href=""` quando não tem imagem (browser warning)
-- [ ] **Album/Label show pages** — SEO: `$seo` não definido no blade (depende do controller), inconsistente com outras páginas
+- [x] **Filament resources** — `Section` import namespace fixado (`Filament\Forms\Components\Section` → `Filament\Schemas\Components\Section`) em 11 resources
+- [x] **App name hardcoded** — `config/app.php` nome default mudado para `'LISTA'`
+- [x] **ImageOptimizer static call** — `ImageOptimizer::convertToWebp()` em `routes/console.php` corrigido para instance call
+- [x] **XSS: request('label')** — escapado em `bands/index.blade.php`
+- [x] **XSS: infobox component** — `{!! $value !!}` → `{{ $value }}` em todo o código
+- [x] **XSS: label link raw HTML** — removido em `bands/show.blade.php`
+- [x] **404 error page** — `@extends('errors::layout')` → `@extends('errors.layout')`
+- [x] **N+1 ArtistService** — `withCount('bands')` adicionado
+- [x] **Cache serialization bug** — removido `Cache::remember` para coleções Eloquent; só stats escalares
+- [x] **Home hero "photo" string bug** — *"Attempt to read property 'logo' on string"* corrigido
+- [x] **Composer autoload** — `app/helpers.php` registrado em `composer.json autoload.files`
+- [x] **27× Storage::url()** — substituído por `img_url()` em todas as blades + controllers
+- [x] **User model missing relationships** — `comments()` e `suggestions()` adicionados
+- [x] **Section-header component** — `$attributes->merge()` para classe funcionar
+- [x] **SearchController deprecation** — `$request->get('q', '')` default
+- [x] **Album show duplicate `<h1>`** — segundo `<h1>` → `<h2>`
+- [x] **Filament brand tokens** — `text-gray-800` → `text-surface-800`
+- [x] **Genre model route binding** — `getRouteKeyName()` retornando `'slug'`
+- [x] **Error layout dark tokens** — `dark:text-surface-400` → `dark:text-ink-400`
+- [x] **i18n back_to_home** — chave adicionada em `en/common.php` e `pt_BR/common.php`
+- [x] **Rate limiting** — throttle middleware adicionado em register, login, logout, suggestions, favorites, profile, sitemap
+- [x] **@forelse** — breadcrumb + sitemap trocados
+- [x] **Dockerfile db:seed crash** — removido `db:seed --force` do CMD (violação unique slug no 2º deploy)
+- [x] **CSP img-src** — `picsum.photos`, `*.picsum.photos`, `*.wikimedia.org` adicionados
 
 ### P1 — Curto prazo (4-8h)
-- [ ] **i18n**: Envolver TODO texto hardcoded em `__()`. 14 arquivos afetados. Usar lang files já publicados.
-- [ ] **Error pages**: `errors/layout` e `errors/404` — substituir `gray-*` por `surface-*`/`ink-*` + adicionar `.dark:` variants
-- [ ] **Security: Sort injection**: Whitelist columns no `orderBy()` em BandService/ArtistService/GenreController
-- [ ] **Security: EditSuggestion field access**: Whitelist allowed field names no EditSuggestionController
-- [ ] **ProfileController**: Adicionar auth check — só dono ou admin pode ver `/users/{id}`
-- [ ] **Logout route**: Adicionar `POST /logout` + link no /profile
-- [ ] **Rate limiting**: Adicionar `throttle:5,1` em comments.store; `throttle:30,1` em labels/albums/blog
+- [x] **i18n**: Envolver TODO texto hardcoded em `__()`. 14+ arquivos afetados. Keys adicionadas em EN/PT_BR.
+- [x] **Error pages**: `errors/layout` e `errors/404` — substituir `gray-*` por `surface-*`/`ink-*` + adicionar `.dark:` variants
+- [x] **Security: Sort injection**: Whitelist columns no `orderBy()` em BandService/ArtistService/GenreController
+- [x] **Security: EditSuggestion field access**: Whitelist allowed field names no EditSuggestionController
+- [x] **ProfileController**: Adicionar auth check — só dono ou admin pode ver `/users/{id}`
+- [x] **Logout route**: Adicionar `POST /logout` + link no /profile
+- [x] **Rate limiting**: Adicionar `throttle:5,1` em comments.store; `throttle:30,1` em labels/albums/blog
 
 ### P2 — Médio prazo (8-16h)
 - [ ] **Testes**: Criar factories para Band, Artist, Album, Label, Tag, Genre, Comment, Favorite

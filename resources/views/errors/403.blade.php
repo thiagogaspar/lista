@@ -1,6 +1,6 @@
 @extends('errors.layout')
 
-@section('title', 'Forbidden')
+@section('title', __('common.errors.403_title'))
 @section('code', '403')
-@section('message', 'Forbidden')
-@section('description', 'You do not have permission to access this page.')
+@section('message', __('common.errors.403_title'))
+@section('description', __('common.errors.403_message'))

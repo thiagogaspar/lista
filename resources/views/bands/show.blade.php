@@ -9,7 +9,7 @@ $heroPlaceholder = $heroImg ?: $bandPhotoUrl;
 
 $seo = new \App\Values\SeoData(
     title: $band->name,
-    description: Str::limit(strip_tags($band->bio ?? 'Learn about ' . $band->name . ' and their musical journey.'), 160),
+    description: Str::limit(strip_tags($band->bio ?? __('common.learn_about', ['name' => $band->name])), 160),
     type: 'music.group',
     image: $bandPhotoUrl,
     canonical: route('bands.show', $band),
@@ -34,7 +34,7 @@ $seo = new \App\Values\SeoData(
         <div class="max-w-6xl mx-auto px-4 w-full pb-8 sm:pb-12 pt-6">
             <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">{{ $band->name }}</h1>
             <div class="flex flex-wrap gap-2 mt-3">
-                @if($band->formed_year)<span class="badge text-white/70 border-white/20">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span>@endif
+                @if($band->formed_year)<span class="badge text-white/70 border-white/20">{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? __('common.bands.present') }}</span>@endif
                 @foreach($band->genres->take(3) as $genre)<span class="badge text-white/50 border-white/15">{{ $genre->name }}</span>@endforeach
             </div>
         </div>
@@ -42,8 +42,8 @@ $seo = new \App\Values\SeoData(
 </section>
 
 <nav class="breadcrumb mb-6">
-    <a href="{{ route('home') }}">Home</a><span>/</span>
-    <a href="{{ route('bands.index') }}">Bands</a><span>/</span>
+    <a href="{{ route('home') }}">{{ __('common.home') }}</a><span>/</span>
+    <a href="{{ route('bands.index') }}">{{ __('common.nav.bands') }}</a><span>/</span>
     <span>{{ $band->name }}</span>
 </nav>
 
@@ -67,7 +67,7 @@ $seo = new \App\Values\SeoData(
                 @php $favCount = $band->favorites()->count(); @endphp
                 <button x-data="{ fav: {{ auth()->user() && auth()->user()->hasFavorited($band) ? 'true' : 'false' }}, count: {{ $favCount }} }"
                     @click.prevent="fetch('{{ route('favorites.toggle-band', $band) }}', { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(r => r.json()).then(d => { fav = d.favorited; count = d.count; })"
-                    class="font-display text-xs font-bold mt-1 hover:text-brand-600 dark:hover:text-brand-400" :class="fav ? 'text-brand-600 dark:text-brand-400' : 'text-surface-400'" title="Favorite">
+                    class="font-display text-xs font-bold mt-1 hover:text-brand-600 dark:hover:text-brand-400" :class="fav ? 'text-brand-600 dark:text-brand-400' : 'text-surface-400'" title="{{ __('common.artists.favorite_title') }}">
                     <span x-text="fav ? '&hearts;' : '&loz;'"></span> <span x-text="count"></span>
                 </button>
                 @endauth
@@ -80,7 +80,7 @@ $seo = new \App\Values\SeoData(
         @endif
 
         <!-- Members -->
-        <x-section-header tag="h2" :count="$band->artists->count()">Members</x-section-header>
+        <x-section-header tag="h2" :count="$band->artists->count()">{{ __('common.bands.members_heading') }}</x-section-header>
         <x-data-table>
             @forelse($band->artists as $artist)
             <div class="flex items-center justify-between px-4 py-2.5 border-b-2 border-surface-200 dark:border-ink-700 last:border-0 hover:bg-surface-50 dark:hover:bg-ink-700/50">
@@ -88,16 +88,16 @@ $seo = new \App\Values\SeoData(
                     <a href="{{ route('artists.show', $artist) }}" class="font-display text-sm font-bold text-brand-600 dark:text-brand-400 hover:underline truncate">{{ $artist->name }}</a>
                     @if($artist->pivot->role)<span class="badge badge-surface text-[10px] shrink-0">{{ $artist->pivot->role }}</span>@endif
                 </div>
-                <span class="font-display text-[10px] font-bold text-surface-400 shrink-0 ml-3">{{ $artist->pivot->joined_year ?? '?' }}&ndash;{{ $artist->pivot->left_year ?? 'present' }}</span>
+                <span class="font-display text-[10px] font-bold text-surface-400 shrink-0 ml-3">{{ $artist->pivot->joined_year ?? '?' }}&ndash;{{ $artist->pivot->left_year ?? __('common.bands.present') }}</span>
             </div>
             @empty
-            <p class="px-4 py-3 text-sm text-surface-400">Nenhum membro registrado.</p>
+            <p class="px-4 py-3 text-sm text-surface-400">{{ __('common.bands.no_members') }}</p>
             @endforelse
         </x-data-table>
 
         <!-- Discography -->
         @if($band->albums->count())
-        <x-section-header tag="h2" :count="$band->albums->count()" class="mt-10">Discografia</x-section-header>
+        <x-section-header tag="h2" :count="$band->albums->count()" class="mt-10">{{ __('common.bands.discography') }}</x-section-header>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             @foreach($band->albums as $album)
             <a href="{{ route('albums.show', $album) }}" class="group">
@@ -122,7 +122,7 @@ $seo = new \App\Values\SeoData(
 
         <!-- Connection Graph -->
         @if(count($graph['nodes']) > 1)
-        <x-section-header tag="h2" class="mt-10">Conexões</x-section-header>
+        <x-section-header tag="h2" class="mt-10">{{ __('common.bands.connections') }}</x-section-header>
         <div class="border-2 border-surface-200 dark:border-ink-700 bg-surface-50 dark:bg-ink-800 overflow-hidden" style="height:350px">
             <x-genealogy-graph :graph="$graph" containerId="band-graph" />
         </div>
@@ -133,13 +133,13 @@ $seo = new \App\Values\SeoData(
     <!-- Infobox — Wikipedia style -->
     <aside class="lg:w-72 mt-8 lg:mt-0 shrink-0 self-start order-1 lg:order-2 lg:sticky lg:top-16">
         <x-infobox :title="$band->name" :items="[
-            'Members' => (string) $band->artists->count(),
-            'Albums' => $band->albums->count() ? (string) $band->albums->count() : null,
-            'Formed' => $band->formed_year ? (string) $band->formed_year : null,
-            'Dissolved' => $band->dissolved_year ? (string) $band->dissolved_year : null,
-            'Origin' => $band->origin ? e($band->origin) : null,
-            'Label' => $band->label ? e($band->label->name) : null,
-            'Genres' => $band->genres->count() ? e($band->genres->pluck('name')->implode(', ')) : null,
+            __('common.bands.members_heading') => (string) $band->artists->count(),
+            __('common.nav.albums') => $band->albums->count() ? (string) $band->albums->count() : null,
+            __('common.bands.formed') => $band->formed_year ? (string) $band->formed_year : null,
+            __('common.bands.dissolved') => $band->dissolved_year ? (string) $band->dissolved_year : null,
+            __('common.bands.origin') => $band->origin ? e($band->origin) : null,
+            __('common.bands.label') => $band->label ? e($band->label->name) : null,
+            __('common.bands.genres') => $band->genres->count() ? e($band->genres->pluck('name')->implode(', ')) : null,
         ]" />
         <div class="mt-4"><x-ad-slot position="sidebar" /></div>
     </aside>

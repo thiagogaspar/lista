@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-@php $seo = new \App\Values\SeoData(title: 'Blog', description: 'Latest news and articles about local music.', canonical: route('blog.index')); @endphp
+@php $seo = new \App\Values\SeoData(title: __('common.blog.title'), description: __('common.blog.seo_description'), canonical: route('blog.index')); @endphp
 <x-seo-meta :seo="$seo" />
 @endsection
 

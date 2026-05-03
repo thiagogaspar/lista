@@ -17,10 +17,12 @@ return [
         'bands' => 'Bandas',
         'artists' => 'Artistas',
         'albums' => 'Álbuns',
+        'labels' => 'Gravadoras',
         'graph' => 'Grafo',
         'favorites' => 'Favoritos',
         'genealogy' => 'Genealogia',
         'blog' => 'Blog',
+        'sitemap' => 'Mapa do Site',
     ],
 
     'home' => [
@@ -54,6 +56,7 @@ return [
     'bands' => [
         'all' => 'Todas as Bandas',
         'search' => 'Buscar bandas...',
+        'search_aria' => 'Buscar bandas',
         'all_genres' => 'Todos os gêneros',
         'year' => 'Ano',
         'all_origins' => 'Todas as origens',
@@ -68,25 +71,62 @@ return [
         'genres' => 'Gêneros',
         'labels' => 'Gravadoras',
         'origins' => 'Origens',
+        'seo_description' => 'Explore todas as bandas do diretório.',
+        'seo_search' => 'Busca: :query — Todas as Bandas',
+        'members_heading' => 'Integrantes',
+        'no_members' => 'Nenhum integrante registrado.',
+        'discography' => 'Discografia',
+        'connections' => 'Conexões',
+        'formed' => 'Formação',
+        'dissolved' => 'Dissolução',
+        'origin' => 'Origem',
+        'label' => 'Gravadora',
+        'genre' => 'Gênero',
+        'album' => 'Álbum',
+        'filter_genre_aria' => 'Filtrar por gênero',
+        'filter_year_aria' => 'Filtrar por ano',
+        'filter_origin_aria' => 'Filtrar por origem',
+        'count' => ':count banda|:count bandas',
+        'aria_label' => 'Filtrar por :name',
     ],
 
     'artists' => [
         'all' => 'Todos os Artistas',
         'search' => 'Buscar artistas...',
+        'search_aria' => 'Buscar artistas',
         'sort_name' => 'Nome',
         'sort_origin' => 'Origem',
         'no_artists' => 'Nenhum artista encontrado.',
         'add_first' => 'Adicionar Primeiro Artista',
         'stats' => 'Estatísticas',
         'catalogued' => ':count artistas catalogados',
+        'seo_description' => 'Explore todos os artistas do diretório.',
+        'seo_search' => 'Busca: :query — Todos os Artistas',
+        'birth' => 'Nascimento',
+        'origin' => 'Origem',
+        'bands' => 'Bandas',
+        'band_history' => 'Histórico de Bandas',
+        'no_history' => 'Nenhum histórico registrado.',
+        'present' => 'presente',
+        'count' => ':count artista|:count artistas',
+        'favorite_title' => 'Favoritar',
+        'bands_count' => ':count banda|:count bandas',
     ],
 
     'albums' => [
         'all' => 'Todos os Álbuns',
         'search' => 'Buscar álbuns...',
+        'search_aria' => 'Buscar álbuns',
         'all_genres' => 'Todos os gêneros',
         'all_years' => 'Todos os anos',
         'no_albums' => 'Nenhum álbum encontrado.',
+        'seo_description' => 'Navegue pela discografia de álbuns.',
+        'seo_search' => 'Busca: :query — Todos os Álbuns',
+        'filter_genre_aria' => 'Filtrar por gênero',
+        'filter_year_aria' => 'Filtrar por ano',
+        'count' => ':count álbum|:count álbuns',
+        'tracks' => 'Faixas',
+        'by' => 'por',
     ],
 
     'labels' => [
@@ -100,12 +140,16 @@ return [
         'website' => 'Visitar Site',
         'no_bands' => 'Nenhuma banda nesta gravadora ainda.',
         'bands_count' => 'bandas',
+        'seo_description' => 'Explore as gravadoras do diretório.',
+        'aria_index' => 'Índice alfabético',
     ],
 
     'blog' => [
         'title' => 'Blog',
         'read_more' => 'Ler mais',
         'no_posts' => 'Nenhum post ainda.',
+        'seo_description' => 'Últimas notícias e artigos sobre música local.',
+        'back' => '&larr; Voltar ao Blog',
     ],
 
     'favorites' => [
@@ -113,6 +157,7 @@ return [
         'no_favorites' => 'Nenhum favorito ainda.',
         'browse_bands' => 'Explorar Bandas',
         'login_prompt' => 'Cadastre-se ou faça login para salvar favoritos.',
+        'seo_description' => 'Suas bandas e artistas favoritos.',
     ],
 
     'profile' => [
@@ -134,6 +179,9 @@ return [
         'status_pending' => 'Pendente',
         'on' => 'em',
         'deleted' => '[excluído]',
+        'seo_description' => 'Seu perfil no LISTA.',
+        'seo_public' => 'Perfil de :name no LISTA.',
+        'logout' => 'Sair',
     ],
 
     'auth' => [
@@ -145,6 +193,8 @@ return [
         'register_button' => 'Cadastrar',
         'already_account' => 'Já tem uma conta?',
         'login' => 'Entrar',
+        'seo_title' => 'Cadastre-se — LISTA',
+        'seo_description' => 'Crie uma conta para salvar favoritos, comentar e sugerir edições.',
     ],
 
     'genealogy' => [
@@ -159,16 +209,22 @@ return [
         'legend_membership' => 'Membro',
         'fetching' => 'Carregando dados...',
         'rendering' => 'Renderizando :count nós...',
-        'status' => ':nodes nós, :edges conexões',
+        'status' => ':count nós, :edges conexões',
+        'seo_description' => 'Grafo interativo de genealogia musical. Explore conexões entre bandas e artistas.',
+        'legend' => 'Legenda',
+        'zoom_in' => 'Ampliar',
+        'zoom_out' => 'Reduzir',
     ],
 
-    'comments' => [
-        'heading' => 'Comentários',
-        'no_comments' => 'Nenhum comentário ainda.',
-        'leave_first' => 'Seja o primeiro a comentar.',
-        'login' => 'Faça login para comentar.',
-        'placeholder' => 'Deixe um comentário...',
-        'submit' => 'Publicar Comentário',
+    'errors' => [
+        '404_title' => 'Página Não Encontrada',
+        '404_message' => 'A página que você procura não existe ou foi movida.',
+        '403_title' => 'Acesso Negado',
+        '403_message' => 'Você não tem permissão para acessar esta página.',
+        '500_title' => 'Erro do Servidor',
+        '500_message' => 'Algo deu errado. Tente novamente mais tarde.',
+        '503_title' => 'Serviço Indisponível',
+        '503_message' => 'Estamos em manutenção. Volte em breve.',
     ],
 
     'footer' => [
@@ -177,5 +233,22 @@ return [
         'community' => 'Comunidade',
         'copyright' => 'Feito pela cena local, para a cena local.',
         'all_rights' => 'Todos os direitos reservados.',
+        'labels_az' => 'Gravadoras A–Z',
+    ],
+
+    'pagination' => [
+        'of' => 'de',
+    ],
+
+    'home' => [
+        'hero_title' => 'Música Local.<br><span>Genealogia.</span>',
+        'hero_subtitle' => 'Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.',
+        'hero_tag' => 'Diretório Colaborativo',
+        'present' => 'presente',
+    ],
+
+    'common' => [
+        'learn_about' => 'Conheça :name e sua jornada musical.',
+        'learn_about_artist' => 'Conheça :name e sua carreira musical.',
     ],
 ];

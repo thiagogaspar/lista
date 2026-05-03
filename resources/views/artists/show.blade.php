@@ -9,7 +9,7 @@ $heroPlaceholder = $heroImg ?: $artistPhotoUrl;
 
 $seo = new \App\Values\SeoData(
     title: $artist->name,
-    description: Str::limit(strip_tags($artist->bio ?? 'Learn about ' . $artist->name . ' and their musical career.'), 160),
+    description: Str::limit(strip_tags($artist->bio ?? __('common.learn_about_artist', ['name' => $artist->name])), 160),
     type: 'profile',
     image: $artistPhotoUrl,
     canonical: route('artists.show', $artist),
@@ -42,8 +42,8 @@ $seo = new \App\Values\SeoData(
 </section>
 
 <nav class="breadcrumb mb-6">
-    <a href="{{ route('home') }}">Home</a><span>/</span>
-    <a href="{{ route('artists.index') }}">Artists</a><span>/</span>
+    <a href="{{ route('home') }}">{{ __('common.home') }}</a><span>/</span>
+    <a href="{{ route('artists.index') }}">{{ __('common.nav.artists') }}</a><span>/</span>
     <span>{{ $artist->name }}</span>
 </nav>
 
@@ -52,7 +52,9 @@ $seo = new \App\Values\SeoData(
         <!-- Header compacto -->
         <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-surface-200 dark:border-ink-700">
             @if($artistPhotoUrl)
-            <img src="{{ $artistPhotoUrl }}" alt="{{ $artist->name }}" class="w-14 h-14 object-cover shrink-0 border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+            <button @click="$dispatch('open-lightbox', { url: '{{ $artistPhotoUrl }}', alt: '{{ $artist->name }}' })" class="shrink-0 cursor-pointer">
+            <img src="{{ $artistPhotoUrl }}" alt="{{ $artist->name }}" class="w-14 h-20 object-cover shrink-0 border-2 border-surface-200 dark:border-ink-600 hover:border-brand-500 dark:hover:border-brand-400 transition-colors" loading="lazy">
+            </button>
             @endif
             <div class="min-w-0 flex-1">
                 <div class="flex flex-wrap items-center gap-2">
@@ -70,7 +72,7 @@ $seo = new \App\Values\SeoData(
                 @php $favCount = $artist->favorites()->count(); @endphp
                 <button x-data="{ fav: {{ auth()->user() && auth()->user()->hasFavorited($artist) ? 'true' : 'false' }}, count: {{ $favCount }} }"
                     @click.prevent="fetch('{{ route('favorites.toggle-artist', $artist) }}', { method: 'POST', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } }).then(r => r.json()).then(d => { fav = d.favorited; count = d.count; })"
-                    class="font-display text-xs font-bold mt-1 hover:text-brand-600 dark:hover:text-brand-400" :class="fav ? 'text-brand-600 dark:text-brand-400' : 'text-surface-400'" title="Favorite">
+                    class="font-display text-xs font-bold mt-1 hover:text-brand-600 dark:hover:text-brand-400" :class="fav ? 'text-brand-600 dark:text-brand-400' : 'text-surface-400'" title="{{ __('common.artists.favorite_title') }}">
                     <span x-text="fav ? '&hearts;' : '&loz;'"></span> <span x-text="count"></span>
                 </button>
                 @endauth
@@ -83,7 +85,7 @@ $seo = new \App\Values\SeoData(
         @endif
 
         <!-- Band History — timeline quadrada -->
-        <x-section-header tag="h2" :count="$artist->bands->count()">Histórico de Bandas</x-section-header>
+        <x-section-header tag="h2" :count="$artist->bands->count()">{{ __('common.artists.band_history') }}</x-section-header>
         <div class="relative pl-8">
             <div class="absolute left-[15px] top-2 bottom-0 w-0.5 bg-surface-300 dark:bg-ink-600"></div>
             @forelse($artist->bands as $band)
@@ -97,16 +99,16 @@ $seo = new \App\Values\SeoData(
                     <span class="badge badge-surface text-[10px] ml-1">{{ $band->pivot->role }}</span>
                     @endif
                     @if($band->pivot->is_current)
-                    <span class="badge badge-brand text-[10px] ml-1">atual</span>
+                    <span class="badge badge-brand text-[10px] ml-1">{{ __('common.artists.present') }}</span>
                     @endif
                     <p class="font-display text-[11px] font-bold text-surface-400 mt-0.5">
-                        {{ $band->pivot->joined_year ?? '?' }}&ndash;{{ $band->pivot->left_year ?? ($band->pivot->is_current ? 'presente' : '?') }}
+                        {{ $band->pivot->joined_year ?? '?' }}&ndash;{{ $band->pivot->left_year ?? ($band->pivot->is_current ? __('common.artists.present') : '?') }}
                         @if($band->genres->count()) &middot; {{ $band->genres->pluck('name')->implode(', ') }}@endif
                     </p>
                 </div>
             </div>
             @empty
-            <p class="text-sm text-surface-400 pl-4">Nenhum histórico registrado.</p>
+            <p class="text-sm text-surface-400 pl-4">{{ __('common.artists.no_history') }}</p>
             @endforelse
         </div>
     </div>
@@ -114,12 +116,27 @@ $seo = new \App\Values\SeoData(
     <!-- Infobox -->
     <aside class="lg:w-72 mt-8 lg:mt-0 shrink-0 self-start order-1 lg:order-2 lg:sticky lg:top-16">
         <x-infobox :title="$artist->name" :items="[
-            'Birth' => $artist->birth_date ? $artist->birth_date->format('Y') . ($artist->death_date ? '&ndash;' . $artist->death_date->format('Y') : '') : null,
-            'Origin' => $artist->origin ? e($artist->origin) : null,
-            'Bands' => (string) $artist->bands->count(),
+            __('common.artists.birth') => $artist->birth_date ? $artist->birth_date->format('Y') . ($artist->death_date ? '&ndash;' . $artist->death_date->format('Y') : '') : null,
+            __('common.artists.origin') => $artist->origin ? e($artist->origin) : null,
+            __('common.artists.bands') => (string) $artist->bands->count(),
         ]" />
         <div class="mt-4"><x-ad-slot position="sidebar" /></div>
     </aside>
 </div>
+</div>
+</div>
+
+<!-- Lightbox -->
+<div
+    x-data="{ show: false, url: '', alt: '' }"
+    @open-lightbox.window="show = true; url = $event.detail.url; alt = $event.detail.alt"
+    @keydown.escape.window="show = false"
+    x-show="show"
+    x-cloak
+    class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
+    @click.self="show = false"
+>
+    <button @click="show = false" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white/70 hover:text-white border-2 border-white/20 hover:border-white text-lg font-bold cursor-pointer">&times;</button>
+    <img :src="url" :alt="alt" class="max-w-[90vw] max-h-[85vh] object-contain border-2 border-white/10">
 </div>
 @endsection

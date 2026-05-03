@@ -3,8 +3,8 @@
 @section('head')
 @php
 $seo = new \App\Values\SeoData(
-    title: 'Genealogy Graph',
-    description: 'Interactive band genealogy. Explore connections between bands and artists through an interactive network graph.',
+    title: __('common.genealogy.title'),
+    description: __('common.genealogy.seo_description'),
     canonical: route('genealogy'),
 );
 @endphp
@@ -24,23 +24,23 @@ $seo = new \App\Values\SeoData(
 
 <!-- Legend -->
 <div class="graph-legend">
-    <div class="text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">Legend</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#ffffff;border:1px solid #fff"></span> Band</div>
-    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#cccccc;border:1px solid #cccccc"></span> Artist</div>
+    <div class="text-[10px] font-bold uppercase tracking-wider text-white/50 mb-2">{{ __('common.genealogy.legend') }}</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#ffffff;border:1px solid #fff"></span> {{ __('common.genealogy.legend_band') }}</div>
+    <div class="graph-legend-item"><span class="graph-legend-dot" style="background:#cccccc;border:1px solid #cccccc"></span> {{ __('common.genealogy.legend_artist') }}</div>
     <div class="border-t border-white/10 mt-2 pt-2">
-        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px solid #fff"></span> Relationship</div>
-        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px dashed #666"></span> Membership</div>
+        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px solid #fff"></span> {{ __('common.genealogy.legend_relationship') }}</div>
+        <div class="graph-legend-item"><span class="w-[18px]" style="border-top:2px dashed #666"></span> {{ __('common.genealogy.legend_membership') }}</div>
     </div>
 </div>
 
 <!-- Zoom -->
 <div class="graph-zoom">
-    <button class="graph-zoom-btn" id="graph-zoom-in" title="Zoom in">+</button>
-    <button class="graph-zoom-btn" id="graph-zoom-out" title="Zoom out">&minus;</button>
+    <button class="graph-zoom-btn" id="graph-zoom-in" title="{{ __('common.genealogy.zoom_in') }}">+</button>
+    <button class="graph-zoom-btn" id="graph-zoom-out" title="{{ __('common.genealogy.zoom_out') }}">&minus;</button>
 </div>
 
 <!-- Status -->
-<div id="graph-status" style="position:fixed;bottom:20px;right:20px;z-index:20;font-size:11px;color:#6b7280;font-family:monospace">Loading...</div>
+<div id="graph-status" style="position:fixed;bottom:20px;right:20px;z-index:20;font-size:11px;color:#6b7280;font-family:monospace">{{ __('common.genealogy.fetching') }}</div>
 
 @vite(['resources/js/genealogy.js'])
 @endsection

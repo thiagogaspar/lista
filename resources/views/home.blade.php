@@ -26,14 +26,9 @@ $seo = new \App\Values\SeoData(
     <div class="max-w-6xl mx-auto px-4 w-full py-16 sm:py-20">
         <div class="lg:flex lg:items-center lg:gap-12 xl:gap-16">
             <div class="flex-1 min-w-0">
-                <p class="font-display text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-4">Diretório Colaborativo</p>
-                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black text-white leading-none tracking-tight max-w-4xl">
-                    Música Local.<br>
-                    <span class="text-white/80">Genealogia.</span>
-                </h1>
-                <p class="mt-4 text-base sm:text-lg text-white/50 max-w-xl leading-relaxed font-serif">
-                    Explore conexões entre bandas e artistas da cena original. Um diretório colaborativo, em português.
-                </p>
+                <p class="font-display text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-4">{{ __('common.home.hero_tag') }}</p>
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black text-white leading-none tracking-tight max-w-4xl">{!! __('common.home.hero_title') !!}</h1>
+                <p class="mt-4 text-base sm:text-lg text-white/50 max-w-xl leading-relaxed font-serif">{{ __('common.home.hero_subtitle') }}</p>
                 <div class="flex flex-wrap items-center gap-3 mt-8">
                     <a href="{{ route('bands.index') }}" class="btn text-sm bg-white text-black border-white hover:bg-white/90 tracking-wider font-bold">{{ __('common.home.browse_bands') }} &rarr;</a>
                     <a href="{{ route('genealogy') }}" class="btn text-sm text-white/70 border-2 border-white/20 hover:border-white/50 hover:text-white tracking-wider font-bold">{{ __('common.home.view_graph') }}</a>
@@ -42,7 +37,7 @@ $seo = new \App\Values\SeoData(
             @if($heroBand)
             <div class="shrink-0 mt-8 lg:mt-0 lg:w-72">
                 <div class="border border-white/10 bg-white/5 p-4 group hover:bg-white/[7%] transition-colors">
-                    <p class="font-display text-[10px] font-bold tracking-[0.15em] uppercase text-white/30 mb-3">Banda em Destaque</p>
+                    <p class="font-display text-[10px] font-bold tracking-[0.15em] uppercase text-white/30 mb-3">{{ __('common.home.featured_band') }}</p>
                     @if($heroBand->photo)
                     <img src="{{ img_url($heroBand->photo) }}" alt="{{ $heroBand->name }}" class="w-full aspect-[3/2] object-cover border border-white/10" loading="lazy">
                     @else
@@ -57,14 +52,14 @@ $seo = new \App\Values\SeoData(
                     </div>
                     <div class="flex items-center gap-2 mt-2">
                         @if($heroBand->formed_year)
-                        <span class="font-display text-[10px] text-white/30">{{ $heroBand->formed_year }}{{ $heroBand->dissolved_year ? '&ndash;'.$heroBand->dissolved_year : '' }}</span>
+                        <span class="font-display text-[10px] text-white/30">{{ $heroBand->formed_year }}{{ $heroBand->dissolved_year ? '&ndash;'.$heroBand->dissolved_year : '&ndash;'.__('common.home.present') }}</span>
                         @endif
                         @if($heroBand->origin)
                         <span class="text-white/15 text-[8px]">/</span>
                         <span class="font-display text-[10px] text-white/30">{{ $heroBand->origin }}</span>
                         @endif
                     </div>
-                    <a href="{{ route('bands.show', $heroBand) }}" class="inline-block mt-3 font-display text-[11px] font-bold tracking-wider uppercase text-white/50 hover:text-white transition-colors">Explorar &rarr;</a>
+                    <a href="{{ route('bands.show', $heroBand) }}" class="inline-block mt-3 font-display text-[11px] font-bold tracking-wider uppercase text-white/50 hover:text-white transition-colors">{{ __('common.home.explore', ['name' => $heroBand->name]) }} &rarr;</a>
                 </div>
             </div>
             @endif
@@ -109,7 +104,7 @@ $seo = new \App\Values\SeoData(
                 @endif
                 <h3 class="font-display font-bold text-sm text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $band->name }}</h3>
                 <div class="text-[11px] text-surface-500 dark:text-ink-500 leading-relaxed">
-                    @if($band->formed_year)<span>{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? 'present' }}</span> · @endif
+                    @if($band->formed_year)<span>{{ $band->formed_year }}&ndash;{{ $band->dissolved_year ?? __('common.home.present') }}</span> · @endif
                     @foreach($band->genres->take(2) as $genre){{ $genre->name }}@if(!$loop->last), @endif @endforeach
                     @if($band->origin)· {{ $band->origin }}@endif
                 </div>
@@ -130,7 +125,7 @@ $seo = new \App\Values\SeoData(
         @forelse($featuredArtists as $artist)
             <a href="{{ route('artists.show', $artist) }}" class="bg-white dark:bg-ink-800 p-4 hover:bg-surface-50 dark:hover:bg-ink-700 group flex flex-col gap-2">
                 @if($artist->photo)
-                <img src="{{ img_url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full aspect-[3/2] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
+                <img src="{{ img_url($artist->photo) }}" alt="{{ $artist->name }}" class="w-full aspect-[2/3] object-cover border-2 border-surface-200 dark:border-ink-600" loading="lazy">
                 @endif
                 <h3 class="font-display font-bold text-sm text-surface-900 dark:text-ink-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-tight">{{ $artist->name }}</h3>
                 <div class="text-[11px] text-surface-500 dark:text-ink-500">
