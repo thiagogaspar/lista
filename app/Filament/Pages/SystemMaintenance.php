@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Artisan;
 
 class SystemMaintenance extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog';
-    protected static ?string $navigationGroup = 'System';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog';
     protected static ?string $title = 'System Maintenance';
+    protected static string|\UnitEnum|null $navigationGroup = 'System';
 
     protected function getHeaderActions(): array
     {
