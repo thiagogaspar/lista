@@ -28,4 +28,5 @@ EXPOSE 8080
 CMD mkdir -p /app/database && touch /app/database/database.sqlite \
     && php artisan config:cache \
     && php artisan migrate --force --no-interaction \
+    && php artisan app:create-admin-user \
     && php artisan serve --host=0.0.0.0 --port=8080
