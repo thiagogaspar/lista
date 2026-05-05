@@ -29,4 +29,4 @@ CMD mkdir -p /app/database && touch /app/database/database.sqlite \
     && php artisan config:cache \
     && php artisan migrate --force --no-interaction \
     && php artisan app:create-admin-user \
-    && frankenphp run
+    && frankenphp php-server --root=/app/public --listen=:8080
