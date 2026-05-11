@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Widgets\BandsByGenreChart;
 use App\Filament\Widgets\LatestArtistsWidget;
 use App\Filament\Widgets\LatestBandsWidget;
+use App\Filament\Widgets\SetupWidget;
 use App\Filament\Widgets\StatsOverview;
 use App\Http\Middleware\CheckAdminRole;
 use App\Http\Middleware\ServeWebpImages;
@@ -42,6 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([Dashboard::class])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+                SetupWidget::class,
                 AccountWidget::class,
                 StatsOverview::class,
                 BandsByGenreChart::class,

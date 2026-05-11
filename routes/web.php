@@ -82,3 +82,23 @@ Route::post('/logout', function () {
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap')
     ->middleware('throttle:10,1');
+
+Route::get('/setup', function () {
+    \Illuminate\Support\Facades\Artisan::call('app:create-admin-user');
+    \Illuminate\Support\Facades\Artisan::call('db:seed', [
+        '--class' => 'ProductionMockDataSeeder',
+        '--force' => true,
+    ]);
+
+    return response()->json([
+        'admin_user' => 'admin@lista.site / 1234 (role: admin)',
+        'seeded' => true,
+        'counts' => [
+            'bands' => \App\Models\Band::count(),
+            'artists' => \App\Models\Artist::count(),
+            'labels' => \App\Models\Label::count(),
+            'albums' => \App\Models\Album::count(),
+            'genres' => \App\Models\Genre::count(),
+        ],
+    ]);
+})->middleware('throttle:3,60');

@@ -22,11 +22,9 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN php artisan view:cache
 
+RUN chmod +x docker-entrypoint.sh
+
 ENV SERVER_NAME=:8080
 EXPOSE 8080
 
-CMD mkdir -p /app/database && touch /app/database/database.sqlite \
-    && php artisan config:cache \
-    && php artisan migrate --force --no-interaction \
-    && php artisan app:create-admin-user \
-    && frankenphp php-server --root=/app/public --listen=:8080
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
