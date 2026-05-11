@@ -12,20 +12,22 @@ class CreateAdminUser extends Command
 {
     public function handle()
     {
-        $email = 'admin@lista.site';
         $user = \App\Models\User::firstOrCreate(
-            ['email' => $email],
+            ['email' => 'admin@lista.site'],
             [
                 'name' => 'Admin',
-                'password' => bcrypt('1234'),
-                'role' => 'admin',
+                'password' => '1234',
+                'role' => \App\Models\User::ROLE_ADMIN,
             ]
         );
 
         if ($user->wasRecentlyCreated) {
             $this->info('Admin user created successfully.');
+        } elseif ($user->role !== \App\Models\User::ROLE_ADMIN) {
+            $user->update(['role' => \App\Models\User::ROLE_ADMIN]);
+            $this->info('Admin user updated with admin role.');
         } else {
-            $this->info('Admin user already exists.');
+            $this->info('Admin user already exists with admin role.');
         }
     }
 }
