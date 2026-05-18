@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# Production session defaults (overridable via env)
+export SESSION_SECURE_COOKIE="${SESSION_SECURE_COOKIE:-true}"
+export SESSION_SAME_SITE="${SESSION_SAME_SITE:-lax}"
+
 echo "=== LISTA bootstrap ==="
 
 # Ensure writable directories
