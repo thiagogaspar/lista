@@ -26,7 +26,8 @@ class CheckAdminRole
             ]);
 
             abort(403, sprintf(
-                'Access denied. Your account (%s) has role "%s" — admin role required. Use admin@lista.site / 1234.',
+                'Access denied. You are logged in as %s (role: %s). ' .
+                'Please <a href="/logout">logout</a> and use admin@lista.site with password 1234.',
                 $user->email,
                 $user->role
             ));

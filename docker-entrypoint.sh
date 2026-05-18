@@ -9,7 +9,7 @@ mkdir -p bootstrap/cache
 chmod -R 775 storage bootstrap/cache 2>/dev/null || true
 
 # Cache config (non-fatal)
-php artisan config:cache 2>/dev/null && echo "[OK] config:cache" || echo "[SKIP] config:cache failed (non-fatal)"
+php artisan config:cache && echo "[OK] config:cache" || echo "[FAIL] config:cache"
 
 # Run migrations
 php artisan migrate --force --no-interaction && echo "[OK] migrate" || echo "[FAIL] migrate"
